@@ -1,5 +1,4 @@
 @startuml
-
 state "Before the Game" as BeforeGame {
     [*] --> MainMenu
     MainMenu --> NewGame : select "New Game"

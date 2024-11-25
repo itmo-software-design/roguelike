@@ -1,5 +1,4 @@
 @startuml
-
 ' Абстрактный класс для общих свойств персонажей
 abstract class Character {
     - health : int

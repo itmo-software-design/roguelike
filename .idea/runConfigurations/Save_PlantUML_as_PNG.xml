@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Save PlantUML as PNG" type="ShConfigurationType">
+    <option name="SCRIPT_TEXT" value="#!/bin/bash DOCS_DIR=&quot;./docs&quot; IMAGES_DIR=&quot;./images&quot; PLANTUML_CMD=&quot;plantuml&quot; # Ensure plantuml is installed CHANGED_FILES=$(git diff --name-only HEAD | grep &quot;^${DOCS_DIR}.*\.puml$&quot;) if [ -z &quot;$CHANGED_FILES&quot; ]; then echo &quot;No .puml files changed.&quot; exit 0 fi for file in $CHANGED_FILES; do OUTPUT_FILE=&quot;${IMAGES_DIR}/$(basename &quot;${file%.puml}.png&quot;)&quot; echo &quot;Generating PNG for $file -&gt; $OUTPUT_FILE&quot; mkdir -p &quot;$IMAGES_DIR&quot; $PLANTUML_CMD -tpng &quot;$file&quot; -o &quot;$IMAGES_DIR&quot; || exit 1 done" />
+    <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+    <option name="SCRIPT_PATH" value="$PROJECT_DIR$/generate_png_for_schemas.sh" />
+    <option name="SCRIPT_OPTIONS" value="" />
+    <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+    <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+    <option name="INTERPRETER_PATH" value="/bin/zsh" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="EXECUTE_IN_TERMINAL" value="true" />
+    <option name="EXECUTE_SCRIPT_FILE" value="true" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
