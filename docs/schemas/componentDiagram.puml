@@ -1,0 +1,41 @@
+@startuml
+top to bottom direction
+
+actor User
+
+rectangle "Roguelike" {
+    [KeyboardInputHandler]
+
+    rectangle "Utils" {
+        [SaveLoadManager]
+        [RandomSeedGenerator]
+    }
+    rectangle "Game Logic" {
+        [Game Manager]
+        together {
+            [Level Manager]
+            [Character Manager]
+            [Combat Manager]
+        }
+    }
+    rectangle "UI" {
+        [Main Menu]
+        [Inventory Screen]
+        together {
+            [Game Scene]
+            [Status Bar]
+            [Notification Bar]
+        }
+    }
+}
+
+User -down-> [KeyboardInputHandler]
+[KeyboardInputHandler] -down-> [Game Logic]
+[Game Manager] -down-> [Level Manager]
+[Game Manager] -down-> [Character Manager]
+[Game Manager] -down-> [Combat Manager]
+[Game Logic] -down-> [UI]
+[Game Logic] -left-> [Utils]
+UI -up-> User
+
+@enduml

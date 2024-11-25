@@ -6,30 +6,32 @@
 * Кашин Георгий
 * Шадрин Михаил
 
-## Общие сведения о системе
+___
 
-TBD
+## Задачи
 
-## Architectural Drivers
+- [x] [Часть 1. Архитектурное описание](https://github.com/itmo-software-design/roguelike/pull/1)
 
-TBD
+___
 
-## Роли и случаи использования
+## Архитектура
 
-TBD
+Подробное описание системы доступно в [разделе с документацией](docs).
+___
 
-## Описание типичного пользователя
+## Легкий старт
 
-TBD
+### Автоматическая генерация PlantUML диаграмм
 
-## Композиция
+Чтобы поддерживать изображения схем в актуальном состоянии, написан
+скрипт [generate_png_for_schemas.sh](generate_png_for_schemas.sh).
+Его можно добавить в `.git/hooks/pre-commit` файл или вызывать готовую конфигурацию
+запуска [Save_PlantUML_as_PNG.xml](.idea/runConfigurations/Save_PlantUML_as_PNG.xml) в Intellij IDEA.
 
-TBD
+Для корректной работы необходимо локально установить [PlantUML](https://plantuml.com/ru/starting):
 
-## Логическая структура
-
-TBD
-
-## Взаимодействия и состояния
-
-TBD
+* Для macOS самый быстрый способ:
+    ```commandline
+    brew install plantuml
+    ```
+* для остальных ОС подробная инструкция доступна по ссылке выше
