@@ -11,6 +11,7 @@ ___
 ## Задачи
 
 - [x] [Часть 1. Архитектурное описание](https://github.com/itmo-software-design/roguelike/pull/1)
+- [ ] [Часть 2. Реализация прототипа](https://github.com/itmo-software-design/roguelike/pull/2)
 
 ___
 
