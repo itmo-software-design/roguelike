@@ -14,9 +14,10 @@ import ui.localize.localize
 import kotlin.math.max
 
 
-class InventoryScreen(val onClose: () -> Unit) : Panel() {
+object InventoryScreen : Panel() {
     private val closeButton: Button = Button("x", this::onButtonClick)
     private val containerPanel = Panel()
+    private var onClose: () -> Unit = {}
 
     init {
         layoutManager = LinearLayout(Direction.VERTICAL)
@@ -33,13 +34,15 @@ class InventoryScreen(val onClose: () -> Unit) : Panel() {
 
     }
 
-    fun show(inventory: Inventory) {
+    fun show(inventory: Inventory, onClose: () -> Unit) {
+        this.onClose = onClose
         containerPanel.removeAllComponents()
         for (item in inventory) {
+            val itemButton = Button(item.name)
             val itemMenuBar = MenuBar()
             val itemMenu = buildItemMenu(inventory, item, itemMenuBar)
             itemMenuBar.add(itemMenu)
-            containerPanel.addComponent(itemMenuBar)
+            containerPanel.addComponent(itemButton)
         }
     }
 

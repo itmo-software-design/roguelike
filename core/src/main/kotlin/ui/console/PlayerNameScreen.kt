@@ -4,9 +4,11 @@ import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.gui2.*
 import ui.localize.localize
 
-class PlayerNameScreen(val onNext: (playerName: String) -> Unit) : Panel() {
+object PlayerNameScreen : Panel() {
     private val playerTextBox: TextBox = TextBox()
-    private val goButton: Button = Button("text.play".localize())
+    private val nextButton: Button = Button("text.play".localize(), this::onNextButtonClick)
+    private val returnButton: Button = Button("text.back".localize(), this::onReturnButtonClick)
+    private var onReturn: () -> Unit = {}
 
     init {
         layoutManager = GridLayout(2)
@@ -18,15 +20,32 @@ class PlayerNameScreen(val onNext: (playerName: String) -> Unit) : Panel() {
         addComponent(playerTextBox)
 
         addComponent(EmptySpace(TerminalSize(0, 0)))
-        goButton.addListener(this::onButtonClick)
-        addComponent(goButton)
+        addComponent(returnButton)
+
+        addComponent(EmptySpace(TerminalSize(0, 0)))
+        addComponent(nextButton)
     }
 
-    private fun onButtonClick(button: Button) {
-        button.isEnabled = false
+    fun show(window: Window, onReturn: () -> Unit) {
+        playerTextBox.text = ""
+        this.onReturn = onReturn
+        window.component = withBorder(
+            Borders.singleLine("title.player-creation".localize())
+        )
+    }
+
+    private fun onNextButtonClick() {
+        nextButton.isEnabled = false
         val text = playerTextBox.text
         if (text.isNotBlank()) {
-            onNext(text)
+            //onNext(text)
+        } else {
+            nextButton.isEnabled = true
         }
+    }
+
+    private fun onReturnButtonClick() {
+        returnButton.isEnabled = false
+        onReturn()
     }
 }

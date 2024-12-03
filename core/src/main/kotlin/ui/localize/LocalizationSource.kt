@@ -3,12 +3,17 @@ package ui.localize
 object LocalizationSource {
 
     private val builtInLocalizations = mapOf(
+        "title.main-menu" to "Main Menu",
+        "title.player-creation" to "Player Creation",
         "title.welcome" to "Welcome to our Rogue Like!",
         "input.player-name" to "Player Name:",
 
         "title.inventory" to "Inventory",
 
         "text.play" to "Play",
+        "text.exit" to "Exit",
+        "text.next" to "Next",
+        "text.back" to "Back",
         "text.use" to "Use",
         "text.info" to "Info",
         "text.drop" to "Drop",

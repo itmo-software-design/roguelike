@@ -1,9 +1,5 @@
 package com.github.itmosoftwaredesign.roguelike.app
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Consumable
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Item
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.TextColor
 import com.googlecode.lanterna.gui2.*
@@ -11,8 +7,7 @@ import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
-import ui.console.InventoryScreen
-import ui.console.PlayerNameScreen
+import ui.console.MainMenuScreen
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -37,33 +32,7 @@ fun main() {
             )
         )
 
-        val playerNameScreen = PlayerNameScreen {
-
-            val player = Player(it, 10, 1, 1, Position(0, 0))
-            val playerInventory = player.inventory
-            playerInventory.addItem(Item("Gold", "Just a yellow metal"))
-            playerInventory.addItem(Item("Iron", "Just a shiny metal"))
-            playerInventory.addItem(
-                Consumable(
-                    "Charm",
-                    "A real black magic",
-                    "wow effect!"
-                )
-            )
-
-            val oldScreen =  window.component
-            val inventoryScreen = InventoryScreen {
-                println("Close inventory")
-                window.component = oldScreen
-            }
-
-            window.component = inventoryScreen
-
-
-            inventoryScreen.show(playerInventory)
-        }
-
-        window.component = playerNameScreen
+        MainMenuScreen.show(window)
 
         val gui =
             MultiWindowTextGUI(

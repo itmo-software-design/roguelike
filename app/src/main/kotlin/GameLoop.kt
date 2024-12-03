@@ -1,7 +1,9 @@
 package com.github.itmosoftwaredesign.roguelike.app
 
-class GameLoop() {
-    private var isRunning = true
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
+
+class GameLoop(player: Player) {
+    @Volatile private var isRunning = true
 
     fun start() {
         while (isRunning) {
@@ -21,5 +23,9 @@ class GameLoop() {
 
     private fun updateGameState() {
         // TODO: Логика обновления игры
+    }
+
+    fun stop() {
+        isRunning = false
     }
 }
