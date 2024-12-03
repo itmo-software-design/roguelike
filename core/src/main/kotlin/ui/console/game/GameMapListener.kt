@@ -34,54 +34,28 @@ class GameMapListener : WindowListener {
         }
 
         when {
-            keyStroke.keyType == KeyType.ArrowUp || keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
-                'w',
-                'W'
-            ) -> {
-                val event = MovePlayer(MoveDirection.UP)
-                MessageBroker.send(TOPIC_PLAYER, event)
-                deliverEvent?.set(true)
+            isMoveUp(keyStroke) -> {
+                sendMove(deliverEvent, MoveDirection.UP)
             }
 
-            keyStroke.keyType == KeyType.ArrowRight || keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
-                'd',
-                'D'
-            ) -> {
-                val event = MovePlayer(MoveDirection.RIGHT)
-                MessageBroker.send(TOPIC_PLAYER, event)
-                deliverEvent?.set(true)
+            isMoveRight(keyStroke) -> {
+                sendMove(deliverEvent, MoveDirection.RIGHT)
             }
 
-            keyStroke.keyType == KeyType.ArrowDown || keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
-                's',
-                'S'
-            ) -> {
-                val event = MovePlayer(MoveDirection.DOWN)
-                MessageBroker.send(TOPIC_PLAYER, event)
-                deliverEvent?.set(true)
+            isMoveDown(keyStroke) -> {
+                sendMove(deliverEvent, MoveDirection.DOWN)
             }
 
-            keyStroke.keyType == KeyType.ArrowLeft || keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
-                'a',
-                'A'
-            ) -> {
-                val event = MovePlayer(MoveDirection.LEFT)
-                MessageBroker.send(TOPIC_PLAYER, event)
-                deliverEvent?.set(true)
+            isMoveLeft(keyStroke) -> {
+                sendMove(deliverEvent, MoveDirection.LEFT)
             }
 
-            keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
-                'i',
-                'I'
-            ) -> {
+            isOpenInventory(keyStroke) -> {
                 MessageBroker.send(TOPIC_PLAYER, OpenInventory())
                 deliverEvent?.set(true)
             }
 
-            keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
-                'e',
-                'E'
-            ) -> {
+            isInteract(keyStroke) -> {
                 MessageBroker.send(TOPIC_PLAYER, PlayerInteract())
                 deliverEvent?.set(true)
             }
@@ -103,10 +77,44 @@ class GameMapListener : WindowListener {
         }
     }
 
+    private fun sendMove(deliverEvent: AtomicBoolean?, direction: MoveDirection) {
+        val event = MovePlayer(direction)
+        MessageBroker.send(TOPIC_PLAYER, event)
+        deliverEvent?.set(true)
+    }
+
+    private fun isInteract(keyStroke: KeyStroke) =
+        keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
+            'e', 'E'
+        )
+
+    private fun isOpenInventory(keyStroke: KeyStroke) =
+        keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
+            'i', 'I'
+        )
+
+    private fun isMoveLeft(keyStroke: KeyStroke) =
+        keyStroke.keyType == KeyType.ArrowLeft || keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
+            'a', 'A'
+        )
+
+    private fun isMoveDown(keyStroke: KeyStroke) =
+        keyStroke.keyType == KeyType.ArrowDown || keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
+            's', 'S'
+        )
+
+    private fun isMoveRight(keyStroke: KeyStroke) =
+        keyStroke.keyType == KeyType.ArrowRight || keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
+            'd', 'D'
+        )
+
+    private fun isMoveUp(keyStroke: KeyStroke) =
+        keyStroke.keyType == KeyType.ArrowUp || keyStroke.keyType == KeyType.Character && keyStroke.character in listOf(
+            'w', 'W'
+        )
+
     override fun onUnhandledInput(
-        basePane: Window?,
-        keyStroke: KeyStroke?,
-        hasBeenHandled: AtomicBoolean?
+        basePane: Window?, keyStroke: KeyStroke?, hasBeenHandled: AtomicBoolean?
     ) {
         // not used
     }
@@ -116,9 +124,7 @@ class GameMapListener : WindowListener {
     }
 
     override fun onMoved(
-        window: Window?,
-        oldPosition: TerminalPosition?,
-        newPosition: TerminalPosition?
+        window: Window?, oldPosition: TerminalPosition?, newPosition: TerminalPosition?
     ) {
         // not used
     }
