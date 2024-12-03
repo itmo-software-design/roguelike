@@ -9,6 +9,7 @@ plugins {
 
 dependencies {
     implementation(project(":core"))
+    implementation(libs.lanterna)
 }
 
 application {
@@ -16,3 +17,4 @@ application {
     // (Note that Kotlin compiles `App.kt` to a class with FQN `com.example.app.AppKt`.)
     mainClass = "com.github.itmosoftwaredesign.roguelike.app.AppKt"
 }
+

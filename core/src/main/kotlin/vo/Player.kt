@@ -9,7 +9,7 @@ class Player(
     baseAttack: Int,
     baseDefense: Int,
     position: Position,
-    private val inventory: Inventory = Inventory()
+    val inventory: Inventory = Inventory()
 ) : Character(maxHealth, baseAttack, baseDefense, position) {
 
     var name: String = name

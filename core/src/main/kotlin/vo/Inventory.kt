@@ -1,6 +1,6 @@
 package com.github.itmosoftwaredesign.roguelike.utils.vo
 
-class Inventory {
+class Inventory : Iterable<Item> {
     private val items: MutableList<Item> = mutableListOf()
     private var equippedWeapon: Weapon? = null
     private var equippedArmor: Armor? = null
@@ -56,4 +56,6 @@ class Inventory {
 
     fun getEquippedWeapon(): Weapon? = equippedWeapon
     fun getEquippedArmor(): Armor? = equippedArmor
+
+    override fun iterator(): Iterator<Item> = items.iterator()
 }
