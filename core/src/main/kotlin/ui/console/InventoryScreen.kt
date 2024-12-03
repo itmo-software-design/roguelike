@@ -8,16 +8,17 @@ import com.googlecode.lanterna.gui2.*
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton
 import com.googlecode.lanterna.gui2.menu.Menu
-import com.googlecode.lanterna.gui2.menu.MenuBar
 import com.googlecode.lanterna.gui2.menu.MenuItem
 import ui.localize.localize
 import kotlin.math.max
 
 
-object InventoryScreen : Panel() {
+class InventoryScreen(
+    inventory: Inventory,
+) : Panel() {
     private val closeButton: Button = Button("x", this::onButtonClick)
     private val containerPanel = Panel()
-    private var onClose: () -> Unit = {}
+    private val window = BasicWindow()
 
     init {
         layoutManager = LinearLayout(Direction.VERTICAL)
@@ -32,34 +33,38 @@ object InventoryScreen : Panel() {
         )
         containerPanel.layoutManager = GridLayout(5)
 
-    }
-
-    fun show(inventory: Inventory, onClose: () -> Unit) {
-        this.onClose = onClose
         containerPanel.removeAllComponents()
         for (item in inventory) {
-            val itemButton = Button(item.name)
-            val itemMenuBar = MenuBar()
-            val itemMenu = buildItemMenu(inventory, item, itemMenuBar)
-            itemMenuBar.add(itemMenu)
-            containerPanel.addComponent(itemButton)
+            val itemMenu = Menu(item.name)
+            buildItemMenu(inventory, item, itemMenu)
+            containerPanel.addComponent(itemMenu)
         }
+
+        window.setHints(
+            setOf(
+                Window.Hint.CENTERED
+            )
+        )
+        window.component = this
+
+        RenderContext.gui.addWindow(window)
     }
 
     private fun buildItemMenu(
         inventory: Inventory,
         item: Item,
-        itemMenuBar: MenuBar,
-    ): Menu {
-        val itemMenu = Menu(item.name)
+        menu: Menu,
+    ) {
         if (item is Consumable) {
-            itemMenu.add(MenuItem("text.use".localize()) {
-                inventory.removeItem(item)
-                item.consume()
-                updateMenuItem(itemMenuBar, itemMenu)
-            })
+            menu.add(
+                MenuItem("text.use".localize()) {
+                    inventory.removeItem(item)
+                    item.consume()
+                    updateMenuItem(menu)
+                }
+            )
         }
-        itemMenu.add(MenuItem("text.info".localize()) {
+        menu.add(MenuItem("text.info".localize()) {
             MessageDialog.showMessageDialog(
                 textGUI as WindowBasedTextGUI,
                 "title.item.info".localize(item.name),
@@ -67,58 +72,48 @@ object InventoryScreen : Panel() {
                 MessageDialogButton.OK
             )
         })
-        itemMenu.add(MenuItem("text.drop".localize()) {
+        menu.add(MenuItem("text.drop".localize()) {
             inventory.removeItem(item)
-            updateMenuItem(itemMenuBar, itemMenu)
+            updateMenuItem(menu)
         })
-        itemMenu.add(MenuItem("text.close".localize()))
-        return itemMenu
+        menu.add(MenuItem("text.close".localize()))
     }
 
-    private fun updateMenuItem(
-        itemMenuBar: MenuBar,
-        itemMenu: Menu
-    ) {
-        itemMenuBar.removeComponent(itemMenu)
+    private fun updateMenuItem(menu: Menu) {
         val children = containerPanel.children
         if (children.isEmpty() || children.size == 1) {
-            containerPanel.removeComponent(itemMenuBar)
+            containerPanel.removeComponent(menu)
             closeButton.takeFocus()
-        } else {
-            var focusedIndex = 0
-            for ((index, component) in children.withIndex()) {
-                if (component == itemMenuBar) {
-                    focusedIndex = index - 1
-                    break
-                }
-            }
-            focusedIndex = max(0, focusedIndex)
-            containerPanel.removeComponent(itemMenuBar)
-            children.stream()
-                .skip(focusedIndex.toLong())
-                .filter { it is MenuBar }
-                .map { it as MenuBar }
-                .map { it.children.iterator() }
-                .filter { it.hasNext() }
-                .map { it.next() }
-                .map { it as Interactable }
-                .findAny()
-                .ifPresentOrElse(
-                    {
-                        val interactable = it as Interactable
-                        interactable.takeFocus()
-                    },
-                    {
-                        containerPanel.removeComponent(itemMenuBar)
-                        closeButton.takeFocus()
-                    }
-                )
+            return
         }
+        var focusedIndex = 0
+        for ((index, component) in children.withIndex()) {
+            if (component == menu) {
+                focusedIndex = index - 1
+                break
+            }
+        }
+        focusedIndex = max(0, focusedIndex)
+        containerPanel.removeComponent(menu)
+        children.stream()
+            .skip(focusedIndex.toLong())
+            .filter { it is Menu }
+            .map { it as Menu }
+            .findAny()
+            .ifPresentOrElse(
+                {
+                    it.takeFocus()
+                },
+                {
+                    containerPanel.removeComponent(menu)
+                    closeButton.takeFocus()
+                }
+            )
     }
 
     private fun onButtonClick() {
         closeButton.isEnabled = false
-        onClose()
+        window.close()
     }
 }
 

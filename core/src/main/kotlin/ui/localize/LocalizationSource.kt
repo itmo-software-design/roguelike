@@ -5,7 +5,8 @@ object LocalizationSource {
     private val builtInLocalizations = mapOf(
         "title.main-menu" to "Main Menu",
         "title.player-creation" to "Player Creation",
-        "title.welcome" to "Welcome to our Rogue Like!",
+        "title.welcome" to "Welcome to our Rogue Like!\nIntroduce yourself, wanderer, what is your name?",
+        "title.game.exit" to "Are you sure you want to exit?",
         "input.player-name" to "Player Name:",
 
         "title.inventory" to "Inventory",
@@ -20,6 +21,13 @@ object LocalizationSource {
         "text.close" to "Close",
 
         "title.item.info" to "Info - %s",
+
+        "game.screen.title" to "The Tail of %s",
+
+        "game.screen.hint.inventory" to "Press I to open the inventory",
+        "game.screen.hint.interact" to "Press E to interact",
+        "game.screen.hint.move" to "Press WASD or Arrows to move",
+        "game.screen.hint.exit" to "Press Esc to exit",
     )
 
     /**

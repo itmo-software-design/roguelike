@@ -1,30 +1,34 @@
 package com.github.itmosoftwaredesign.roguelike.app
 
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
 import com.googlecode.lanterna.TerminalSize
-import com.googlecode.lanterna.TextColor
 import com.googlecode.lanterna.gui2.*
 import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
+import engine.GameSession
+import messages.MessageBroker
+import messages.TOPIC_UI
+import messages.ui.GameScreenOpened
 import ui.console.MainMenuScreen
+import ui.console.RenderContext
 import java.io.IOException
-import java.util.concurrent.TimeUnit
+import kotlin.concurrent.thread
 
 
 fun main() {
     val defaultTerminalFactory = DefaultTerminalFactory()
-    val terminalSize = TerminalSize(180, 60)
+    val terminalSize = TerminalSize(120, 40)
     var terminal: Terminal? = null
     try {
         terminal = defaultTerminalFactory.createTerminal()
-        while (!checkTerminalSize(terminal.terminalSize, terminalSize, terminal)) {
-            TimeUnit.MILLISECONDS.sleep(100)
-        }
+
         val screen: Screen = TerminalScreen(terminal)
+        RenderContext.screen = screen
         screen.startScreen()
 
-        // Create window to hold the panel
         val window = BasicWindow()
         window.setHints(
             setOf(
@@ -32,14 +36,26 @@ fun main() {
             )
         )
 
-        MainMenuScreen.show(window)
+        MessageBroker.subscribe(TOPIC_UI) {
+            when (it) {
+                is GameScreenOpened -> {
+                    thread {
+                        val player = Player(GameSession.playerName, 100, 1, 1, Position(1, 1))
+                        val gameLoop = GameLoop(player)
+                        gameLoop.start()
+                    }
+                }
+            }
+        }
 
-        val gui =
-            MultiWindowTextGUI(
-                screen,
-                DefaultWindowManager(terminalSize),
-                EmptySpace(TextColor.ANSI.BLUE)
-            )
+        MainMenuScreen(window)
+
+        val gui = MultiWindowTextGUI(
+            screen,
+            DefaultWindowManager(terminalSize),
+            EmptySpace(RenderContext.backgroundColor)
+        )
+        RenderContext.gui = gui
         gui.addWindowAndWait(window)
     } catch (e: IOException) {
         e.printStackTrace()
@@ -50,24 +66,4 @@ fun main() {
             e.printStackTrace()
         }
     }
-}
-
-private fun checkTerminalSize(
-    actual: TerminalSize,
-    required: TerminalSize,
-    terminal: Terminal
-): Boolean {
-    if (actual.columns >= required.columns && actual.rows >= required.rows) {
-        return true
-    }
-    terminal.clearScreen()
-    terminal.setBackgroundColor(TextColor.ANSI.BLACK)
-    terminal.setForegroundColor(TextColor.ANSI.RED)
-    terminal.putString(
-        "Too small size, " +
-            "required at least ${required.columns} columns, ${required.rows} rows, " +
-            "actual ${actual.columns} columns, ${actual.rows} rows"
-    )
-    terminal.flush()
-    return false
 }

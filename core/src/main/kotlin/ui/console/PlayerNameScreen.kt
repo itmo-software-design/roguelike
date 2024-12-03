@@ -1,34 +1,41 @@
 package ui.console
 
-import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.gui2.*
+import engine.GameSession
+import ui.console.game.GameMapScreen
 import ui.localize.localize
 
-object PlayerNameScreen : Panel() {
+class PlayerNameScreen(
+    private var window: Window,
+    private var onReturn: () -> Unit
+) : Panel() {
     private val playerTextBox: TextBox = TextBox()
     private val nextButton: Button = Button("text.play".localize(), this::onNextButtonClick)
     private val returnButton: Button = Button("text.back".localize(), this::onReturnButtonClick)
-    private var onReturn: () -> Unit = {}
 
     init {
-        layoutManager = GridLayout(2)
+        layoutManager = LinearLayout(Direction.VERTICAL)
 
         addComponent(Label("title.welcome".localize()))
-        addComponent(EmptySpace(TerminalSize(0, 0)))
 
-        addComponent(Label("input.player-name".localize()))
-        addComponent(playerTextBox)
+        addComponent(Separator(Direction.HORIZONTAL))
 
-        addComponent(EmptySpace(TerminalSize(0, 0)))
-        addComponent(returnButton)
+        val formPanel = Panel()
+        formPanel.layoutManager = GridLayout(2)
+        addComponent(formPanel)
 
-        addComponent(EmptySpace(TerminalSize(0, 0)))
-        addComponent(nextButton)
-    }
+        formPanel.addComponent(Label("input.player-name".localize()))
+        formPanel.addComponent(playerTextBox)
 
-    fun show(window: Window, onReturn: () -> Unit) {
-        playerTextBox.text = ""
-        this.onReturn = onReturn
+        addComponent(Separator(Direction.HORIZONTAL))
+
+        val buttonPanel = Panel()
+        addComponent(buttonPanel)
+
+        buttonPanel.layoutManager = GridLayout(2)
+        buttonPanel.addComponent(returnButton)
+        buttonPanel.addComponent(nextButton)
+
         window.component = withBorder(
             Borders.singleLine("title.player-creation".localize())
         )
@@ -38,7 +45,10 @@ object PlayerNameScreen : Panel() {
         nextButton.isEnabled = false
         val text = playerTextBox.text
         if (text.isNotBlank()) {
-            //onNext(text)
+            GameSession.playerName = text
+            GameMapScreen(window) {
+                MainMenuScreen(window)
+            }
         } else {
             nextButton.isEnabled = true
         }

@@ -1,11 +1,9 @@
 package ui.console
 
-import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.gui2.*
 import ui.localize.localize
 
-object MainMenuScreen : Panel() {
-    private lateinit var window: Window
+class MainMenuScreen(private var window: Window) : Panel() {
     private val playButton: Button = Button("text.play".localize(), this::onPlayButton)
     private val exitButton: Button = Button("text.exit".localize(), this::onExitButton)
 
@@ -13,12 +11,9 @@ object MainMenuScreen : Panel() {
         layoutManager = LinearLayout(Direction.VERTICAL)
 
         addComponent(playButton)
-        addComponent(EmptySpace(TerminalSize(0, 0)))
+        addComponent(Separator(Direction.HORIZONTAL))
         addComponent(exitButton)
-    }
 
-    fun show(window: Window) {
-        this.window = window
         window.component = withBorder(
             Borders.singleLine("title.main-menu".localize())
         )
@@ -27,8 +22,8 @@ object MainMenuScreen : Panel() {
     private fun onPlayButton() {
         playButton.isEnabled = false
         exitButton.isEnabled = false
-        PlayerNameScreen.show(window, { println("Start game") }) {
-            show(window)
+        PlayerNameScreen(window) {
+            MainMenuScreen(window)
         }
     }
 
