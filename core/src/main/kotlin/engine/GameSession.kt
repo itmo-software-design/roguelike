@@ -11,20 +11,24 @@ object GameSession {
 
     lateinit var playerName: String
 
-    var tileMap: Array<Array<Tile>> = arrayOf(
-        arrayOf(WallTile(), WallTile(), WallTile(), WallTile(), WallTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), GroundTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), GrassTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), WaterTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), WaterTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), WaterTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), WaterTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), WaterTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), WaterTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), WaterTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), GrassTile(), GroundTile(), GroundTile(), GrassTile(), WallTile()),
-        arrayOf(WallTile(), WallTile(), WallTile(), WallTile(), WallTile(), WallTile()),
-    )
+    var tileMap: Array<Array<Tile>> = Array(32) { Array(32) { GrassTile() } }
 
+    init {
+        for ((y, tiles) in tileMap.withIndex()) {
+            for ((x, _) in tiles.withIndex()) {
+                when {
+                    y == 0 || x == 0 || y == tileMap.size - 1 || x == tiles.size - 1 -> {
+                        tileMap[y][x] = WallTile()
+                    }
+                    y % 4 == 0 && x % 4 == 0 -> {
+                        tileMap[y][x] = WaterTile()
+                    }
+                    y == tileMap.size / 2 || x == tileMap.size / 2 -> {
+                        tileMap[y][x] = GroundTile()
+                    }
+                }
+            }
+        }
+    }
 
 }
