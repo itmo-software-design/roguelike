@@ -1,5 +1,7 @@
 package com.github.itmosoftwaredesign.roguelike.utils.vo
 
+import messages.player.MoveDirection
+
 /**
  * Абстрактный предок для персонажей игры
  */
@@ -7,7 +9,8 @@ abstract class Character(
     maxHealth: Int,
     baseAttack: Int,
     baseDefense: Int,
-    var position: Position
+    var position: Position,
+    var direction: MoveDirection
 ) {
     val maxHealth: Int = maxHealth.coerceAtLeast(1)
     var health: Int = maxHealth

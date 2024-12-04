@@ -1,13 +1,17 @@
 package engine
 
 import com.github.itmosoftwaredesign.roguelike.utils.vo.*
+import vo.Level
+import vo.Room
+import vo.Tile
+import vo.TileType
 import java.util.*
 import kotlin.random.Random
 
 class LevelGenerator(
     seed: Int,
-    private val width: Int = 50,
     private val height: Int = 30,
+    private val width: Int = 50,
     roomCount: Int = 5,
     roomMinCount: Int? = null,
     roomMaxCount: Int? = null,
@@ -31,6 +35,10 @@ class LevelGenerator(
         return Array(width) { Array(height) { Tile(TileType.NONE) } }
     }
 
+    /**
+     * Генерирует новый уровень.
+     * Размещает комнаты, предметы и мобов.
+     */
     fun generate(): Level {
         val rooms: MutableList<Room> = mutableListOf()
         for (i in 1..roomCount) {
@@ -54,8 +62,71 @@ class LevelGenerator(
         }
 
         connectRooms(rooms)
+        val portalRoomNumber = randomizer.nextInt(rooms.size)
+        placePortal(rooms[portalRoomNumber])
+        placeItems(rooms)
+        placeMobs(rooms)
 
-        return Level(width, height, tiles, rooms as List<Room>)
+        return Level(tiles, rooms)
+    }
+
+    private fun placeItems(rooms: List<Room>) {
+        var nConsumable = randomizer.nextInt(rooms.size / 2, rooms.size)
+        var nWeapon = randomizer.nextInt(rooms.size / 2, rooms.size)
+        var nArmor = randomizer.nextInt(rooms.size / 2, rooms.size)
+
+        val totalItems = nConsumable + nWeapon + nArmor
+
+        repeat(totalItems) { // рандомно размещает предметы в разных комнатах
+            val room = rooms[randomizer.nextInt(rooms.size)]
+
+            val pos = generateRandomPosition(
+                room.bottomLeft.x + 1, room.topRight.x,
+                room.bottomLeft.y + 1, room.topRight.y
+            )
+
+            val itemType = when {
+                nConsumable > 0 -> {
+                    nConsumable--
+                    TileType.CONSUMABLE
+                }
+                nWeapon > 0 -> {
+                    nWeapon--
+                    TileType.WEAPON
+                }
+                nArmor > 0 -> {
+                    nArmor--
+                    TileType.ARMOR
+                }
+                else -> null
+            }
+
+            if (itemType != null && tiles[pos.x][pos.y].type == TileType.FLOOR) {
+                tiles[pos.x][pos.y].type = itemType
+            }
+        }
+    }
+
+    private fun placeMobs(rooms: List<Room>) {
+        val nMobs = randomizer.nextInt(rooms.size, 2 * rooms.size)
+
+        repeat(nMobs) { // рандомно размещает мобов по комнатам
+            val room = rooms[randomizer.nextInt(rooms.size)]
+
+            val pos = generateRandomPosition(
+                room.bottomLeft.x + 1, room.topRight.x,
+                room.bottomLeft.y + 1, room.topRight.y
+            )
+
+            if (tiles[pos.x][pos.y].type == TileType.FLOOR) {
+                tiles[pos.x][pos.y].type = TileType.MOB
+            }
+        }
+    }
+
+    private fun placePortal(room: Room) {
+        val pos = generateRandomPosition(room.bottomLeft.x + 1, room.topRight.x, room.bottomLeft.y + 1, room.topRight.y)
+        tiles[pos.x][pos.y].type = TileType.PORTAL
     }
 
     private fun generateRandomRoom(): Room {
@@ -85,6 +156,12 @@ class LevelGenerator(
                 tiles[x][y].type = TileType.FLOOR
             }
         }
+    }
+
+    private fun generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position {
+        val x = randomizer.nextInt(x1, x2)
+        val y = randomizer.nextInt(y1, y2)
+        return Position(x, y)
     }
 
     private fun connectRooms(rooms: List<Room>) {

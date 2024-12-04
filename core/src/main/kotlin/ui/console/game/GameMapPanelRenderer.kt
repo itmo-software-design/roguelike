@@ -1,9 +1,6 @@
 package ui.console.game
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Level
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Tile
-import com.github.itmosoftwaredesign.roguelike.utils.vo.TileType
 import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.TextColor
@@ -13,6 +10,9 @@ import com.googlecode.lanterna.gui2.Panel
 import com.googlecode.lanterna.gui2.TextGUIGraphics
 import engine.GameSession
 import ui.console.RenderContext
+import vo.Level
+import vo.Tile
+import vo.TileType
 
 class GameMapPanelRenderer : ComponentRenderer<Panel> {
     private val fovLimit = 10
@@ -139,6 +139,11 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
             TileType.GRASS -> Triple(TextColor.ANSI.GREEN, TextColor.ANSI.GREEN_BRIGHT, "|")
             TileType.HALL -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK_BRIGHT, "o")
             TileType.DOOR -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK, "+")
+            TileType.CONSUMABLE -> Triple(TextColor.ANSI.GREEN_BRIGHT, TextColor.ANSI.BLACK_BRIGHT, "c")
+            TileType.WEAPON -> Triple(TextColor.ANSI.GREEN_BRIGHT, TextColor.ANSI.BLACK_BRIGHT, "w")
+            TileType.ARMOR -> Triple(TextColor.ANSI.GREEN_BRIGHT, TextColor.ANSI.BLACK_BRIGHT, "a")
+            TileType.MOB -> Triple(TextColor.ANSI.RED_BRIGHT, TextColor.ANSI.RED, "X")
+            TileType.PORTAL -> Triple(TextColor.ANSI.WHITE, TextColor.ANSI.WHITE_BRIGHT, "0")
             else -> Triple(TextColor.ANSI.BLACK, TextColor.ANSI.BLACK, " ")
         }
     }

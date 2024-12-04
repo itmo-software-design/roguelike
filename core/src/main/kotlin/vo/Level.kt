@@ -1,25 +1,13 @@
-package com.github.itmosoftwaredesign.roguelike.utils.vo
+package vo
+
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Renderable
 
 class Level(
-    val width: Int,
-    val height: Int,
     val tiles: Array<Array<Tile>>,
     private val rooms: List<Room>
 ) {
     val startPosition = rooms.first().center
-
-    fun display(): String {
-        val sb = StringBuilder()
-        tiles.forEach {
-            it.forEach {
-                sb.append(
-                    it.toString()
-                )
-            }
-            sb.append('\n')
-        }
-        return sb.toString()
-    }
 }
 
 /**
@@ -36,7 +24,7 @@ enum class TileType(
     /**
      * Блокирует ли обзор
      */
-    val blockSight: Boolean
+    val blockSight: Boolean,
 ) {
     FLOOR(blocked = false, blockSight = false),
     HALL(blocked = false, blockSight = true),
@@ -44,7 +32,15 @@ enum class TileType(
     DOOR(blocked = false, blockSight = true),
     GRASS(blocked = false, blockSight = true),
     WATER(blocked = true, blockSight = false),
-    NONE(blocked = true, blockSight = false);
+    NONE(blocked = true, blockSight = false),
+
+    CONSUMABLE(blocked = true, blockSight = false),
+    WEAPON(blocked = true, blockSight = false),
+    ARMOR(blocked = true, blockSight = false),
+
+    MOB(blocked = true, blockSight = false),
+
+    PORTAL(blocked = true, blockSight = false),
 }
 
 data class Tile(
@@ -53,11 +49,18 @@ data class Tile(
 ) : Renderable {
     override fun toString(): String {
         return when (type) {
+            TileType.CONSUMABLE -> "c"
+            TileType.WEAPON -> "w"
+            TileType.ARMOR -> "a"
+
+            TileType.MOB -> "X"
+
             TileType.FLOOR -> "."
             TileType.HALL -> "o"
             TileType.WALL -> "#"
             TileType.NONE -> " "
             TileType.DOOR -> "+"
+            TileType.PORTAL -> "0"
             TileType.GRASS -> "|"
             TileType.WATER -> "~"
         }

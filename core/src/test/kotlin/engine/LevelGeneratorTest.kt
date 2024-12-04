@@ -8,8 +8,8 @@ class LevelGeneratorTest {
     fun generate() {
         val levelGenerator = LevelGenerator(
             seed = 42,
-            width = 20,
             height = 20,
+            width = 20,
             roomCount = 3,
             roomMinSize = 3,
             roomMaxSize = 5

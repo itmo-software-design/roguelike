@@ -1,5 +1,7 @@
 package com.github.itmosoftwaredesign.roguelike.utils.vo
 
+import messages.player.MoveDirection
+
 /**
  * Класс игрока
  */
@@ -9,8 +11,9 @@ class Player(
     baseAttack: Int,
     baseDefense: Int,
     position: Position,
-    val inventory: Inventory = Inventory()
-) : Character(maxHealth, baseAttack, baseDefense, position) {
+    direction: MoveDirection = MoveDirection.UP,
+    var inventory: Inventory = Inventory()
+) : Character(maxHealth, baseAttack, baseDefense, position, direction) {
 
     var name: String = name
         private set

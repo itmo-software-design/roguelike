@@ -19,7 +19,7 @@ import kotlin.concurrent.thread
 
 fun main() {
     val defaultTerminalFactory = DefaultTerminalFactory()
-    val terminalSize = TerminalSize(120, 40)
+    val terminalSize = TerminalSize(120, 100)
     var terminal: Terminal? = null
     try {
         terminal = defaultTerminalFactory.createTerminal()
