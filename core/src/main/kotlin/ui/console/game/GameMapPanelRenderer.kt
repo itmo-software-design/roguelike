@@ -7,6 +7,7 @@ import com.github.itmosoftwaredesign.roguelike.utils.vo.TileType
 import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.TextColor
+import com.googlecode.lanterna.TextColor.ANSI
 import com.googlecode.lanterna.gui2.ComponentRenderer
 import com.googlecode.lanterna.gui2.Panel
 import com.googlecode.lanterna.gui2.TextGUIGraphics
@@ -33,6 +34,21 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
         val centerX = viewWidth / 2
         val centerY = viewHeight / 2
 
+        // Рендерим все тайлы, которые были исследованы (isExplored = true)
+        for (x in level.tiles.indices) {
+            for (y in level.tiles[x].indices) {
+                val tile = level.tiles[x][y]
+                if (tile.isExplored) {
+                    val screenX = centerX + (x - player.position.x)
+                    val screenY = centerY + (y - player.position.y)
+
+                    if (screenX in 0 until viewWidth && screenY in 0 until viewHeight) {
+                        renderExploredTile(tile, screenX, screenY, graphics)
+                    }
+                }
+            }
+        }
+
         // BFS для рендера видимых тайлов
         val visited = mutableSetOf<Position>()
         val queue =
@@ -56,8 +72,7 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
 
             // Получить текущий тайл
             val tile = level.tiles.getOrNull(current.x)?.getOrNull(current.y) ?: continue
-
-            // Отрисовать тайл
+            tile.isExplored = true
             renderTile(tile, screenX, screenY, graphics)
 
             // Добавить соседние тайлы, если обзор не блокируется
@@ -102,47 +117,29 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
         graphics.putString(TerminalPosition(x, y), "$")
     }
 
+    private fun renderExploredTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics) {
+        val (_, _, char) = getTileRenderParams(tile)
+        graphics.setForegroundColor(TextColor.ANSI.BLACK_BRIGHT)
+        graphics.setBackgroundColor(TextColor.ANSI.BLACK)
+        graphics.putString(TerminalPosition(x, y), char)
+    }
+
     private fun renderTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics) {
-        when (tile.type) {
-            TileType.FLOOR -> {
-                graphics.setForegroundColor(TextColor.ANSI.BLACK)
-                graphics.setBackgroundColor(TextColor.ANSI.BLACK_BRIGHT)
-                graphics.putString(TerminalPosition(x, y), " ")
-            }
+        val (fgColor, bgColor, char) = getTileRenderParams(tile)
+        graphics.setForegroundColor(fgColor)
+        graphics.setBackgroundColor(bgColor)
+        graphics.putString(TerminalPosition(x, y), char)
+    }
 
-            TileType.WALL -> {
-                graphics.setForegroundColor(TextColor.ANSI.MAGENTA)
-                graphics.setBackgroundColor(TextColor.ANSI.DEFAULT)
-                graphics.putString(TerminalPosition(x, y), "#")
-            }
-
-            TileType.WATER -> {
-                graphics.setForegroundColor(TextColor.ANSI.BLUE_BRIGHT)
-                graphics.setBackgroundColor(TextColor.ANSI.BLUE)
-                graphics.putString(TerminalPosition(x, y), "~")
-            }
-
-            TileType.GRASS -> {
-                graphics.setForegroundColor(TextColor.ANSI.GREEN)
-                graphics.setBackgroundColor(TextColor.ANSI.GREEN_BRIGHT)
-                graphics.putString(TerminalPosition(x, y), "|")
-            }
-
-            TileType.HALL -> {
-                graphics.setForegroundColor(TextColor.ANSI.YELLOW)
-                graphics.setBackgroundColor(TextColor.ANSI.BLACK_BRIGHT)
-                graphics.putString(TerminalPosition(x, y), "o")
-            }
-
-            TileType.DOOR -> {
-                graphics.setForegroundColor(TextColor.ANSI.YELLOW)
-                graphics.setBackgroundColor(TextColor.ANSI.BLACK_BRIGHT)
-                graphics.putString(TerminalPosition(x, y), "+")
-            }
-
-            else -> {
-                // Ничего не делаем, так как фон мы в самом начале задали
-            }
+    private fun getTileRenderParams(tile: Tile): Triple<ANSI, ANSI, String> {
+        return when (tile.type) {
+            TileType.FLOOR -> Triple(TextColor.ANSI.WHITE, TextColor.ANSI.BLACK_BRIGHT, ".")
+            TileType.WALL -> Triple(TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT, "#")
+            TileType.WATER -> Triple(TextColor.ANSI.BLUE_BRIGHT, TextColor.ANSI.BLUE, "~")
+            TileType.GRASS -> Triple(TextColor.ANSI.GREEN, TextColor.ANSI.GREEN_BRIGHT, "|")
+            TileType.HALL -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK_BRIGHT, "o")
+            TileType.DOOR -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK, "+")
+            else -> Triple(TextColor.ANSI.BLACK, TextColor.ANSI.BLACK, " ")
         }
     }
 }

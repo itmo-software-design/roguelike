@@ -48,7 +48,8 @@ enum class TileType(
 }
 
 data class Tile(
-    var type: TileType
+    var type: TileType,
+    var isExplored: Boolean = false
 ) : Renderable {
     override fun toString(): String {
         return when (type) {
