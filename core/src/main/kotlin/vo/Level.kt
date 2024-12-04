@@ -6,6 +6,8 @@ class Level(
     val tiles: Array<Array<Tile>>,
     private val rooms: List<Room>
 ) {
+    val startPosition = rooms.first().center
+
     fun display(): String {
         val sb = StringBuilder()
         tiles.forEach {
@@ -39,8 +41,7 @@ enum class TileType(
     FLOOR(blocked = false, blockSight = false),
     HALL(blocked = false, blockSight = true),
     WALL(blocked = true, blockSight = true),
-    DOOR_CLOSED(blocked = true, blockSight = true),
-    DOOR_OPENED(blocked = false, blockSight = false),
+    DOOR(blocked = false, blockSight = true),
     GRASS(blocked = false, blockSight = true),
     WATER(blocked = true, blockSight = false),
     NONE(blocked = true, blockSight = false);
@@ -55,8 +56,7 @@ data class Tile(
             TileType.HALL -> "o"
             TileType.WALL -> "#"
             TileType.NONE -> " "
-            TileType.DOOR_CLOSED -> "+"
-            TileType.DOOR_OPENED -> "_"
+            TileType.DOOR -> "+"
             TileType.GRASS -> "|"
             TileType.WATER -> "~"
         }

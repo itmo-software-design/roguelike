@@ -1,4 +1,4 @@
-package logic
+package engine
 
 import com.github.itmosoftwaredesign.roguelike.utils.vo.*
 import java.util.*
@@ -118,7 +118,7 @@ class LevelGenerator(
         for (x in minOf(x1, x2)..maxOf(x1, x2)) {
             val tile = tiles[x][y]
             if (tile.type == TileType.WALL) {
-                tile.type = TileType.DOOR_CLOSED
+                tile.type = TileType.DOOR
             } else if (tile.type == TileType.NONE) {
                 tile.type = TileType.HALL
             }
@@ -129,7 +129,7 @@ class LevelGenerator(
         for (y in minOf(y1, y2)..maxOf(y1, y2)) {
             val tile = tiles[x][y]
             if (tile.type == TileType.WALL) {
-                tile.type = TileType.DOOR_CLOSED
+                tile.type = TileType.DOOR
             } else if (tile.type == TileType.NONE) {
                 tile.type = TileType.HALL
             }

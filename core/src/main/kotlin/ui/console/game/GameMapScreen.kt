@@ -30,7 +30,7 @@ class GameMapScreen(
         addComponent(Label("game.screen.title".localize(GameSession.playerName)))
 
         val gameMapPanel = Panel()
-        gameMapPanel.setRenderer(GameMapPanelRenderer(GameSession.tileMap))
+        gameMapPanel.setRenderer(GameMapPanelRenderer())
         addComponent(gameMapPanel)
 
         addComponent(Label("game.screen.hint.inventory".localize()))

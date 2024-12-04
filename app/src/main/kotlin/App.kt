@@ -1,7 +1,5 @@
 package com.github.itmosoftwaredesign.roguelike.app
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.gui2.*
 import com.googlecode.lanterna.screen.Screen
@@ -9,6 +7,7 @@ import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
 import engine.GameSession
+import engine.LevelGenerator
 import messages.MessageBroker
 import messages.TOPIC_UI
 import messages.ui.GameScreenOpened
@@ -39,9 +38,10 @@ fun main() {
         MessageBroker.subscribe(TOPIC_UI) {
             when (it) {
                 is GameScreenOpened -> {
+                    val firstLevel = LevelGenerator(42).generate()
+                    GameSession.startNewGame(GameSession.playerName, firstLevel)
                     thread {
-                        val player = Player(GameSession.playerName, 100, 1, 1, Position(1, 1))
-                        val gameLoop = GameLoop(player)
+                        val gameLoop = GameLoop()
                         gameLoop.start()
                     }
                 }

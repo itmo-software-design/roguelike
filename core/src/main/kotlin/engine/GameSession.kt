@@ -1,6 +1,8 @@
 package engine
 
-import vo.tile.*
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Level
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
+import java.nio.file.Path
 
 /**
  *
@@ -9,26 +11,34 @@ import vo.tile.*
  */
 object GameSession {
 
+    @Deprecated(message = "Переехать на Player")
     lateinit var playerName: String
 
-    var tileMap: Array<Array<Tile>> = Array(32) { Array(32) { GrassTile() } }
+    /**
+     * Персонаж игрока
+     */
+    lateinit var player: Player
+        private set
 
-    init {
-        for ((y, tiles) in tileMap.withIndex()) {
-            for ((x, _) in tiles.withIndex()) {
-                when {
-                    y == 0 || x == 0 || y == tileMap.size - 1 || x == tiles.size - 1 -> {
-                        tileMap[y][x] = WallTile()
-                    }
-                    y % 4 == 0 && x % 4 == 0 -> {
-                        tileMap[y][x] = WaterTile()
-                    }
-                    y == tileMap.size / 2 || x == tileMap.size / 2 -> {
-                        tileMap[y][x] = GroundTile()
-                    }
-                }
-            }
-        }
+    /**
+     * Список уровней
+     */
+    lateinit var levels: MutableList<Level>
+        private set
+
+    /**
+     * Текущий уровень
+     */
+    lateinit var currentLevel: Level
+        private set
+
+    fun startNewGame(playerName: String, firstLevel: Level) {
+        player = Player(playerName, 100, 1, 1, firstLevel.startPosition)
+        levels = mutableListOf(firstLevel)
+        currentLevel = firstLevel
     }
 
+    fun loadStateFromFile(filePath: Path) {
+        TODO("Загрузка состояния игры из файла")
+    }
 }

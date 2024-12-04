@@ -1,7 +1,6 @@
 package com.github.itmosoftwaredesign.roguelike.app
 
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Consumable
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
 import engine.GameSession
 import messages.*
@@ -11,12 +10,11 @@ import messages.player.OpenInventory
 import messages.player.PlayerInteract
 import messages.ui.GameScreenExit
 import ui.console.InventoryScreen
-import vo.tile.PlayerTile
 import java.util.concurrent.ConcurrentLinkedQueue
 
 private const val maxStepsPerTick = 6
 
-class GameLoop(private var player: Player) {
+class GameLoop {
     @Volatile
     private var isRunning = true
     private val events = ConcurrentLinkedQueue<Message>()
@@ -37,8 +35,8 @@ class GameLoop(private var player: Player) {
 
     fun start() {
         println("Game loop started")
+
         try {
-            stayPlayerOnTile()
             while (isRunning) {
                 handleInput()
                 updateGameState()
@@ -50,60 +48,25 @@ class GameLoop(private var player: Player) {
         }
     }
 
-    private fun stayPlayerOnTile() {
-        val x = player.position.x
-        val y = player.position.y
-        val playerTile = PlayerTile(GameSession.tileMap[y][x])
-        GameSession.tileMap[y][x] = playerTile
-    }
-
-    private fun removePlayerFromTile(x: Int, y: Int) {
-        val tile = GameSession.tileMap[y][x]
-        if (tile is PlayerTile) {
-            GameSession.tileMap[y][x] = tile.stayOnTile
-        }
-    }
-
     private fun handleInput() {
         //TODO: обработка инпута
         var step = 0
         while (events.isNotEmpty() && step < maxStepsPerTick) {
             val message = events.poll()
+            val player = GameSession.player
             when (message) {
                 is MovePlayer -> {
-                    removePlayerFromTile(player.position.x, player.position.y)
-
-                    when (message.direction) {
-                        MoveDirection.DOWN -> {
-                            val newPosition = Position(player.position.x, player.position.y + 1)
-                            if (canGoTo(newPosition)) {
-                                player.position = newPosition
-                            }
-                        }
-
-                        MoveDirection.UP -> {
-                            val newPosition = Position(player.position.x, player.position.y - 1)
-                            if (canGoTo(newPosition)) {
-                                player.position = newPosition
-                            }
-                        }
-
-                        MoveDirection.LEFT -> {
-                            val newPosition = Position(player.position.x - 1, player.position.y)
-                            if (canGoTo(newPosition)) {
-                                player.position = newPosition
-                            }
-                        }
-
-                        MoveDirection.RIGHT -> {
-                            val newPosition = Position(player.position.x + 1, player.position.y)
-                            if (canGoTo(newPosition)) {
-                                player.position = newPosition
-                            }
-                        }
+                    val newPosition = when (message.direction) {
+                        MoveDirection.DOWN -> Position(player.position.x, player.position.y + 1)
+                        MoveDirection.UP -> Position(player.position.x, player.position.y - 1)
+                        MoveDirection.LEFT -> Position(player.position.x - 1, player.position.y)
+                        MoveDirection.RIGHT -> Position(player.position.x + 1, player.position.y)
                     }
 
-                    stayPlayerOnTile()
+                    if (canGoTo(newPosition)) {
+                        player.position = newPosition
+                    }
+
                     step += 1
                 }
 
@@ -120,16 +83,13 @@ class GameLoop(private var player: Player) {
     }
 
     private fun canGoTo(newPosition: Position): Boolean {
-        val tileMap = GameSession.tileMap
-        if (tileMap.isEmpty() || tileMap[0].isEmpty()) return false
+        val tileMap = GameSession.currentLevel.tiles
+        if (tileMap.isEmpty() || tileMap[0].isEmpty()) {
+            return false
+        }
 
-        if (newPosition.x < 0) return false
-        if (newPosition.y < 0) return false
-        if (newPosition.x >= tileMap[0].size) return false
-        if (newPosition.y >= tileMap.size) return false
-
-        val tile = tileMap[newPosition.y][newPosition.x]
-        return tile.walkable
+        val tileToGo = tileMap[newPosition.x][newPosition.y]
+        return !tileToGo.type.blocked
     }
 
     private fun updateGameState() {
