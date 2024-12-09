@@ -1,12 +1,14 @@
 @startuml
 ' Абстрактный класс для общих свойств персонажей
 abstract class Character {
+    - maxHealth : int
     - health : int
-    - attack : int
-    - defense : int
+    - baseAttack : int
+    - baseDefense : int
     - position : Position
-    + move(direction : Direction)
-    + attack(target : Character)
+    - direction : Direction
+    + isAlive()
+    + hit(target : Character)
     + updateHealth(amount : int)
 }
 
@@ -14,10 +16,8 @@ abstract class Character {
 class Player {
     - name : String
     - inventory : Inventory
-    + interact()
-    + updateStats()
-    + openInventory()
-    + closeInventory()
+    - experienceManager : ExperienceManager
+    + addExperience()
 }
 
 ' Класс врага
@@ -54,16 +54,26 @@ class Level {
     + checkLevelCompletion(player : Player) : boolean
 }
 
+' Класс Менеджера уровней
+class ExperienceManager {
+    +- currentLevel: int
+    +- currentPoints: int
+    +- pointsToNextLevel: int
+    +- healthBoost: int
+    +- attackBoost: int
+    +- defenceBoost: int
+    + addExperience(points: int)
+}
+
 ' Класс инвентаря
 class Inventory {
     - items : List<Item>
-    + open()
-    + close()
+    - equippedWeapon : Weapon
+    - equippedArmor : Armor
     + addItem(item : Item)
     + removeItem(item : Item)
-    + selectItem(index : int)
     + equipItem(item : Item)
-    + useItem(item : Item)
+    + unequipItem(item : Item)
 }
 
 ' Классы предметов
@@ -141,7 +151,7 @@ class GameScreen {
     + redrawMap()
 }
 
-class InventoryScreen {
+class InventoryPlayerInfoScreen {
     + display()
     + close()
 }
@@ -170,6 +180,7 @@ Level "1" *-- "many" Enemy
 Level "1" *-- "many" Item
 
 Player o-- Inventory
+Player o-- ExperienceManager
 Player o-- Position
 
 Enemy o-- Position
@@ -178,7 +189,7 @@ Inventory "1" *-- "many" Item
 
 UIManager o-- MainMenu
 UIManager o-- GameScreen
-UIManager o-- InventoryScreen
+UIManager o-- InventoryPlayerInfoScreen
 UIManager o-- StatusBar
 UIManager o-- NotificationBar
 
@@ -191,13 +202,11 @@ Game ..> Level : checkForEnemiesInRange()
 Game ..> Level : removeEnemy()
 Game ..> Level : checkLevelCompletion()
 
-Player ..> Inventory : open()
-Player ..> Inventory : close()
-Player ..> Inventory : selectItem()
+Player ..> Inventory : addItem()
+Player ..> Inventory : removeItem()
 Player ..> Inventory : equipItem()
-Player ..> Inventory : useItem()
+Player ..> Inventory : unequipItem()
 
 Game ..> SaveLoadSystem : saveGameState()
 Game ..> SaveLoadSystem : loadGameState()
-
 @enduml

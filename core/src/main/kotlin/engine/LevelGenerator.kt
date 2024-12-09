@@ -67,7 +67,7 @@ class LevelGenerator(
         placeItems(rooms)
         placeMobs(rooms)
 
-        return Level(tiles, rooms)
+        return Level(tiles, emptyList(), rooms)
     }
 
     private fun placeItems(rooms: List<Room>) {

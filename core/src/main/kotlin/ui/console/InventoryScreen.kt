@@ -1,8 +1,6 @@
 package ui.console
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Consumable
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Item
+import com.github.itmosoftwaredesign.roguelike.utils.vo.*
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.gui2.*
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog
@@ -12,18 +10,20 @@ import com.googlecode.lanterna.gui2.menu.MenuItem
 import ui.localize.localize
 import kotlin.math.max
 
-
+/**
+ *  The screen showing the inventory items of the Player
+ * @author sibmaks
+ * @since 0.0.1
+ */
 class InventoryScreen(
     inventory: Inventory,
 ) : Panel() {
-    private val closeButton: Button = Button("x", this::onButtonClick)
     private val containerPanel = Panel()
-    private val window = BasicWindow()
+    private var onMenuUpdateCallback: (() -> Unit)? = null
 
     init {
         layoutManager = LinearLayout(Direction.VERTICAL)
 
-        addComponent(closeButton)
         addComponent(EmptySpace(TerminalSize(0, 0)))
 
         addComponent(
@@ -31,7 +31,7 @@ class InventoryScreen(
                 Borders.singleLine("title.inventory".localize())
             )
         )
-        containerPanel.layoutManager = GridLayout(5)
+        containerPanel.layoutManager = GridLayout(3)
 
         containerPanel.removeAllComponents()
         for (item in inventory) {
@@ -39,15 +39,13 @@ class InventoryScreen(
             buildItemMenu(inventory, item, itemMenu)
             containerPanel.addComponent(itemMenu)
         }
+    }
 
-        window.setHints(
-            setOf(
-                Window.Hint.CENTERED
-            )
-        )
-        window.component = this
-
-        RenderContext.gui.addWindow(window)
+    /**
+     * Registers callback function to be executed when Inventory menu is updated
+     */
+    fun registerOnMenuUpdateCallback(callback: () -> Unit) {
+        onMenuUpdateCallback = callback
     }
 
     private fun buildItemMenu(
@@ -55,14 +53,16 @@ class InventoryScreen(
         item: Item,
         menu: Menu,
     ) {
-        if (item is Consumable) {
-            menu.add(
-                MenuItem("text.use".localize()) {
-                    inventory.removeItem(item)
-                    item.consume()
-                    updateMenuItem(menu)
-                }
-            )
+        when (item) {
+            is Weapon -> {
+                menu.add(
+                    MenuItem("text.use".localize()) {
+                        inventory.removeItem(item)
+                        inventory.equipItem(item)
+                        updateMenuItem(menu)
+                    }
+                )
+            }
         }
         menu.add(MenuItem("text.info".localize()) {
             MessageDialog.showMessageDialog(
@@ -83,7 +83,6 @@ class InventoryScreen(
         val children = containerPanel.children
         if (children.isEmpty() || children.size == 1) {
             containerPanel.removeComponent(menu)
-            closeButton.takeFocus()
             return
         }
         var focusedIndex = 0
@@ -106,14 +105,10 @@ class InventoryScreen(
                 },
                 {
                     containerPanel.removeComponent(menu)
-                    closeButton.takeFocus()
                 }
             )
-    }
 
-    private fun onButtonClick() {
-        closeButton.isEnabled = false
-        window.close()
+        onMenuUpdateCallback?.let { it() }
     }
 }
 
