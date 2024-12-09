@@ -5,6 +5,7 @@ import com.github.itmosoftwaredesign.roguelike.utils.vo.Renderable
 
 class Level(
     val tiles: Array<Array<Tile>>,
+    val enemies: List<Enemy>,
     private val rooms: List<Room>
 ) {
     val startPosition = rooms.first().center
@@ -117,8 +118,8 @@ class Room(
      */
     fun intersects(other: Room): Boolean {
         return bottomLeft.x <= other.topRight.x
-                && topRight.x >= other.bottomLeft.x
-                && bottomLeft.y <= other.topRight.y
-                && topRight.y >= other.bottomLeft.y
+            && topRight.x >= other.bottomLeft.x
+            && bottomLeft.y <= other.topRight.y
+            && topRight.y >= other.bottomLeft.y
     }
 }
