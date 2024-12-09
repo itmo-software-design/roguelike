@@ -3,10 +3,10 @@ package engine
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
-class LevelGeneratorTest {
+class DungeonDungeonLevelGeneratorTest {
     @Test
     fun generate() {
-        val levelGenerator = LevelGenerator(
+        val dungeonLevelGenerator = DungeonLevelGenerator(
             seed = 42,
             height = 20,
             width = 20,
@@ -14,7 +14,7 @@ class LevelGeneratorTest {
             roomMinSize = 3,
             roomMaxSize = 5
         )
-        val level = levelGenerator.generate()
+        val level = dungeonLevelGenerator.generate()
         assertNotNull(level)
 
         val sb = StringBuilder()

@@ -50,11 +50,11 @@ class InventoryScreen(
 
     private fun buildItemMenu(
         inventory: Inventory,
-        item: Item,
+        item: _root_ide_package_.vo.Item,
         menu: Menu,
     ) {
         when (item) {
-            is Weapon -> {
+            is _root_ide_package_.vo.Weapon -> {
                 menu.add(
                     MenuItem("text.use".localize()) {
                         inventory.removeItem(item)

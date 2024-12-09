@@ -1,7 +1,5 @@
 package com.github.itmosoftwaredesign.roguelike.app
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Consumable
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
 import com.github.itmosoftwaredesign.roguelike.utils.vo.*
 import engine.GameSession
 import messages.*
@@ -13,7 +11,7 @@ import messages.ui.GameScreenExit
 import ui.console.InventoryPlayerInfoScreen
 import ui.console.InventoryScreen
 import ui.console.PlayerInfoScreen
-import vo.TileType
+import vo.*
 import java.util.concurrent.ConcurrentLinkedQueue
 
 private const val maxStepsPerTick = 6
@@ -100,7 +98,7 @@ class GameLoop {
     }
 
     private fun canGoTo(newPosition: Position): Boolean {
-        val tileMap = GameSession.currentLevel.tiles
+        val tileMap = GameSession.currentDungeonLevel.tiles
         if (tileMap.isEmpty() || tileMap[0].isEmpty()) {
             return false
         }
@@ -130,7 +128,7 @@ class GameLoop {
     }
 
     private fun tryInteractAt(position: Position) {
-        val tileType = GameSession.currentLevel.tiles[position.x][position.y].type
+        val tileType = GameSession.currentDungeonLevel.tiles[position.x][position.y].type
 
         when (tileType) {
             TileType.PORTAL -> {
@@ -139,23 +137,35 @@ class GameLoop {
 
             TileType.CONSUMABLE -> {
                 GameSession.player.inventory.addItem(Consumable("Зелье", "Убивает на раз", "damage"))
-                GameSession.currentLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
             }
 
             TileType.WEAPON -> {
-                GameSession.player.inventory.addItem(Weapon("Меч-гладенец", "Острый", 10))
-                GameSession.currentLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                GameSession.player.inventory.addItem(
+                    _root_ide_package_.vo.Weapon(
+                        "Меч-гладенец",
+                        "Острый",
+                        10
+                    )
+                )
+                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
             }
 
             TileType.ARMOR -> {
-                GameSession.player.inventory.addItem(Armor("Шлем рыцаря", "Крепкий", 10))
-                GameSession.currentLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                GameSession.player.inventory.addItem(
+                    _root_ide_package_.vo.Armor(
+                        "Шлем рыцаря",
+                        "Крепкий",
+                        10
+                    )
+                )
+                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
             }
 
             TileType.MOB -> {
                 GameSession.player.health -= 10
                 GameSession.player.addExperience(10)
-                GameSession.currentLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
             }
 
             else -> {

@@ -1,8 +1,7 @@
-import org.junit.jupiter.api.BeforeAll
+package vo
+
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import vo.ExperienceManager
-import vo.ExperienceManagerConstants
 
 class ExperienceManagerTest {
     private lateinit var experienceManager: ExperienceManager
