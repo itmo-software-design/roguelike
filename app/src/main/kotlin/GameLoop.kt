@@ -10,7 +10,9 @@ import messages.player.MovePlayer
 import messages.player.OpenInventory
 import messages.player.PlayerInteract
 import messages.ui.GameScreenExit
+import ui.console.InventoryPlayerInfoScreen
 import ui.console.InventoryScreen
+import ui.console.PlayerInfoScreen
 import vo.TileType
 import java.util.concurrent.ConcurrentLinkedQueue
 
@@ -91,7 +93,7 @@ class GameLoop {
                 }
 
                 is OpenInventory -> {
-                    InventoryScreen(player.inventory)
+                    InventoryPlayerInfoScreen(InventoryScreen(player.inventory), PlayerInfoScreen(player))
                 }
             }
         }
@@ -152,6 +154,7 @@ class GameLoop {
 
             TileType.MOB -> {
                 GameSession.player.health -= 10
+                GameSession.player.addExperience(10)
                 GameSession.currentLevel.tiles[position.x][position.y].type = TileType.FLOOR
             }
 
