@@ -10,6 +10,7 @@ object LocalizationSource {
         "input.player-name" to "Player Name:",
 
         "title.inventory" to "Inventory",
+        "title.player-info" to "Player Info",
 
         "text.play" to "Play",
         "text.exit" to "Exit",
