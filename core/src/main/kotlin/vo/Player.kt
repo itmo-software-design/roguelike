@@ -1,7 +1,7 @@
-package com.github.itmosoftwaredesign.roguelike.utils.vo
+package vo
 
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
 import messages.player.MoveDirection
-import vo.ExperienceManager
 
 /**
  * Класс игрока

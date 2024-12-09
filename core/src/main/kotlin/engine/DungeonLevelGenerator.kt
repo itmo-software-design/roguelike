@@ -1,14 +1,10 @@
 package engine
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.*
-import vo.Level
-import vo.Room
-import vo.Tile
-import vo.TileType
+import vo.*
 import java.util.*
 import kotlin.random.Random
 
-class LevelGenerator(
+class DungeonLevelGenerator(
     seed: Int,
     private val height: Int = 30,
     private val width: Int = 50,
@@ -39,7 +35,7 @@ class LevelGenerator(
      * Генерирует новый уровень.
      * Размещает комнаты, предметы и мобов.
      */
-    fun generate(): Level {
+    fun generate(): DungeonLevel {
         val rooms: MutableList<Room> = mutableListOf()
         for (i in 1..roomCount) {
             val maxRetries = 5
@@ -67,7 +63,7 @@ class LevelGenerator(
         placeItems(rooms)
         placeMobs(rooms)
 
-        return Level(tiles, emptyList(), rooms)
+        return DungeonLevel(tiles, emptyList(), rooms)
     }
 
     private fun placeItems(rooms: List<Room>) {

@@ -1,6 +1,5 @@
 package ui.console.game
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
 import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.TextColor
@@ -10,7 +9,8 @@ import com.googlecode.lanterna.gui2.Panel
 import com.googlecode.lanterna.gui2.TextGUIGraphics
 import engine.GameSession
 import ui.console.RenderContext
-import vo.Level
+import vo.DungeonLevel
+import vo.Position
 import vo.Tile
 import vo.TileType
 
@@ -27,7 +27,7 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
         graphics.backgroundColor = RenderContext.backgroundColor
         graphics.fill(' ')
 
-        val level = GameSession.currentLevel
+        val level = GameSession.currentDungeonLevel
         val player = GameSession.player
 
         val terminalSize = graphics.size
@@ -102,13 +102,13 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
     }
 
     private fun addTileToQueueIfVisible(
-        level: Level,
+        dungeonLevel: DungeonLevel,
         x: Int,
         y: Int,
         distance: Int,
         queue: ArrayDeque<Pair<Position, Int>>
     ) {
-        val tileToCheckVisibility = level.tiles.getOrNull(x)?.getOrNull(y)
+        val tileToCheckVisibility = dungeonLevel.tiles.getOrNull(x)?.getOrNull(y)
         if (tileToCheckVisibility != null && !tileToCheckVisibility.type.blockSight) {
             queue.add(Position(x, y) to distance + 1)
         }

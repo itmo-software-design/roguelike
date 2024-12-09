@@ -1,7 +1,8 @@
 package engine
 
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
+import vo.DungeonLevel
+import vo.Player
 import vo.Level
 import java.nio.file.Path
 
@@ -26,13 +27,13 @@ object GameSession {
     /**
      * Список уровней
      */
-    lateinit var levels: MutableList<Level>
+    lateinit var dungeonLevels: MutableList<DungeonLevel>
         private set
 
     /**
      * Текущий уровень
      */
-    lateinit var currentLevel: Level
+    lateinit var currentDungeonLevel: DungeonLevel
         private set
 
     private val levelsCount = 3
@@ -41,11 +42,11 @@ object GameSession {
     /**
      * Создает нового игрока и генерирует уровни.
      */
-    fun startNewGame(playerName: String, firstLevel: Level) {
-        player = Player(playerName, 100, 1, 1, firstLevel.startPosition)
-        levels = mutableListOf(firstLevel)
+    fun startNewGame(playerName: String, firstDungeonLevel: DungeonLevel) {
+        player = Player(playerName, 100, 1, 1, firstDungeonLevel.startPosition)
+        dungeonLevels = mutableListOf(firstDungeonLevel)
         addMoreLevels()
-        currentLevel = firstLevel
+        currentDungeonLevel = firstDungeonLevel
     }
 
     /**
@@ -53,14 +54,14 @@ object GameSession {
      */
     fun moveToNextLevel() {
         currentLevelId = (currentLevelId + 1) % levelsCount // TODO: show 'Game Finished' plane
-        currentLevel = levels[currentLevelId]
-        player.position = currentLevel.startPosition
+        currentDungeonLevel = dungeonLevels[currentLevelId]
+        player.position = currentDungeonLevel.startPosition
         player.inventory = Inventory()
     }
 
     private fun addMoreLevels() {
         for (level in 0 until levelsCount) {
-            levels.add(LevelGenerator(42 + level + 1).generate())
+            dungeonLevels.add(DungeonLevelGenerator(42 + level + 1).generate())
         }
     }
 
