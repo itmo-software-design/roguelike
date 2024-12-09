@@ -15,6 +15,16 @@ class Player(
     var inventory: Inventory = Inventory()
 ) : Character(maxHealth, baseAttack, baseDefense, position, direction) {
 
+
+    /**
+     * Текущее количество опыта до повышения уровня
+     */
+    var xp: Int = 0
+        private set
+
+    /**
+     * Имя игрока
+     */
     var name: String = name
         private set
 
@@ -23,4 +33,10 @@ class Player(
 
     override val defense: Int
         get() = inventory.getEquippedArmor()?.defense ?: super.defense
+
+    fun levelUp() {
+        level += 1
+        xp = 0 // TODO: надо бы все-таки отслеживать, сколько опыта остается после повышения уровня
+        maxHealth += 5
+    }
 }
