@@ -21,18 +21,21 @@ package core {
         class Player extends Character {
             + name : String
             + inventory : Inventory
+            - experienceManager : ExperienceManager
+            + addExperience()
         }
         Player *-- Inventory
+        Player *-- ExperienceManager
 
-        ' Класс игры
-        class Game {
-            - currentLevel : Level
-            - player : Player
-            - isRunning : boolean
-            + start()
-            + update()
-            + checkLevelCompletion()
-            + exit()
+        ' Класс Менеджера уровней
+        class ExperienceManager {
+            +- currentLevel: int
+            +- currentPoints: int
+            +- pointsToNextLevel: int
+            +- healthBoost: int
+            +- attackBoost: int
+            +- defenceBoost: int
+            + addExperience(points: int)
         }
 
         ' Класс инвентаря
