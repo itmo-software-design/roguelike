@@ -10,14 +10,12 @@ abstract class Character(
     baseAttack: Int,
     baseDefense: Int,
     var position: Position,
-    var direction: MoveDirection,
-    level: Int = 1
+    var direction: MoveDirection
 ) {
     /**
      * Максимальное количество здоровья
      */
-    var maxHealth: Int = maxHealth.coerceAtLeast(1)
-        protected set
+    open val maxHealth: Int = maxHealth.coerceAtLeast(1)
 
     /**
      * Текущее количество здоровья
@@ -28,12 +26,6 @@ abstract class Character(
         set(value) {
             field = value.coerceIn(0, maxHealth)
         }
-
-    /**
-     * Текущий уровень персонажа
-     */
-    var level: Int = level
-        protected set
 
     private val baseAttack: Int = baseAttack.coerceAtLeast(1)
     open val attack: Int get() = baseAttack
