@@ -1,7 +1,7 @@
-package com.github.itmosoftwaredesign.roguelike.utils.vo
+package vo
 
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
 import messages.player.MoveDirection
-import vo.ExperienceManager
 
 /**
  * Класс игрока
@@ -15,7 +15,7 @@ class Player(
     direction: MoveDirection = MoveDirection.UP,
     var inventory: Inventory = Inventory(),
     private var experienceManager: ExperienceManager = ExperienceManager()
-) : Character(maxHealth, baseAttack, baseDefense, position, direction) {
+) : Character(maxHealth, baseAttack, baseDefense, 10, position, direction) {
 
     /**
      * Name of the Player.
@@ -51,13 +51,17 @@ class Player(
      * Total amount of attack consisting of the level boost and the attack of the Player.
      */
     override val attack: Int
-        get() = experienceManager.attackBoost + (inventory.getEquippedWeapon()?.damage ?: super.attack)
+        get() = experienceManager.attackBoost + (inventory.getEquippedWeapon()?.damage
+            ?: super.attack)
 
     /**
      * Total amount of defense consisting of the level boost and the defense of the Player.
      */
     override val defense: Int
-        get() = experienceManager.defenceBoost + (inventory.getEquippedArmor()?.defense ?: super.defense)
+        get() = experienceManager.defenceBoost + (inventory.getEquippedArmor()?.defense
+            ?: super.defense)
+
+    override var symbol: Char = '@'
 
     /**
      * Add points of experience to the Player.

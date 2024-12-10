@@ -1,11 +1,9 @@
 package ui.console
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
-import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.gui2.*
 import ui.localize.localize
-import vo.ExperienceManager
 import vo.ExperienceManagerConstants
+import vo.Player
 
 /**
  *  The screen showing the main characteristics of the Player
