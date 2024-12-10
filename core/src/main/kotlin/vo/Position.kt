@@ -32,6 +32,19 @@ data class Position(var x: Int, var y: Int) {
      */
     val distanceToZero get() = euclideanDistanceTo(ZERO)
 
+    /**
+     * Соседние позиции с текущей
+     *
+     * Могут выходить за границы карты
+     */
+    val neighbours
+        get() = listOf(
+            copy(x = x + 1),
+            copy(x = x - 1),
+            copy(y = y + 1),
+            copy(y = y - 1)
+        )
+
     companion object {
         val ZERO = Position(0, 0)
     }

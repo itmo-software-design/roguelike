@@ -48,20 +48,9 @@ abstract class Character(
      *
      * @return `true`, если текущее здоровье больше 0; иначе `false`
      */
-    fun isAlive(): Boolean = health > 0
+    val isAlive: Boolean get() = health > 0
 
-    /**
-     * Атакует другого персонажа с учетом своего значения [Character.attack]
-     * и значения [Character.defense] противника
-     */
-    fun hit(target: Character) {
-        if (!isAlive()) {
-            return
-        }
-
-        val damage = attack - target.defense
-        if (damage > 0) {
-            target.health -= damage
-        }
+    override fun toString(): String {
+        return "${javaClass}[$health/$maxHealth] at $position"
     }
 }

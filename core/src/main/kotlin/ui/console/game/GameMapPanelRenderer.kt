@@ -78,12 +78,7 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
             if (screenPosition == screenCenter // игнорируем тайл, на котором стоим
                 || !tile.type.blockSight // проверяем, что тайл не блокирует обзор
             ) {
-                listOf(
-                    Position(current.x - 1, current.y),
-                    Position(current.x + 1, current.y),
-                    Position(current.x, current.y - 1),
-                    Position(current.x, current.y + 1)
-                ).forEach {
+                current.neighbours.forEach {
                     if (level.isInBounds(it)) {
                         queue.add(it to distance + 1)
                     }

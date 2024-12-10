@@ -1,6 +1,7 @@
 package vo
 
-import engine.behaviour.Behavior
+import engine.behaviour.Behaviour
+import engine.behaviour.IsAliveBehaviour
 import messages.player.MoveDirection
 
 /**
@@ -11,7 +12,7 @@ import messages.player.MoveDirection
  */
 class Mob(
     val type: MobType,
-    val behavior: Behavior,
+    behaviour: Behaviour,
     position: Position
 ) : Character(
     type.maxHealth,
@@ -22,6 +23,15 @@ class Mob(
     MoveDirection.UP
 ) {
     override var symbol: Char = type.symbol
+
+    /**
+     * Поведение моба
+     */
+    var behaviour = IsAliveBehaviour(behaviour)
+
+    override fun toString(): String {
+        return "${type.mobName}[$health/$maxHealth] at $position"
+    }
 }
 
 /**
@@ -38,7 +48,7 @@ enum class MobType(
     val baseDefense: Int,
     val fovRadius: Int
 ) {
-    GOBLIN("Goblin", 'G', 10, 1, 1, 5),
-    SLIME("Slime", 'S', 5, 1, 1, 2),
-    BAT("Bat", 'B', 1, 1, 1, 10)
+    GOBLIN("Goblin", 'G', 10, 10, 1, 5),
+    SLIME("Slime", 'S', 5, 5, 1, 2),
+    BAT("Bat", 'B', 1, 3, 1, 10)
 }

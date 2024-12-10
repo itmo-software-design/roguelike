@@ -1,5 +1,6 @@
 package engine.behaviour
 
+import engine.action.MoveAction
 import vo.DungeonLevel
 import vo.Mob
 import vo.Player
@@ -11,40 +12,30 @@ import vo.Position
  * @since MikhailShad
  * @since 0.0.1
  */
-class BasicBehaviour : Behavior {
+open class BasicBehaviour : Behaviour {
     private val path: ArrayDeque<Position> = ArrayDeque()
 
     /**
      * Бродит по уровню
      */
     override fun act(mob: Mob, dungeonLevel: DungeonLevel, player: Player) {
-        if (!mob.isAlive()) {
-            return
-        }
-
         if (path.isEmpty()) {
-            buildPath(mob, dungeonLevel)
+            rebuildPath(mob, dungeonLevel)
         }
 
         val nextDestination = path.removeFirst()
-        moveTo(mob, dungeonLevel, nextDestination)
-    }
-
-    private fun buildPath(mob: Mob, dungeonLevel: DungeonLevel) {
-        val sortedRooms = dungeonLevel.rooms.maxBy { it.center.euclideanDistanceTo(mob.position) }
-        path.addAll(findPath(mob.position, sortedRooms.center, dungeonLevel))
-    }
-
-    protected fun moveTo(mob: Mob, dungeonLevel: DungeonLevel, target: Position) {
-        if (mob.position.x < target.x) {
-            mob.position.x += 1
-        } else if (mob.position.x > target.x) {
-            mob.position.x -= 1
-        } else if (mob.position.y < target.y) {
-            mob.position.y += 1
-        } else {
-            mob.position.y -= 1
+        if (!MoveAction.perform(mob, nextDestination, dungeonLevel)) {
+            // Если подвигаться не получилось, попробуем перестроить маршрут
+            rebuildPath(mob, dungeonLevel)
         }
+    }
+
+    private fun rebuildPath(mob: Mob, dungeonLevel: DungeonLevel) {
+        path.clear()
+        val sortedRooms = dungeonLevel.rooms.maxBy {
+            it.center.euclideanDistanceTo(mob.position)
+        }
+        path.addAll(findPath(mob.position, sortedRooms.center, dungeonLevel))
     }
 
     companion object {
@@ -132,6 +123,7 @@ class BasicBehaviour : Behavior {
                 currentNode = currentNode.parent
             }
             return path.reversed()
+                .drop(1) // исключаем стартовую ноду
         }
 
         /**

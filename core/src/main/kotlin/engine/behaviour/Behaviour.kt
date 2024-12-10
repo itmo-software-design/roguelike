@@ -10,7 +10,7 @@ import vo.Player
  * @since MikhailShad
  * @since 0.0.1
  */
-interface Behavior {
+interface Behaviour {
     /**
      * Выполняет действие согласно своей модели поведения
      *
