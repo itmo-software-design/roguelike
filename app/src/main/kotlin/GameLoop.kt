@@ -2,6 +2,7 @@ package com.github.itmosoftwaredesign.roguelike.app
 
 import com.github.itmosoftwaredesign.roguelike.utils.vo.*
 import engine.GameSession
+import engine.factory.MobManager
 import messages.*
 import messages.player.MoveDirection
 import messages.player.MovePlayer
@@ -41,7 +42,7 @@ class GameLoop {
         try {
             while (isRunning) {
                 handleInput()
-                updateGameState()
+                //updateGameState() TODO вернуть сюда, когда UI не будет рисоваться
             }
         } finally {
             MessageBroker.unsubscribe(TOPIC_UI, uiSubscriber)
@@ -64,21 +65,25 @@ class GameLoop {
                             direction = MoveDirection.DOWN
                             Position(player.position.x, player.position.y + 1)
                         }
+
                         MoveDirection.UP -> {
                             direction = MoveDirection.UP
                             Position(player.position.x, player.position.y - 1)
                         }
+
                         MoveDirection.LEFT -> {
                             direction = MoveDirection.LEFT
                             Position(player.position.x - 1, player.position.y)
                         }
+
                         MoveDirection.RIGHT -> {
                             direction = MoveDirection.RIGHT
                             Position(player.position.x + 1, player.position.y)
                         }
                     }
 
-                    player.direction = direction // куда направлен direction, в ту сторону будет производиться взаимодействие
+                    player.direction =
+                        direction // куда направлен direction, в ту сторону будет производиться взаимодействие
                     if (canGoTo(newPosition)) {
                         player.position = newPosition
                     }
@@ -91,7 +96,10 @@ class GameLoop {
                 }
 
                 is OpenInventory -> {
-                    InventoryPlayerInfoScreen(InventoryScreen(player.inventory), PlayerInfoScreen(player))
+                    InventoryPlayerInfoScreen(
+                        InventoryScreen(player.inventory),
+                        PlayerInfoScreen(player)
+                    )
                 }
             }
         }
@@ -128,16 +136,28 @@ class GameLoop {
     }
 
     private fun tryInteractAt(position: Position) {
-        val tileType = GameSession.currentDungeonLevel.tiles[position.x][position.y].type
+        val mobToInteract = MobManager.getMobAt(GameSession.currentDungeonLevel, position)
+        if (mobToInteract != null) {
+            GameSession.player.health -= 10
+            GameSession.player.addExperience(10)
+            return
+        }
 
-        when (tileType) {
+        val tileToInteract = GameSession.currentDungeonLevel.getTileAt(position)
+        when (tileToInteract.type) {
             TileType.PORTAL -> {
                 GameSession.moveToNextLevel()
             }
 
             TileType.CONSUMABLE -> {
-                GameSession.player.inventory.addItem(Consumable("Зелье", "Убивает на раз", "damage"))
-                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                GameSession.player.inventory.addItem(
+                    Consumable(
+                        "Зелье",
+                        "Убивает на раз",
+                        "damage"
+                    )
+                )
+                tileToInteract.type = TileType.FLOOR
             }
 
             TileType.WEAPON -> {
@@ -148,7 +168,7 @@ class GameLoop {
                         10
                     )
                 )
-                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                tileToInteract.type = TileType.FLOOR
             }
 
             TileType.ARMOR -> {
@@ -159,13 +179,7 @@ class GameLoop {
                         10
                     )
                 )
-                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
-            }
-
-            TileType.MOB -> {
-                GameSession.player.health -= 10
-                GameSession.player.addExperience(10)
-                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                tileToInteract.type = TileType.FLOOR
             }
 
             else -> {
@@ -175,7 +189,9 @@ class GameLoop {
     }
 
     private fun updateGameState() {
-        // TODO: Логика обновления игры
+        MobManager.getActiveMobs(GameSession.currentDungeonLevel).forEach {
+            it.behavior.act(it, GameSession.currentDungeonLevel, GameSession.player)
+        }
     }
 
     fun stop() {

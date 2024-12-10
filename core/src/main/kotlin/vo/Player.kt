@@ -15,7 +15,7 @@ class Player(
     direction: MoveDirection = MoveDirection.UP,
     var inventory: Inventory = Inventory(),
     private var experienceManager: ExperienceManager = ExperienceManager()
-) : Character(maxHealth, baseAttack, baseDefense, position, direction) {
+) : Character(maxHealth, baseAttack, baseDefense, 10, position, direction) {
 
     /**
      * Name of the Player.

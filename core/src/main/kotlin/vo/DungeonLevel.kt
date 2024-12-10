@@ -12,6 +12,16 @@ class DungeonLevel(
     val enemies: MutableList<Mob> = mutableListOf()
 ) {
     /**
+     * Ширина уровня
+     */
+    val width = tiles.size
+
+    /**
+     * Высота уровня
+     */
+    val height = tiles[0].size
+
+    /**
      * Стартовая позиция [Player] на уровне
      */
     val startPosition = rooms.first().center
@@ -23,6 +33,16 @@ class DungeonLevel(
         return tiles[position.x][position.y]
     }
 
+    /**
+     * Проверяет, что точка принадлежит уровню
+     */
+    fun isInBounds(position: Position): Boolean {
+        return position.x in 0 until width && position.y in 0 until height
+    }
+
+    /**
+     * Проверяет, что тайл свободен
+     */
     fun isTileFreeAt(position: Position): Boolean {
         val tile = getTileAt(position)
 
@@ -59,9 +79,6 @@ enum class TileType(
     WEAPON(blocked = true, blockSight = false),
     ARMOR(blocked = true, blockSight = false),
 
-    @Deprecated("Need to use Mob class", level = DeprecationLevel.ERROR)
-    MOB(blocked = true, blockSight = false),
-
     PORTAL(blocked = true, blockSight = false),
 }
 
@@ -74,9 +91,6 @@ data class Tile(
             TileType.CONSUMABLE -> "c"
             TileType.WEAPON -> "w"
             TileType.ARMOR -> "a"
-
-            TileType.MOB -> "X"
-
             TileType.FLOOR -> "."
             TileType.HALL -> "o"
             TileType.WALL -> "#"

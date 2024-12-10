@@ -13,7 +13,14 @@ class Mob(
     val type: MobType,
     val behavior: Behavior,
     position: Position
-) : Character(type.maxHealth, type.baseAttack, type.baseDefense, position, MoveDirection.UP) {
+) : Character(
+    type.maxHealth,
+    type.baseAttack,
+    type.baseDefense,
+    type.fovRadius,
+    position,
+    MoveDirection.UP
+) {
     override var symbol: Char = type.symbol
 }
 
@@ -28,9 +35,10 @@ enum class MobType(
     val symbol: Char,
     val maxHealth: Int,
     val baseAttack: Int,
-    val baseDefense: Int
+    val baseDefense: Int,
+    val fovRadius: Int
 ) {
-    GOBLIN("Goblin", 'G', 10, 1, 1),
-    SLIME("Slime", 'S', 5, 1, 1),
-    BAT("Bat", 'B', 1, 1, 1)
+    GOBLIN("Goblin", 'G', 10, 1, 1, 5),
+    SLIME("Slime", 'S', 5, 1, 1, 2),
+    BAT("Bat", 'B', 1, 1, 1, 10)
 }

@@ -1,6 +1,7 @@
 package engine.factory
 
 import engine.behaviour.BasicBehaviour
+import vo.DungeonLevel
 import vo.Mob
 import vo.MobType
 import vo.Position
@@ -25,5 +26,13 @@ object MobManager {
         }
 
         return Mob(mobType, BasicBehaviour(), position)
+    }
+
+    fun getActiveMobs(dungeonLevel: DungeonLevel): List<Mob> {
+        return dungeonLevel.enemies.filter { it.isAlive() }
+    }
+
+    fun getMobAt(dungeonLevel: DungeonLevel, position: Position): Mob? {
+        return dungeonLevel.enemies.find { it.position == position && it.isAlive() }
     }
 }

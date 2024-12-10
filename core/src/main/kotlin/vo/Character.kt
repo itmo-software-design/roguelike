@@ -12,6 +12,7 @@ abstract class Character(
     maxHealth: Int,
     baseAttack: Int,
     baseDefense: Int,
+    fovRadius: Int = 1,
     position: Position,
     var direction: MoveDirection
 ) : Entity(position) {
@@ -35,6 +36,12 @@ abstract class Character(
 
     private val baseDefense: Int = baseDefense.coerceAtLeast(1)
     open val defense: Int get() = baseDefense
+
+    /**
+     * Радиус обзора
+     */
+    open var fovRadius = fovRadius
+        protected set
 
     /**
      * Проверяет, жив ли персонаж
