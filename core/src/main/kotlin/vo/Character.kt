@@ -4,14 +4,17 @@ import messages.player.MoveDirection
 
 /**
  * Абстрактный предок для персонажей игры
+ *
+ * @author MikhailShad
+ * @since 0.0.1
  */
 abstract class Character(
     maxHealth: Int,
     baseAttack: Int,
     baseDefense: Int,
-    var position: Position,
+    position: Position,
     var direction: MoveDirection
-) {
+) : Entity(position) {
     /**
      * Максимальное количество здоровья
      */

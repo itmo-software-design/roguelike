@@ -51,13 +51,17 @@ class Player(
      * Total amount of attack consisting of the level boost and the attack of the Player.
      */
     override val attack: Int
-        get() = experienceManager.attackBoost + (inventory.getEquippedWeapon()?.damage ?: super.attack)
+        get() = experienceManager.attackBoost + (inventory.getEquippedWeapon()?.damage
+            ?: super.attack)
 
     /**
      * Total amount of defense consisting of the level boost and the defense of the Player.
      */
     override val defense: Int
-        get() = experienceManager.defenceBoost + (inventory.getEquippedArmor()?.defense ?: super.defense)
+        get() = experienceManager.defenceBoost + (inventory.getEquippedArmor()?.defense
+            ?: super.defense)
+
+    override var symbol: Char = '@'
 
     /**
      * Add points of experience to the Player.
