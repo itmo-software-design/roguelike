@@ -56,8 +56,12 @@ class GameMapScreen(
         window.component = this
     }
 
-    override fun onRemoved(container: Container?) {
-        super.onRemoved(container)
+    override fun onBeforeDrawing() {
+        if (GameSession.isPlayerInitialized()) {
+            val player = GameSession.player
+            playerLabel.text =
+                "game.screen.hp.title".localize(player.name, player.health, player.maxHealth)
+        }
     }
 
 }
