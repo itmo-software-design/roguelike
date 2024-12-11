@@ -7,4 +7,4 @@ import messages.Message
  * @author sibmaks
  * @since 0.0.1
  */
-class GameScreenOpened : Message
+class GameScreenOpened(val playerName: String) : Message

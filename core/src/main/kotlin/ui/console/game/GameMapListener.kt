@@ -21,6 +21,7 @@ import ui.localize.localize
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
+ * Game window event listener. Map keyboard events into game's events.
  *
  * @author sibmaks
  * @since 0.0.1

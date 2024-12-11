@@ -30,6 +30,6 @@ class MainMenuScreen(private var window: Window) : Panel() {
     private fun onExitButton() {
         playButton.isEnabled = false
         exitButton.isEnabled = false
-        window.close()
+        RenderContext.screen.close()
     }
 }

@@ -2,8 +2,8 @@ package engine
 
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
-import java.nio.file.Path
 import vo.Level
+import java.nio.file.Path
 
 /**
  *
@@ -12,14 +12,16 @@ import vo.Level
  */
 object GameSession {
 
-    @Deprecated(message = "Переехать на Player")
-    lateinit var playerName: String
-
     /**
      * Персонаж игрока
      */
     lateinit var player: Player
         private set
+
+    /**
+     * Признак того, что игрок инициализирован
+     */
+    fun isPlayerInitialized() = ::player.isInitialized
 
     /**
      * Список уровней

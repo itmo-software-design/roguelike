@@ -6,14 +6,17 @@ import messages.MessageBroker
 import messages.TOPIC_UI
 import messages.ui.GameScreenOpened
 import ui.console.RenderContext
+import ui.console.UIContext
 import ui.localize.localize
 
 class GameMapScreen(
     window: Window,
+    uiContext: UIContext,
     onReturn: () -> Unit
 ) : Panel() {
     private val gameMapListener: GameMapListener
     private val oldHints = window.hints
+    private val playerLabel = Label("")
 
     init {
         layoutManager = LinearLayout(Direction.VERTICAL)
@@ -27,7 +30,8 @@ class GameMapScreen(
             )
         )
 
-        addComponent(Label("game.screen.title".localize(GameSession.playerName)))
+        playerLabel.text = "game.screen.title".localize(uiContext.playerName)
+        addComponent(playerLabel)
 
         val gameMapPanel = Panel()
         gameMapPanel.setRenderer(GameMapPanelRenderer())
@@ -47,7 +51,7 @@ class GameMapScreen(
             onReturn()
         }
 
-        MessageBroker.send(TOPIC_UI, GameScreenOpened())
+        MessageBroker.send(TOPIC_UI, GameScreenOpened(uiContext.playerName))
 
         window.component = this
     }
