@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @author sibmaks
  * @since 0.0.1
  */
-class MainMenuWindowListener(private val onClosed: () -> Unit) : WindowListener {
+class MainMenuWindowListener(var onClosed: () -> Unit) : WindowListener {
     override fun onInput(basePane: Window?, keyStroke: KeyStroke?, deliverEvent: AtomicBoolean?) {
         if (keyStroke == null) {
             return
@@ -35,9 +35,9 @@ class MainMenuWindowListener(private val onClosed: () -> Unit) : WindowListener 
                     MessageDialogButton.Yes,
                     MessageDialogButton.No
                 )
+                deliverEvent?.set(true)
                 if (result == MessageDialogButton.Yes) {
                     MessageBroker.send(TOPIC_UI, GameScreenExit())
-                    deliverEvent?.set(true)
                     onClosed()
                 }
             }

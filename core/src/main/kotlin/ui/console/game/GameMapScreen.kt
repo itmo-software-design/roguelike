@@ -56,7 +56,7 @@ class GameMapScreen(
         window.component = this
     }
 
-    override fun onBeforeDrawing() {
+    public override fun onBeforeDrawing() {
         if (GameSession.isPlayerInitialized()) {
             val player = GameSession.player
             playerLabel.text =

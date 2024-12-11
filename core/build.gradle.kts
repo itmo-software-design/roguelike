@@ -4,6 +4,7 @@ plugins {
     id("buildsrc.convention.kotlin-jvm")
     // Apply Kotlin Serialization plugin from `gradle/libs.versions.toml`.
     alias(libs.plugins.kotlinPluginSerialization)
+    jacoco
 }
 
 dependencies {
@@ -11,4 +12,14 @@ dependencies {
     implementation(libs.bundles.kotlinxEcosystem)
     implementation(libs.lanterna)
     testImplementation(kotlin("test"))
+    testImplementation(libs.mockk)
+    testImplementation(libs.junit.jupiter.params)
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
 }

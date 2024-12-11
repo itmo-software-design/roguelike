@@ -69,9 +69,9 @@ class GameMapListener : WindowListener {
                     MessageDialogButton.Yes,
                     MessageDialogButton.No
                 )
+                deliverEvent?.set(true)
                 if (result == MessageDialogButton.Yes) {
                     MessageBroker.send(TOPIC_UI, GameScreenExit())
-                    deliverEvent?.set(true)
                     onClosed()
                 }
             }
