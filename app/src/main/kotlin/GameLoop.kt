@@ -41,6 +41,7 @@ class GameLoop {
 
     fun start() {
         println("Game loop started")
+        isRunning.set(true)
 
         try {
             while (isRunning.get()) {
