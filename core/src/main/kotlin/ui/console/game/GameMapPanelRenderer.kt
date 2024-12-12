@@ -14,6 +14,9 @@ import vo.Level
 import vo.Tile
 import vo.TileType
 
+/**
+ * Render game map on screen
+ */
 class GameMapPanelRenderer : ComponentRenderer<Panel> {
     private val fovLimit = 10
     override fun drawComponent(graphics: TextGUIGraphics?, component: Panel?) {
@@ -139,7 +142,12 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
             TileType.GRASS -> Triple(TextColor.ANSI.GREEN, TextColor.ANSI.GREEN_BRIGHT, "|")
             TileType.HALL -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK_BRIGHT, "o")
             TileType.DOOR -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK, "+")
-            TileType.CONSUMABLE -> Triple(TextColor.ANSI.GREEN_BRIGHT, TextColor.ANSI.BLACK_BRIGHT, "c")
+            TileType.CONSUMABLE -> Triple(
+                TextColor.ANSI.GREEN_BRIGHT,
+                TextColor.ANSI.BLACK_BRIGHT,
+                "c"
+            )
+
             TileType.WEAPON -> Triple(TextColor.ANSI.GREEN_BRIGHT, TextColor.ANSI.BLACK_BRIGHT, "w")
             TileType.ARMOR -> Triple(TextColor.ANSI.GREEN_BRIGHT, TextColor.ANSI.BLACK_BRIGHT, "a")
             TileType.MOB -> Triple(TextColor.ANSI.RED_BRIGHT, TextColor.ANSI.RED, "X")

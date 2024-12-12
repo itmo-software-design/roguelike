@@ -1,8 +1,9 @@
 package com.github.itmosoftwaredesign.roguelike.app
 
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Armor
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Consumable
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
-import com.github.itmosoftwaredesign.roguelike.utils.vo.*
+import com.github.itmosoftwaredesign.roguelike.utils.vo.Weapon
 import engine.GameSession
 import messages.*
 import messages.player.MoveDirection
@@ -13,19 +14,20 @@ import messages.ui.GameScreenExit
 import ui.console.InventoryPlayerInfoScreen
 import ui.console.InventoryScreen
 import ui.console.PlayerInfoScreen
+import ui.console.RenderContext
 import vo.TileType
 import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.atomic.AtomicBoolean
 
 private const val maxStepsPerTick = 6
 
 class GameLoop {
-    @Volatile
-    private var isRunning = true
+    private val isRunning = AtomicBoolean()
     private val events = ConcurrentLinkedQueue<Message>()
 
     private var uiSubscriber = Subscriber {
         when (it) {
-            is GameScreenExit -> isRunning = false
+            is GameScreenExit -> isRunning.set(false)
         }
     }
     private var playerSubscriber = Subscriber {
@@ -39,11 +41,13 @@ class GameLoop {
 
     fun start() {
         println("Game loop started")
+        isRunning.set(true)
 
         try {
-            while (isRunning) {
+            while (isRunning.get()) {
                 handleInput()
                 updateGameState()
+                RenderContext.gui.guiThread.processEventsAndUpdate()
             }
         } finally {
             MessageBroker.unsubscribe(TOPIC_UI, uiSubscriber)
@@ -66,21 +70,25 @@ class GameLoop {
                             direction = MoveDirection.DOWN
                             Position(player.position.x, player.position.y + 1)
                         }
+
                         MoveDirection.UP -> {
                             direction = MoveDirection.UP
                             Position(player.position.x, player.position.y - 1)
                         }
+
                         MoveDirection.LEFT -> {
                             direction = MoveDirection.LEFT
                             Position(player.position.x - 1, player.position.y)
                         }
+
                         MoveDirection.RIGHT -> {
                             direction = MoveDirection.RIGHT
                             Position(player.position.x + 1, player.position.y)
                         }
                     }
 
-                    player.direction = direction // куда направлен direction, в ту сторону будет производиться взаимодействие
+                    player.direction =
+                        direction // куда направлен direction, в ту сторону будет производиться взаимодействие
                     if (canGoTo(newPosition)) {
                         player.position = newPosition
                     }
@@ -93,7 +101,10 @@ class GameLoop {
                 }
 
                 is OpenInventory -> {
-                    InventoryPlayerInfoScreen(InventoryScreen(player.inventory), PlayerInfoScreen(player))
+                    InventoryPlayerInfoScreen(
+                        InventoryScreen(player.inventory),
+                        PlayerInfoScreen(player)
+                    )
                 }
             }
         }
@@ -138,7 +149,13 @@ class GameLoop {
             }
 
             TileType.CONSUMABLE -> {
-                GameSession.player.inventory.addItem(Consumable("Зелье", "Убивает на раз", "damage"))
+                GameSession.player.inventory.addItem(
+                    Consumable(
+                        "Зелье",
+                        "Убивает на раз",
+                        "damage"
+                    )
+                )
                 GameSession.currentLevel.tiles[position.x][position.y].type = TileType.FLOOR
             }
 
@@ -169,6 +186,6 @@ class GameLoop {
     }
 
     fun stop() {
-        isRunning = false
+        isRunning.set(false)
     }
 }
