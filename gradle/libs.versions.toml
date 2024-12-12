@@ -16,6 +16,8 @@ kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ver
 kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJSON" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+logback = { group = "ch.qos.logback", name = "logback-classic", version = "1.5.12" }
+kotlinLogging = { group = "io.github.oshai", name = "kotlin-logging-jvm", version = "7.0.0" }
 lanterna = { module = "com.googlecode.lanterna:lanterna", version.ref = "lanterna" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter-params" }
@@ -23,6 +25,7 @@ junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", vers
 # Libraries can be bundled together for easier import
 [bundles]
 kotlinxEcosystem = ["kotlinxDatetime", "kotlinxSerialization", "kotlinxCoroutines"]
+logging = ["logback", "kotlinLogging"]
 
 [plugins]
 kotlinPluginSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

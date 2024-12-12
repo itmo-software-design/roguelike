@@ -10,6 +10,7 @@ plugins {
 dependencies {
     // Apply the kotlinx bundle of dependencies from the version catalog (`gradle/libs.versions.toml`).
     implementation(libs.bundles.kotlinxEcosystem)
+    implementation(libs.bundles.logging)
     implementation(libs.lanterna)
     testImplementation(kotlin("test"))
     testImplementation(libs.mockk)

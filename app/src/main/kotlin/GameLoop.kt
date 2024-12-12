@@ -1,11 +1,9 @@
 package com.github.itmosoftwaredesign.roguelike.app
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Armor
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Consumable
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Position
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Weapon
-import com.github.itmosoftwaredesign.roguelike.utils.vo.*
 import engine.GameSession
+import engine.action.AttackAction
+import engine.action.MoveAction
+import engine.factory.MobManager
 import messages.*
 import messages.player.MoveDirection
 import messages.player.MovePlayer
@@ -65,34 +63,11 @@ class GameLoop {
             val player = GameSession.player
             when (message) {
                 is MovePlayer -> {
-                    val direction: MoveDirection
-                    val newPosition = when (message.direction) {
-                        MoveDirection.DOWN -> {
-                            direction = MoveDirection.DOWN
-                            Position(player.position.x, player.position.y + 1)
-                        }
-
-                        MoveDirection.UP -> {
-                            direction = MoveDirection.UP
-                            Position(player.position.x, player.position.y - 1)
-                        }
-
-                        MoveDirection.LEFT -> {
-                            direction = MoveDirection.LEFT
-                            Position(player.position.x - 1, player.position.y)
-                        }
-
-                        MoveDirection.RIGHT -> {
-                            direction = MoveDirection.RIGHT
-                            Position(player.position.x + 1, player.position.y)
-                        }
-                    }
-
-                    player.direction =
-                        direction // куда направлен direction, в ту сторону будет производиться взаимодействие
-                    if (canGoTo(newPosition)) {
-                        player.position = newPosition
-                    }
+                    MoveAction.perform(
+                        player,
+                        message.direction,
+                        dungeonLevel = GameSession.currentDungeonLevel
+                    )
                     step += 1
                 }
 
@@ -111,40 +86,35 @@ class GameLoop {
         }
     }
 
-    private fun canGoTo(newPosition: Position): Boolean {
-        val tileMap = GameSession.currentDungeonLevel.tiles
-        if (tileMap.isEmpty() || tileMap[0].isEmpty()) {
-            return false
-        }
-
-        val tileToGo = tileMap[newPosition.x][newPosition.y]
-        return !tileToGo.type.blocked
-    }
-
     private fun tryInteract(position: Position, direction: MoveDirection) {
         when (direction) {
             MoveDirection.DOWN -> {
-                tryInteractAt(Position(position.x, position.y + 1))
+                tryInteractAt(position.copy(y = position.y + 1))
             }
 
             MoveDirection.UP -> {
-                tryInteractAt(Position(position.x, position.y - 1))
+                tryInteractAt(position.copy(y = position.y - 1))
             }
 
             MoveDirection.LEFT -> {
-                tryInteractAt(Position(position.x - 1, position.y))
+                tryInteractAt(position.copy(x = position.x - 1))
             }
 
             MoveDirection.RIGHT -> {
-                tryInteractAt(Position(position.x + 1, position.y))
+                tryInteractAt(position.copy(x = position.x + 1))
             }
         }
     }
 
     private fun tryInteractAt(position: Position) {
-        val tileType = GameSession.currentDungeonLevel.tiles[position.x][position.y].type
+        val mobToInteract = MobManager.getMobAt(GameSession.currentDungeonLevel, position)
+        if (mobToInteract != null) {
+            AttackAction.perform(GameSession.player, mobToInteract, GameSession.currentDungeonLevel)
+            return
+        }
 
-        when (tileType) {
+        val tileToInteract = GameSession.currentDungeonLevel.getTileAt(position)
+        when (tileToInteract.type) {
             TileType.PORTAL -> {
                 GameSession.moveToNextLevel()
             }
@@ -157,35 +127,29 @@ class GameLoop {
                         "damage"
                     )
                 )
-                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                tileToInteract.type = TileType.FLOOR
             }
 
             TileType.WEAPON -> {
                 GameSession.player.inventory.addItem(
-                    _root_ide_package_.vo.Weapon(
+                    Weapon(
                         "Меч-гладенец",
                         "Острый",
                         10
                     )
                 )
-                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                tileToInteract.type = TileType.FLOOR
             }
 
             TileType.ARMOR -> {
                 GameSession.player.inventory.addItem(
-                    _root_ide_package_.vo.Armor(
+                    Armor(
                         "Шлем рыцаря",
                         "Крепкий",
                         10
                     )
                 )
-                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
-            }
-
-            TileType.MOB -> {
-                GameSession.player.health -= 10
-                GameSession.player.addExperience(10)
-                GameSession.currentDungeonLevel.tiles[position.x][position.y].type = TileType.FLOOR
+                tileToInteract.type = TileType.FLOOR
             }
 
             else -> {
@@ -195,7 +159,9 @@ class GameLoop {
     }
 
     private fun updateGameState() {
-        // TODO: Логика обновления игры
+        MobManager.getActiveMobs(GameSession.currentDungeonLevel).forEach {
+            it.behaviour.act(it, GameSession.currentDungeonLevel, GameSession.player)
+        }
     }
 
     fun stop() {

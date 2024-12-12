@@ -3,7 +3,6 @@ package engine
 import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
 import vo.DungeonLevel
 import vo.Player
-import vo.Level
 import java.nio.file.Path
 
 /**
@@ -43,7 +42,7 @@ object GameSession {
      * Создает нового игрока и генерирует уровни.
      */
     fun startNewGame(playerName: String, firstDungeonLevel: DungeonLevel) {
-        player = Player(playerName, 100, 1, 1, firstDungeonLevel.startPosition)
+        player = Player(playerName, 100, 2, 1, firstDungeonLevel.startPosition)
         dungeonLevels = mutableListOf(firstDungeonLevel)
         addMoreLevels()
         currentDungeonLevel = firstDungeonLevel

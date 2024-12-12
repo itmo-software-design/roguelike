@@ -8,13 +8,47 @@ package vo
  */
 class DungeonLevel(
     val tiles: Array<Array<Tile>>,
-    val enemies: List<Enemy>,
-    private val rooms: List<Room>
+    val rooms: List<Room>,
+    val enemies: MutableList<Mob> = mutableListOf()
 ) {
+    /**
+     * Ширина уровня
+     */
+    val width = tiles.size
+
+    /**
+     * Высота уровня
+     */
+    val height = tiles[0].size
+
     /**
      * Стартовая позиция [Player] на уровне
      */
     val startPosition = rooms.first().center
+
+    /**
+     * Возвращает тайл уровня в указанной точке
+     */
+    fun getTileAt(position: Position): Tile {
+        return tiles[position.x][position.y]
+    }
+
+    /**
+     * Проверяет, что точка принадлежит уровню
+     */
+    fun isInBounds(position: Position): Boolean {
+        return position.x in 0 until width && position.y in 0 until height
+    }
+
+    /**
+     * Проверяет, что тайл свободен
+     */
+    fun isTileFreeAt(position: Position): Boolean {
+        val tile = getTileAt(position)
+
+        return !tile.type.blocked // тайл не блокирует движение
+                && enemies.find { it.position == position } == null // в этой позиции никого нет
+    }
 }
 
 /**
@@ -45,8 +79,6 @@ enum class TileType(
     WEAPON(blocked = true, blockSight = false),
     ARMOR(blocked = true, blockSight = false),
 
-    MOB(blocked = true, blockSight = false),
-
     PORTAL(blocked = true, blockSight = false),
 }
 
@@ -59,9 +91,6 @@ data class Tile(
             TileType.CONSUMABLE -> "c"
             TileType.WEAPON -> "w"
             TileType.ARMOR -> "a"
-
-            TileType.MOB -> "X"
-
             TileType.FLOOR -> "."
             TileType.HALL -> "o"
             TileType.WALL -> "#"
@@ -117,7 +146,7 @@ class Room(
     /**
      * Евклидово расстояние до центра комнаты
      */
-    val distanceFromZero = center.x * center.x + center.y * center.y
+    val distanceFromZero = center.distanceToZero
 
     /**
      * Определяет, пересекаются ли границы текущей комнаты с другой
@@ -127,5 +156,13 @@ class Room(
                 && topRight.x >= other.bottomLeft.x
                 && bottomLeft.y <= other.topRight.y
                 && topRight.y >= other.bottomLeft.y
+    }
+
+    /**
+     * Проверяет, что позиция находится внутри комнаты
+     */
+    fun isInside(position: Position): Boolean {
+        return position.x in bottomLeft.x..topRight.x
+                && position.y in bottomLeft.y..topRight.y
     }
 }

@@ -8,17 +8,14 @@ import com.googlecode.lanterna.gui2.ComponentRenderer
 import com.googlecode.lanterna.gui2.Panel
 import com.googlecode.lanterna.gui2.TextGUIGraphics
 import engine.GameSession
+import engine.factory.MobManager
 import ui.console.RenderContext
-import vo.DungeonLevel
-import vo.Position
-import vo.Tile
-import vo.TileType
+import vo.*
 
 /**
  * Render game map on screen
  */
 class GameMapPanelRenderer : ComponentRenderer<Panel> {
-    private val fovLimit = 10
     override fun drawComponent(graphics: TextGUIGraphics?, component: Panel?) {
         if (graphics == null || component == null) {
             return
@@ -34,19 +31,19 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
         val viewWidth = terminalSize.columns
         val viewHeight = terminalSize.rows
 
-        val centerX = viewWidth / 2
-        val centerY = viewHeight / 2
+        val screenCenter = Position(viewWidth / 2, viewHeight / 2)
 
         // Рендерим все тайлы, которые были исследованы (isExplored = true)
         for (x in level.tiles.indices) {
             for (y in level.tiles[x].indices) {
-                val tile = level.tiles[x][y]
-                if (tile.isExplored) {
-                    val screenX = centerX + (x - player.position.x)
-                    val screenY = centerY + (y - player.position.y)
+                val tilePosition = Position(x, y)
+                val tile = level.getTileAt(tilePosition)
 
-                    if (screenX in 0 until viewWidth && screenY in 0 until viewHeight) {
-                        renderExploredTile(tile, screenX, screenY, graphics)
+                if (tile.isExplored) {
+                    val screenPosition = getScreenPosition(screenCenter, tilePosition, player)
+
+                    if (screenPosition.x in 0 until viewWidth && screenPosition.y in 0 until viewHeight) {
+                        renderExploredTile(tile, screenPosition.x, screenPosition.y, graphics)
                     }
                 }
             }
@@ -55,69 +52,76 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
         // BFS для рендера видимых тайлов
         val visited = mutableSetOf<Position>()
         val queue =
-            ArrayDeque<Pair<Position, Int>>(fovLimit * fovLimit) // Позиция + текущее расстояние
+            ArrayDeque<Pair<Position, Int>>(player.fovRadius * player.fovRadius) // Позиция + текущее расстояние
         queue.add(player.position to 0)
 
         while (queue.isNotEmpty()) {
             val (current, distance) = queue.removeFirst()
 
-            if (current in visited || distance > fovLimit) {
+            if (current in visited || distance > player.fovRadius) {
                 continue
             }
             visited.add(current)
 
             // Определить положение на экране
-            val screenX = centerX + (current.x - player.position.x)
-            val screenY = centerY + (current.y - player.position.y)
+            val screenPosition = getScreenPosition(screenCenter, current, player)
+
 
             // Убедиться, что не выходим за пределы экрана
-            if (screenX !in 0 until viewWidth || screenY !in 0 until viewHeight) continue
+            if (screenPosition.x !in 0 until viewWidth || screenPosition.y !in 0 until viewHeight) {
+                continue
+            }
 
             // Получить текущий тайл
-            val tile = level.tiles.getOrNull(current.x)?.getOrNull(current.y) ?: continue
+            val tile = level.getTileAt(current)
             tile.isExplored = true
-            renderTile(tile, screenX, screenY, graphics)
+            renderTile(tile, screenPosition.x, screenPosition.y, graphics)
 
             // Добавить соседние тайлы, если обзор не блокируется
-//            addTileToQueueIfVisible(level, current.x - 1, current.y, distance, queue)
-//            addTileToQueueIfVisible(level, current.x + 1, current.y, distance, queue)
-//            addTileToQueueIfVisible(level, current.x, current.y - 1, distance, queue)
-//            addTileToQueueIfVisible(level, current.x, current.y + 1, distance, queue)
-            if ((screenX == centerX && screenY == centerY) // игнорируем тайл, на котором стоим
+            if (screenPosition == screenCenter // игнорируем тайл, на котором стоим
                 || !tile.type.blockSight // проверяем, что тайл не блокирует обзор
             ) {
-                queue.add(Position(current.x - 1, current.y) to distance + 1)
-                queue.add(Position(current.x + 1, current.y) to distance + 1)
-                queue.add(Position(current.x, current.y - 1) to distance + 1)
-                queue.add(Position(current.x, current.y + 1) to distance + 1)
+                current.neighbours.forEach {
+                    if (level.isInBounds(it)) {
+                        queue.add(it to distance + 1)
+                    }
+                }
             }
         }
 
+        MobManager.getActiveMobs(level).forEach {
+            val screenPosition = getScreenPosition(screenCenter, it.position, player)
+            renderMob(it.type, screenPosition.x, screenPosition.y, graphics)
+        }
+
         // Покажем игрока
-        renderPlayer(centerX, centerY, graphics)
+        renderPlayer(screenCenter.x, screenCenter.y, graphics)
     }
 
     override fun getPreferredSize(component: Panel?): TerminalSize {
         return TerminalSize(20, 20)
     }
 
-    private fun addTileToQueueIfVisible(
-        dungeonLevel: DungeonLevel,
-        x: Int,
-        y: Int,
-        distance: Int,
-        queue: ArrayDeque<Pair<Position, Int>>
-    ) {
-        val tileToCheckVisibility = dungeonLevel.tiles.getOrNull(x)?.getOrNull(y)
-        if (tileToCheckVisibility != null && !tileToCheckVisibility.type.blockSight) {
-            queue.add(Position(x, y) to distance + 1)
-        }
+    private fun getScreenPosition(
+        screenCenter: Position,
+        levelPosition: Position,
+        player: Player
+    ): Position {
+        val screenX = screenCenter.x + (levelPosition.x - player.position.x)
+        val screenY = screenCenter.y + (levelPosition.y - player.position.y)
+        return Position(screenX, screenY)
     }
 
     private fun renderPlayer(x: Int, y: Int, graphics: TextGUIGraphics) {
         graphics.setForegroundColor(TextColor.ANSI.WHITE)
         graphics.setBackgroundColor(TextColor.ANSI.BLACK)
         graphics.putString(TerminalPosition(x, y), "$")
+    }
+
+    private fun renderMob(mobType: MobType, x: Int, y: Int, graphics: TextGUIGraphics) {
+        graphics.setForegroundColor(TextColor.ANSI.WHITE)
+        graphics.setBackgroundColor(TextColor.ANSI.BLACK)
+        graphics.putString(TerminalPosition(x, y), mobType.symbol.toString())
     }
 
     private fun renderExploredTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics) {
@@ -150,7 +154,6 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
 
             TileType.WEAPON -> Triple(TextColor.ANSI.GREEN_BRIGHT, TextColor.ANSI.BLACK_BRIGHT, "w")
             TileType.ARMOR -> Triple(TextColor.ANSI.GREEN_BRIGHT, TextColor.ANSI.BLACK_BRIGHT, "a")
-            TileType.MOB -> Triple(TextColor.ANSI.RED_BRIGHT, TextColor.ANSI.RED, "X")
             TileType.PORTAL -> Triple(TextColor.ANSI.WHITE, TextColor.ANSI.WHITE_BRIGHT, "0")
             else -> Triple(TextColor.ANSI.BLACK, TextColor.ANSI.BLACK, " ")
         }

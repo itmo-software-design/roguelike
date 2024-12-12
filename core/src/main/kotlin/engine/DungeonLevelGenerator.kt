@@ -1,5 +1,6 @@
 package engine
 
+import engine.factory.MobManager
 import vo.*
 import java.util.*
 import kotlin.random.Random
@@ -58,12 +59,13 @@ class DungeonLevelGenerator(
         }
 
         connectRooms(rooms)
-        val portalRoomNumber = randomizer.nextInt(rooms.size)
-        placePortal(rooms[portalRoomNumber])
-        placeItems(rooms)
-        placeMobs(rooms)
+        val dungeonLevel = DungeonLevel(tiles, rooms)
 
-        return DungeonLevel(tiles, emptyList(), rooms)
+        placePortal(dungeonLevel)
+        placeItems(rooms)
+        placeMobs(dungeonLevel)
+
+        return dungeonLevel
     }
 
     private fun placeItems(rooms: List<Room>) {
@@ -86,14 +88,17 @@ class DungeonLevelGenerator(
                     nConsumable--
                     TileType.CONSUMABLE
                 }
+
                 nWeapon > 0 -> {
                     nWeapon--
                     TileType.WEAPON
                 }
+
                 nArmor > 0 -> {
                     nArmor--
                     TileType.ARMOR
                 }
+
                 else -> null
             }
 
@@ -103,26 +108,36 @@ class DungeonLevelGenerator(
         }
     }
 
-    private fun placeMobs(rooms: List<Room>) {
-        val nMobs = randomizer.nextInt(rooms.size, 2 * rooms.size)
+    private fun placeMobs(dungeonLevel: DungeonLevel) {
+        val nMobs = randomizer.nextInt(dungeonLevel.rooms.size, 2 * dungeonLevel.rooms.size)
 
-        repeat(nMobs) { // рандомно размещает мобов по комнатам
-            val room = rooms[randomizer.nextInt(rooms.size)]
+        var mobCreated = 0
+        while (mobCreated < nMobs) { // рандомно размещает мобов по комнатам
+            val room = dungeonLevel.rooms[randomizer.nextInt(dungeonLevel.rooms.size)]
 
-            val pos = generateRandomPosition(
+            val mobPosition = generateRandomPosition(
                 room.bottomLeft.x + 1, room.topRight.x,
                 room.bottomLeft.y + 1, room.topRight.y
             )
 
-            if (tiles[pos.x][pos.y].type == TileType.FLOOR) {
-                tiles[pos.x][pos.y].type = TileType.MOB
+            if (dungeonLevel.isTileFreeAt(mobPosition)) {
+                val mob = MobManager.spawn(mobPosition)
+                dungeonLevel.enemies.add(mob)
+                mobCreated += 1
             }
         }
     }
 
-    private fun placePortal(room: Room) {
-        val pos = generateRandomPosition(room.bottomLeft.x + 1, room.topRight.x, room.bottomLeft.y + 1, room.topRight.y)
-        tiles[pos.x][pos.y].type = TileType.PORTAL
+    private fun placePortal(dungeonLevel: DungeonLevel) {
+        val portalRoomNumber = randomizer.nextInt(dungeonLevel.rooms.size)
+        val room = dungeonLevel.rooms[portalRoomNumber]
+        val pos = generateRandomPosition(
+            room.bottomLeft.x + 1,
+            room.topRight.x,
+            room.bottomLeft.y + 1,
+            room.topRight.y
+        )
+        dungeonLevel.getTileAt(pos).type = TileType.PORTAL
     }
 
     private fun generateRandomRoom(): Room {
@@ -161,7 +176,8 @@ class DungeonLevelGenerator(
     }
 
     private fun connectRooms(rooms: List<Room>) {
-        val roomsQueue = PriorityQueue<Room>(rooms.size) { a, b -> a.distanceFromZero - b.distanceFromZero }
+        val roomsQueue =
+            PriorityQueue<Room>(rooms.size) { a, b -> a.distanceFromZero - b.distanceFromZero }
         roomsQueue.addAll(rooms)
 
         val first = roomsQueue.poll()
