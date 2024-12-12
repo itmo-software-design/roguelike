@@ -1,6 +1,5 @@
 package ui.console.game
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Player
 import com.googlecode.lanterna.gui2.Label
 import com.googlecode.lanterna.gui2.Window
 import com.googlecode.lanterna.gui2.Window.Hint
@@ -12,10 +11,10 @@ import messages.ui.GameScreenOpened
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import ui.console.UIContext
+import vo.Player
 import kotlin.test.assertEquals
 
 /**
- *
  * @author sibmaks
  * @since 0.0.1
  */

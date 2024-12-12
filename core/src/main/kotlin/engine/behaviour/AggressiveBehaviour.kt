@@ -3,6 +3,7 @@ package engine.behaviour
 import engine.action.AttackAction
 import engine.action.CheckVisibilityAction
 import engine.action.MoveAction
+import engine.behaviour.AStarPathfinder.findPath
 import vo.DungeonLevel
 import vo.Mob
 import vo.Player
@@ -13,7 +14,7 @@ import vo.Player
  * @since MikhailShad
  * @since 0.0.1
  */
-class AggressiveBehaviour : BasicBehaviour() {
+class AggressiveBehaviour(parentBehaviour: Behaviour) : BehaviourDecorator(parentBehaviour) {
     /**
      * Двигается в сторону игрока, по возможности наносит урон
      */
@@ -28,7 +29,7 @@ class AggressiveBehaviour : BasicBehaviour() {
                 }
             }
         } else {
-            super.act(mob, dungeonLevel, player)
+            parentBehaviour.act(mob, dungeonLevel, player)
         }
     }
 }

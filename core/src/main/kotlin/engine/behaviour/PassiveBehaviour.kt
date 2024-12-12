@@ -10,7 +10,7 @@ import vo.Player
  * @since MikhailShad
  * @since 0.0.1
  */
-class PassiveBehaviour : BasicBehaviour() {
+class PassiveBehaviour : Behaviour {
     /**
      * Ничего не делает
      */

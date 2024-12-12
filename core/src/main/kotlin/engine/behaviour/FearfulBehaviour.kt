@@ -13,7 +13,7 @@ import vo.Player
  * @since MikhailShad
  * @since 0.0.1
  */
-class FearfulBehaviour : BasicBehaviour() {
+class FearfulBehaviour(parentBehaviour: Behaviour) : BehaviourDecorator(parentBehaviour) {
     override fun act(mob: Mob, dungeonLevel: DungeonLevel, player: Player) {
         if (CheckVisibilityAction.perform(mob, player, dungeonLevel)) {
             val positionsToRunAway = mob.position.neighbours.filter { dungeonLevel.isInBounds(it) }
@@ -24,7 +24,7 @@ class FearfulBehaviour : BasicBehaviour() {
                 }
             }
         } else {
-            super.act(mob, dungeonLevel, player)
+            parentBehaviour.act(mob, dungeonLevel, player)
         }
     }
 }

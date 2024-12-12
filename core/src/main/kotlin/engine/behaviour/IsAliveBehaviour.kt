@@ -10,10 +10,10 @@ import vo.Player
  * @since MikhailShad
  * @since 0.0.1
  */
-class IsAliveBehaviour<T : Behaviour>(private val behaviour: T) : Behaviour {
+class IsAliveBehaviour(parentBehaviour: Behaviour) : BehaviourDecorator(parentBehaviour) {
     override fun act(mob: Mob, dungeonLevel: DungeonLevel, player: Player) {
         if (mob.isAlive) {
-            behaviour.act(mob, dungeonLevel, player)
+            parentBehaviour.act(mob, dungeonLevel, player)
         }
     }
 }

@@ -1,5 +1,7 @@
 package vo
 
+import engine.factory.MobManager
+
 /**
  * Уровень подземелья
  *
@@ -47,7 +49,7 @@ class DungeonLevel(
         val tile = getTileAt(position)
 
         return !tile.type.blocked // тайл не блокирует движение
-                && enemies.find { it.position == position } == null // в этой позиции никого нет
+                && MobManager.getMobAt(this, position) == null // в этой позиции никого нет
     }
 }
 

@@ -1,14 +1,10 @@
 package engine.factory
 
-import engine.behaviour.AggressiveBehaviour
-import engine.behaviour.BasicBehaviour
-import engine.behaviour.FearfulBehaviour
-import engine.behaviour.PassiveBehaviour
+import engine.behaviour.*
 import vo.DungeonLevel
 import vo.Mob
 import vo.MobType
 import vo.Position
-import kotlin.random.Random
 
 /**
  * Фабрика мобов
@@ -25,9 +21,9 @@ object MobManager {
     fun spawn(position: Position): Mob {
         val mobType = decideMobType()
         val behaviour = when (mobType) {
-            MobType.GOBLIN -> AggressiveBehaviour()
-            MobType.SLIME -> if (Random.nextBoolean()) BasicBehaviour() else PassiveBehaviour()
-            MobType.BAT -> FearfulBehaviour()
+            MobType.GOBLIN -> IsAliveBehaviour(AggressiveBehaviour(BasicBehaviour()))
+            MobType.SLIME -> IsAliveBehaviour(AggressiveBehaviour(PassiveBehaviour()))
+            MobType.BAT -> IsAliveBehaviour(FearfulBehaviour(BasicBehaviour()))
         }
 
         return Mob(mobType, behaviour, position)

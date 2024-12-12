@@ -20,8 +20,3 @@ interface Behaviour {
      */
     fun act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
 }
-
-
-
-
-
