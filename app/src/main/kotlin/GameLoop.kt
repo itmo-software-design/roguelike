@@ -4,6 +4,7 @@ import engine.GameSession
 import engine.action.AttackAction
 import engine.action.MoveAction
 import engine.factory.MobManager
+import io.github.oshai.kotlinlogging.KotlinLogging
 import messages.*
 import messages.player.MoveDirection
 import messages.player.MovePlayer
@@ -39,49 +40,64 @@ class GameLoop {
     }
 
     fun start() {
-        println("Game loop started")
+        logger.info { "Game loop started" }
         isRunning.set(true)
 
         try {
             while (isRunning.get()) {
-                handleInput()
-                updateGameState()
-                RenderContext.gui.guiThread.processEventsAndUpdate()
+                if (!RenderContext.gui.guiThread.processEventsAndUpdate()) {
+                    continue
+                }
+
+                val inputMessage = waitForInput()
+                if (inputMessage != null) {
+                    handleInput(inputMessage)
+                    updateGameState()
+                    RenderContext.gui.guiThread.processEventsAndUpdate()
+                }
             }
         } finally {
             MessageBroker.unsubscribe(TOPIC_UI, uiSubscriber)
             MessageBroker.unsubscribe(TOPIC_PLAYER, playerSubscriber)
-            println("Game loop stopped")
+            logger.info { "Game loop stopped" }
         }
     }
 
-    private fun handleInput() {
-        //TODO: обработка инпута
+    private fun waitForInput(): Message? {
         var step = 0
         while (events.isNotEmpty() && step < maxStepsPerTick) {
             val message = events.poll()
-            val player = GameSession.player
-            when (message) {
-                is MovePlayer -> {
-                    MoveAction.perform(
-                        player,
-                        message.direction,
-                        dungeonLevel = GameSession.currentDungeonLevel
-                    )
-                    step += 1
-                }
+            if (message != null) {
+                return message
+            }
 
-                is PlayerInteract -> {
-                    println("Interact with specific entity if possible")
-                    tryInteract(player.position, player.direction)
-                }
+            step += 1
+        }
 
-                is OpenInventory -> {
-                    InventoryPlayerInfoScreen(
-                        InventoryScreen(player.inventory),
-                        PlayerInfoScreen(player)
-                    )
-                }
+        return null
+    }
+
+    private fun handleInput(message: Message) {
+        val player = GameSession.player
+        when (message) {
+            is MovePlayer -> {
+                MoveAction.perform(
+                    player,
+                    message.direction,
+                    dungeonLevel = GameSession.currentDungeonLevel
+                )
+            }
+
+            is PlayerInteract -> {
+                logger.debug { "Interact with specific entity if possible" }
+                tryInteract(player.position, player.direction)
+            }
+
+            is OpenInventory -> {
+                InventoryPlayerInfoScreen(
+                    InventoryScreen(player.inventory),
+                    PlayerInfoScreen(player)
+                )
             }
         }
     }
@@ -166,5 +182,9 @@ class GameLoop {
 
     fun stop() {
         isRunning.set(false)
+    }
+
+    companion object {
+        private val logger = KotlinLogging.logger {}
     }
 }
