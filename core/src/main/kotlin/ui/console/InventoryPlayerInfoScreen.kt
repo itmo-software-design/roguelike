@@ -4,8 +4,9 @@ import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.gui2.*
 
 /**
- *  The screen showing the inventory items and player characteristics.
- *  @author gkashin
+ * The screen showing the inventory items and player characteristics.
+ *
+ * @author gkashin
  * @since 0.0.1
  */
 class InventoryPlayerInfoScreen(

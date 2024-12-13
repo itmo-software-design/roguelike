@@ -1,16 +1,16 @@
 package com.github.itmosoftwaredesign.roguelike.utils.vo
 
-class Inventory : Iterable<Item> {
-    private val items: MutableList<Item> = mutableListOf()
-    private var equippedWeapon: Weapon? = null
-    private var equippedArmor: Armor? = null
+class Inventory : Iterable<_root_ide_package_.vo.Item> {
+    private val items: MutableList<_root_ide_package_.vo.Item> = mutableListOf()
+    private var equippedWeapon: _root_ide_package_.vo.Weapon? = null
+    private var equippedArmor: _root_ide_package_.vo.Armor? = null
 
-    fun addItem(item: Item) {
+    fun addItem(item: _root_ide_package_.vo.Item) {
         items.add(item)
         println("${item.name} added to the inventory.")
     }
 
-    fun removeItem(item: Item) {
+    fun removeItem(item: _root_ide_package_.vo.Item) {
         if (items.remove(item)) {
             if (item == equippedWeapon) {
                 equippedWeapon = null
@@ -24,14 +24,14 @@ class Inventory : Iterable<Item> {
         }
     }
 
-    fun equipItem(item: Item) {
+    fun equipItem(item: _root_ide_package_.vo.Item) {
         when (item) {
-            is Weapon -> {
+            is _root_ide_package_.vo.Weapon -> {
                 equippedWeapon = item
                 println("${item.name} equipped as a weapon.")
             }
 
-            is Armor -> {
+            is _root_ide_package_.vo.Armor -> {
                 equippedArmor = item
                 println("${item.name} equipped as armor.")
             }
@@ -40,22 +40,22 @@ class Inventory : Iterable<Item> {
         }
     }
 
-    fun unequipItem(item: Item) {
+    fun unequipItem(item: _root_ide_package_.vo.Item) {
         when (item) {
-            is Weapon -> if (equippedWeapon == item) {
+            is _root_ide_package_.vo.Weapon -> if (equippedWeapon == item) {
                 equippedWeapon = null
                 println("${item.name} unequipped as a weapon.")
             }
 
-            is Armor -> if (equippedArmor == item) {
+            is _root_ide_package_.vo.Armor -> if (equippedArmor == item) {
                 equippedArmor = null
                 println("${item.name} unequipped as armor.")
             }
         }
     }
 
-    fun getEquippedWeapon(): Weapon? = equippedWeapon
-    fun getEquippedArmor(): Armor? = equippedArmor
+    fun getEquippedWeapon(): _root_ide_package_.vo.Weapon? = equippedWeapon
+    fun getEquippedArmor(): _root_ide_package_.vo.Armor? = equippedArmor
 
-    override fun iterator(): Iterator<Item> = items.iterator()
+    override fun iterator(): Iterator<_root_ide_package_.vo.Item> = items.iterator()
 }
