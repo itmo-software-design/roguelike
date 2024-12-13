@@ -1,6 +1,5 @@
 package vo
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
 import messages.player.MoveDirection
 
 /**

@@ -18,7 +18,7 @@ class Weapon(
     name: String,
     description: String,
     val damage: Int
-) : _root_ide_package_.vo.Item(name, description), _root_ide_package_.vo.Equippable {
+) : Item(name, description), Equippable {
 
     override fun equip() {
         println("$name equipped. Damage: $damage")
@@ -29,7 +29,7 @@ class Armor(
     name: String,
     description: String,
     val defense: Int
-) : _root_ide_package_.vo.Item(name, description), _root_ide_package_.vo.Equippable {
+) : Item(name, description), Equippable {
 
     override fun equip() {
         println("$name equipped. Defense: $defense")
@@ -40,7 +40,7 @@ class Consumable(
     name: String,
     description: String,
     val effect: String
-) : _root_ide_package_.vo.Item(name, description) {
+) : Item(name, description) {
 
     fun consume() {
         println("$name consumed. Effect: $effect")

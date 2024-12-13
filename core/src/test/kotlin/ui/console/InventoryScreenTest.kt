@@ -1,7 +1,6 @@
 package ui.console
 
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
 import com.googlecode.lanterna.gui2.Border
 import com.googlecode.lanterna.gui2.Panel
 import com.googlecode.lanterna.gui2.menu.Menu
@@ -10,6 +9,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import vo.Inventory
 import vo.Item
 import vo.Weapon
 import kotlin.test.assertEquals

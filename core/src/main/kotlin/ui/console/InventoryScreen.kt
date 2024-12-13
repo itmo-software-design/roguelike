@@ -1,6 +1,5 @@
 package ui.console
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.*
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.gui2.*
 import com.googlecode.lanterna.gui2.dialogs.MessageDialog
@@ -8,6 +7,7 @@ import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton
 import com.googlecode.lanterna.gui2.menu.Menu
 import com.googlecode.lanterna.gui2.menu.MenuItem
 import ui.localize.localize
+import vo.Inventory
 import kotlin.math.max
 
 /**

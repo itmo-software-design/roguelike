@@ -1,7 +1,7 @@
 package engine
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
 import vo.DungeonLevel
+import vo.Inventory
 import vo.Player
 import java.nio.file.Path
 

@@ -1,6 +1,5 @@
 package vo
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.Inventory
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
