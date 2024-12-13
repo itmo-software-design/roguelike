@@ -1,0 +1,267 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     contentStyleType="text/css" height="635px" preserveAspectRatio="none"
+     style="width:1747px;height:635px;background:#FFFFFF;" version="1.1" viewBox="0 0 1747 635"
+     width="1747px" zoomAndPan="magnify">
+    <defs/>
+    <g><!--cluster Roguelike-->
+        <g id="cluster_Roguelike">
+            <rect fill="none" height="522.95" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:1;" width="1734" x="7" y="106.99"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold"
+                  lengthAdjust="spacing" textLength="71.4014" x="838.2993" y="122.5252">Roguelike
+            </text>
+        </g><!--cluster Utils-->
+        <g id="cluster_Utils">
+            <rect fill="none" height="113.48" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:1;" width="462" x="39" y="212.48"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold"
+                  lengthAdjust="spacing" textLength="33.0039" x="253.498" y="228.0152">Utils
+            </text>
+        </g><!--cluster Game Logic-->
+        <g id="cluster_Game Logic">
+            <rect fill="none" height="274.97" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:1;" width="608" x="541" y="212.48"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold"
+                  lengthAdjust="spacing" textLength="83.3848" x="803.3076" y="228.0152">Game Logic
+            </text>
+        </g><!--cluster UI-->
+        <g id="cluster_UI">
+            <rect fill="none" height="231.98" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:1;" width="520" x="1189" y="365.96"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold"
+                  lengthAdjust="spacing" textLength="14.9502" x="1441.5249" y="381.4952">UI
+            </text>
+        </g><!--entity KeyboardInputHandler-->
+        <g id="elem_KeyboardInputHandler">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="192.4893" x="1145.76" y="141.99"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="1318.2493" y="146.99"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1316.2493" y="148.99"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1316.2493" y="152.99"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="152.4893" x="1160.76" y="175.5252">KeyboardInputHandler
+            </text>
+        </g><!--entity SaveLoadManager-->
+        <g id="elem_SaveLoadManager">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="161.3926" x="63.3" y="255.48"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="204.6926" y="260.48"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="202.6926" y="262.48"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="202.6926" y="266.48"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="121.3926" x="78.3" y="289.0152">SaveLoadManager
+            </text>
+        </g><!--entity RandomSeedGenerator-->
+        <g id="elem_RandomSeedGenerator">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="195.1348" x="259.43" y="255.48"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="434.5648" y="260.48"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="432.5648" y="262.48"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="432.5648" y="266.48"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="155.1348" x="274.43" y="289.0152">RandomSeedGenerator
+            </text>
+        </g><!--entity Game Manager-->
+        <g id="elem_Game Manager">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="141.6162" x="759.19" y="255.48"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="880.8062" y="260.48"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="878.8062" y="262.48"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="878.8062" y="266.48"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="101.6162" x="774.19" y="289.0152">Game Manager
+            </text>
+        </g><!--entity Level Manager-->
+        <g id="elem_Level Manager">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="137.2549" x="573.37" y="408.96"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="690.6249" y="413.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="688.6249" y="415.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="688.6249" y="419.96"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="97.2549" x="588.37" y="442.4952">Level Manager
+            </text>
+        </g><!--entity Character Manager-->
+        <g id="elem_Character Manager">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="168.3994" x="745.8" y="408.96"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="894.1994" y="413.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="892.1994" y="415.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="892.1994" y="419.96"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="128.3994" x="760.8" y="442.4952">Character Manager
+            </text>
+        </g><!--entity Combat Manager-->
+        <g id="elem_Combat Manager">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="156.0332" x="948.98" y="408.96"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="1085.0132" y="413.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1083.0132" y="415.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1083.0132" y="419.96"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="116.0332" x="963.98" y="442.4952">Combat Manager
+            </text>
+        </g><!--entity Main Menu-->
+        <g id="elem_Main Menu">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="114.1904" x="1253.9" y="408.96"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="1348.0904" y="413.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1346.0904" y="415.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1346.0904" y="419.96"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="74.1904" x="1268.9" y="442.4952">Main Menu
+            </text>
+        </g><!--entity Inventory Screen-->
+        <g id="elem_Inventory Screen">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="152.4922" x="1473.75" y="408.96"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="1606.2422" y="413.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1604.2422" y="415.96"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1604.2422" y="419.96"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="112.4922" x="1488.75" y="442.4952">Inventory Screen
+            </text>
+        </g><!--entity Game Scene-->
+        <g id="elem_Game Scene">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="122.1475" x="1542.93" y="519.45"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="1645.0775" y="524.45"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1643.0775" y="526.45"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1643.0775" y="530.45"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="82.1475" x="1557.93" y="552.9852">Game Scene
+            </text>
+        </g><!--entity Status Bar-->
+        <g id="elem_Status Bar">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="107.5117" x="1221.24" y="519.45"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="1308.7517" y="524.45"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1306.7517" y="526.45"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1306.7517" y="530.45"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="67.5117" x="1236.24" y="552.9852">Status Bar
+            </text>
+        </g><!--entity Notification Bar-->
+        <g id="elem_Notification Bar">
+            <rect fill="#F1F1F1" height="46.4883" rx="2.5" ry="2.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="144.8359" x="1363.58" y="519.45"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15"
+                  x="1488.4159" y="524.45"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1486.4159" y="526.45"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4"
+                  x="1486.4159" y="530.45"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="104.8359" x="1378.58" y="552.9852">Notification Bar
+            </text>
+        </g><!--entity User-->
+        <g id="elem_User">
+            <ellipse cx="1419.0026" cy="14" fill="#F1F1F1" rx="8" ry="8"
+                     style="stroke:#181818;stroke-width:0.5;"/>
+            <path
+                d="M1419.0026,22 L1419.0026,49 M1406.0026,30 L1432.0026,30 M1419.0026,49 L1406.0026,64 M1419.0026,49 L1432.0026,64 "
+                fill="none" style="stroke:#181818;stroke-width:0.5;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="30.3652" x="1403.82" y="79.0352">User
+            </text>
+        </g><!--link User to KeyboardInputHandler-->
+        <g id="link_User_KeyboardInputHandler">
+            <path d="M1403.6,55.14 C1375.17,74.33 1318.8227,112.3726 1280.4327,138.2926 "
+                  fill="none" id="User-to-KeyboardInputHandler"
+                  style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1275.46,141.65,1285.1573,139.929,1279.6039,138.8521,1280.6807,133.2987,1275.46,141.65"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--link KeyboardInputHandler to Game Logic-->
+        <g id="link_KeyboardInputHandler_Game Logic">
+            <path
+                d="M1221.16,188.79 C1207.285,203.805 1188.745,223.8725 1172.7888,241.145 C1164.8106,249.7813 1157.4784,257.7188 1151.6983,263.9766 C1150.9758,264.7588 1150.2775,265.5148 1149.6052,266.2426 C1149.4372,266.4245 1153.3418,262.1972 1153.177,262.3756 "
+                fill="none" id="KeyboardInputHandler-to-Game Logic"
+                style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1149.106,266.7831,1158.1509,262.8858,1152.4985,263.1102,1152.2741,257.4578,1149.106,266.7831"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--link Game Manager to Level Manager-->
+        <g id="link_Game Manager_Level Manager">
+            <path
+                d="M794.58,302.17 C774.5,315.37 749.23,332.79 728,349.96 C705.16,368.43 685.2426,387.3774 668.3726,404.2474 "
+                fill="none" id="Game Manager-to-Level Manager"
+                style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="664.13,408.49,673.3224,404.9545,667.6655,404.9545,667.6655,399.2976,664.13,408.49"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--link Game Manager to Character Manager-->
+        <g id="link_Game Manager_Character Manager">
+            <path d="M830,302.4 C830,331.12 830,374.31 830,402.87 " fill="none"
+                  id="Game Manager-to-Character Manager" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818" points="830,408.87,834,399.87,830,403.87,826,399.87,830,408.87"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--link Game Manager to Combat Manager-->
+        <g id="link_Game Manager_Combat Manager">
+            <path
+                d="M852.2,302.28 C866.26,315.47 885.45,331.52 905,341.96 C916.04,347.86 921,343.99 932,349.96 C960.41,365.4 983.705,386.1298 1001.745,404.3198 "
+                fill="none" id="Game Manager-to-Combat Manager"
+                style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1005.97,408.58,1002.4726,399.3731,1002.4491,405.0299,996.7923,405.0064,1005.97,408.58"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--link Game Logic to UI-->
+        <g id="link_Game Logic_UI">
+            <path
+                d="M1149.012,281.4578 C1149.211,281.492 1149.4127,281.5266 1149.6172,281.5618 C1150.4353,281.7023 1151.2981,281.8504 1152.2046,282.0057 C1154.0176,282.3163 1156.0054,282.6559 1158.1607,283.023 C1166.782,284.4913 1178.0823,286.3983 1191.5866,288.6378 C1218.595,293.1169 1254.4188,298.9263 1295.255,305.2175 C1376.9275,317.8 1478.65,332.31 1570,341.96 C1583.18,343.36 1679.37,340.86 1689,349.96 C1692.045,352.8413 1694.5211,356.1373 1696.5189,359.7144 C1697.5179,361.5029 1698.3972,363.3617 1699.1684,365.274 C1699.2166,365.3935 1697.0609,359.9325 1697.1082,360.0525 "
+                fill="none" id="Game Logic-to-UI" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1699.3117,365.6332,1699.727,355.7931,1697.4755,360.9826,1692.286,358.7311,1699.3117,365.6332"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--reverse link Utils to Game Logic-->
+        <g id="link_Utils_Game Logic">
+            <path
+                d="M503.8608,250.7879 C504.3212,249.8931 502.4095,253.6579 502.8991,252.734 C504.8577,249.0384 507.0497,245.1253 509.4688,241.1188 C519.145,225.0925 532.455,207.57 549,196.48 C555.63,192.03 558.57,193.37 566.5,192.48 C596.59,189.08 1081.41,189.08 1111.5,192.48 C1119.43,193.37 1123.66,190.55 1129,196.48 C1131.745,199.525 1134.0028,202.9113 1135.8479,206.525 C1136.7704,208.3319 1137.5898,210.1957 1138.3153,212.1022 C1138.3606,212.2213 1138.4056,212.3406 1138.4502,212.4601 "
+                fill="none" id="Utils-backto-Game Logic" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="501.1315,256.1312,508.7877,249.9359,503.4059,251.6785,501.6633,246.2967,501.1315,256.1312"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--reverse link User to UI-->
+        <g id="link_User_UI">
+            <path
+                d="M1440.6386,46.8933 C1471.1386,50.4933 1533.11,61.74 1574,98.99 C1630.03,150.035 1661.075,228.7225 1678.21,296.705 C1682.4938,313.7006 1685.9081,330.0272 1688.6262,345.0855 C1689.3057,348.8501 1689.9417,352.5354 1690.5368,356.1321 C1690.8344,357.9304 1691.1218,359.7066 1691.3993,361.4595 C1691.5381,362.3359 1691.6744,363.2065 1691.8083,364.0711 C1691.8752,364.5034 1691.9415,364.9343 1692.0072,365.3636 "
+                fill="none" id="User-backto-UI" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1434.68,46.19,1443.1491,51.2174,1439.6455,46.7761,1444.0868,43.2725,1434.68,46.19"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--SRC=[XLFBReCm4BpxArQvymizj8SKbVGGn2dAOOCtn2fuaLceeef_ht6KyaXGESvZDRjZX6iGXXEBS0NQECh5i5KASs47MKDEgG54MvG4cpqNBPNcYpRmey1_Xm-wdXYTZctToZjQNP8xgi1DV9cOihbxWY_5ZX96lKEBnM3vO_P-25SfaTwI9OS-o8tjbrEtM14aN9XyDZh03tE52v8BkOaog1Fgg7oK1-xjWivVmfjMUAvEA8za_pnl5izoxj1Os95j9yl7jYFhDxv2cZiY-t_-i6sQ-rCjmgM2qZRmYilKdopcR78ScfxJzzozKaFr46d-jj7BMilFuT4rzkErirP6pUByQx8dJQnA5wLCOuogB5uo9PqbCCDRFQeiXgYjFN3x2Nu1]-->
+    </g>
+</svg>

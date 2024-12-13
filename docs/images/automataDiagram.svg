@@ -1,0 +1,492 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     contentStyleType="text/css" height="855px" preserveAspectRatio="none"
+     style="width:2412px;height:855px;background:#FFFFFF;" version="1.1" viewBox="0 0 2412 855"
+     width="2412px" zoomAndPan="magnify">
+    <defs/>
+    <g><!--cluster BeforeGame-->
+        <g id="cluster_BeforeGame">
+            <path
+                d="M1379.2615,7 L1817.2615,7 A12.5,12.5 0 0 1 1829.7615,19.5 L1829.7615,28.4883 L1366.7615,28.4883 L1366.7615,19.5 A12.5,12.5 0 0 1 1379.2615,7 "
+                fill="#F1F1F1" style="stroke:#F1F1F1;stroke-width:1;"/>
+            <rect fill="none" height="436" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="463" x="1366.7615" y="7"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1366.7615" x2="1829.7615"
+                  y1="28.4883" y2="28.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="112.4307" x="1542.0462" y="24.5352">Before the Game
+            </text>
+        </g><!--cluster LevelProgression-->
+        <g id="cluster_LevelProgression">
+            <path
+                d="M2089.2615,492 L2212.2615,492 A12.5,12.5 0 0 1 2224.7615,504.5 L2224.7615,513.4883 L2076.7615,513.4883 L2076.7615,504.5 A12.5,12.5 0 0 1 2089.2615,492 "
+                fill="#F1F1F1" style="stroke:#F1F1F1;stroke-width:1;"/>
+            <rect fill="none" height="101" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="148" x="2076.7615" y="492"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="2076.7615" x2="2224.7615"
+                  y1="513.4883" y2="513.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="118.7197" x="2091.4017" y="509.5352">Level Progression
+            </text>
+        </g><!--cluster MainGameLoop-->
+        <g id="cluster_MainGameLoop">
+            <path
+                d="M64.2615,492 L2040.2615,492 A12.5,12.5 0 0 1 2052.7615,504.5 L2052.7615,513.4883 L51.7615,513.4883 L51.7615,504.5 A12.5,12.5 0 0 1 64.2615,492 "
+                fill="#F1F1F1" style="stroke:#F1F1F1;stroke-width:1;"/>
+            <rect fill="none" height="357" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="2001" x="51.7615" y="492"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="51.7615" x2="2052.7615" y1="513.4883"
+                  y2="513.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="113.5791" x="995.472" y="509.5352">Main Game Loop
+            </text>
+        </g>
+        <ellipse cx="1613.7615" cy="52" fill="#222222" rx="10" ry="10"
+                 style="stroke:#222222;stroke-width:1;"/>
+        <g id="BeforeGame.MainMenu">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="89.7607" x="1568.8815" y="123"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1568.8815" x2="1658.6423"
+                  y1="149.4883" y2="149.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="69.7607" x="1578.8815" y="141.5352">MainMenu
+            </text>
+        </g>
+        <g id="BeforeGame.NewGame">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="87.6484" x="1654.9415" y="250"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1654.9415" x2="1742.59" y1="276.4883"
+                  y2="276.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="67.6484" x="1664.9415" y="268.5352">NewGame
+            </text>
+        </g>
+        <g id="BeforeGame.LoadGame">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="91.3262" x="1480.1015" y="250"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1480.1015" x2="1571.4277"
+                  y1="276.4883" y2="276.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="71.3262" x="1490.1015" y="268.5352">LoadGame
+            </text>
+        </g>
+        <g id="BeforeGame.Exit">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="50" x="1387.7615" y="250"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1387.7615" x2="1437.7615"
+                  y1="276.4883" y2="276.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="25.457" x="1400.033" y="268.5352">Exit
+            </text>
+        </g>
+        <g id="BeforeGame.GenerateSeed">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="112.8525" x="1668.3315" y="377"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1668.3315" x2="1781.1841"
+                  y1="403.4883" y2="403.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="92.8525" x="1678.3315" y="395.5352">GenerateSeed
+            </text>
+        </g>
+        <g id="BeforeGame.LoadState">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="86.1514" x="1406.6815" y="377"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1406.6815" x2="1492.8329"
+                  y1="403.4883" y2="403.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="66.1514" x="1416.6815" y="395.5352">LoadState
+            </text>
+        </g>
+        <g id="LevelProgression.GenerateLevel">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="115.2588" x="2093.1315" y="527"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="2093.1315" x2="2208.3903"
+                  y1="553.4883" y2="553.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="95.2588" x="2103.1315" y="545.5352">GenerateLevel
+            </text>
+        </g>
+        <g id="MainGameLoop.InGame">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="71.4404" x="1206.0415" y="527"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1206.0415" x2="1277.4819"
+                  y1="553.4883" y2="553.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="51.4404" x="1216.0415" y="545.5352">InGame
+            </text>
+        </g>
+        <g id="MainGameLoop.Movement">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="90.499" x="138.5115" y="656"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="138.5115" x2="229.0105" y1="682.4883"
+                  y2="682.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="70.499" x="148.5115" y="674.5352">Movement
+            </text>
+        </g>
+        <g id="MainGameLoop.Interaction">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="92.96" x="646.2815" y="656"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="646.2815" x2="739.2415" y1="682.4883"
+                  y2="682.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="72.96" x="656.2815" y="674.5352">Interaction
+            </text>
+        </g>
+        <g id="MainGameLoop.Attack">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="63.2168" x="1042.1515" y="656"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1042.1515" x2="1105.3683"
+                  y1="682.4883" y2="682.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="43.2168" x="1052.1515" y="674.5352">Attack
+            </text>
+        </g>
+        <g id="MainGameLoop.Inventory">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="83.335" x="1571.0915" y="656"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1571.0915" x2="1654.4265"
+                  y1="682.4883" y2="682.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="63.335" x="1581.0915" y="674.5352">Inventory
+            </text>
+        </g>
+        <g id="MainGameLoop.SaveExit">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="75.7744" x="1375.8715" y="656"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1375.8715" x2="1451.6459"
+                  y1="682.4883" y2="682.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="55.7744" x="1385.8715" y="674.5352">SaveExit
+            </text>
+        </g>
+        <g id="MainGameLoop.LevelComplete">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="119.4082" x="1889.0615" y="656"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1889.0615" x2="2008.4697"
+                  y1="682.4883" y2="682.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="99.4082" x="1899.0615" y="674.5352">LevelComplete
+            </text>
+        </g>
+        <g id="MainGameLoop.GameOver">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="90.3691" x="330.5815" y="656"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="330.5815" x2="420.9507" y1="682.4883"
+                  y2="682.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="70.3691" x="340.5815" y="674.5352">GameOver
+            </text>
+        </g>
+        <g id="MainGameLoop.SaveGame">
+            <rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5"
+                  style="stroke:#181818;stroke-width:0.5;" width="89.0361" x="1864.2415" y="783"/>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="1864.2415" x2="1953.2776"
+                  y1="809.4883" y2="809.4883"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+                  textLength="69.0361" x="1874.2415" y="801.5352">SaveGame
+            </text>
+        </g>
+        <ellipse cx="20.7615" cy="808" fill="none" rx="11" ry="11"
+                 style="stroke:#222222;stroke-width:1;"/>
+        <ellipse cx="20.7615" cy="808" fill="#222222" rx="6" ry="6"
+                 style="stroke:#222222;stroke-width:1;"/><!--link *start*BeforeGame to MainMenu-->
+        <g id="link_*start*BeforeGame_MainMenu">
+            <path d="M1613.7615,62.36 C1613.7615,76.29 1613.7615,96.95 1613.7615,116.65 "
+                  fill="none" id="*start*BeforeGame-to-MainMenu"
+                  style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1613.7615,122.65,1617.7615,113.65,1613.7615,117.65,1609.7615,113.65,1613.7615,122.65"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--link MainMenu to NewGame-->
+        <g id="link_MainMenu_NewGame">
+            <path
+                d="M1633.6115,173.28 C1640.8315,182.42 1648.8915,193.02 1655.7615,203 C1666.1415,218.08 1673.7778,230.4876 1681.8878,244.3876 "
+                fill="none" id="MainMenu-to-NewGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1684.9115,249.57,1683.8309,239.7806,1682.3918,245.2513,1676.921,243.8122,1684.9115,249.57"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="117.146" x="1666.7915" y="216.5684">select "New Game"
+            </text>
+        </g><!--link MainMenu to LoadGame-->
+        <g id="link_MainMenu_LoadGame">
+            <path
+                d="M1568.5515,165.58 C1552.0415,174.08 1535.1315,186.26 1525.7615,203 C1517.8715,217.09 1517.2164,229.4098 1519.2764,243.8898 "
+                fill="none" id="MainMenu-to-LoadGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1520.1215,249.83,1522.814,240.3563,1519.4173,244.8798,1514.8938,241.4831,1520.1215,249.83"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="120.561" x="1526.7615" y="216.5684">select "Load Game"
+            </text>
+        </g><!--link MainMenu to Exit-->
+        <g id="link_MainMenu_Exit">
+            <path
+                d="M1568.7615,151.48 C1529.1015,156 1472.2615,168.54 1436.7615,203 C1424.1615,215.23 1419.2665,228.4108 1416.4265,243.7108 "
+                fill="none" id="MainMenu-to-Exit" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1415.3315,249.61,1420.9069,241.4912,1416.244,244.694,1413.0412,240.0311,1415.3315,249.61"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="73.855" x="1437.7615" y="216.5684">select "Exit"
+            </text>
+        </g><!--link NewGame to GenerateSeed-->
+        <g id="link_NewGame_GenerateSeed">
+            <path d="M1703.8315,300.4 C1708.4215,322.42 1713.8986,348.7859 1718.4786,370.7859 "
+                  fill="none" id="NewGame-to-GenerateSeed" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1719.7015,376.66,1721.7832,367.0337,1718.6825,371.7649,1713.9512,368.6642,1719.7015,376.66"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="99.6709" x="1714.3215" y="343.5684">"Generate seed"
+            </text>
+        </g><!--link LoadGame to LoadState-->
+        <g id="link_LoadGame_LoadState">
+            <path d="M1510.9315,300.4 C1497.5315,322.42 1481.0593,349.5336 1467.6793,371.5336 "
+                  fill="none" id="LoadGame-to-LoadState" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1464.5615,376.66,1472.6557,371.049,1467.1596,372.388,1465.8206,366.892,1464.5615,376.66"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="118.8408" x="1493.3115" y="343.5684">"Load saved game"
+            </text>
+        </g><!--link LoadState to InGame-->
+        <g id="link_LoadState_InGame">
+            <path d="M1415.4115,427.44 C1376.8715,454.86 1319.6107,495.6121 1281.0507,523.0421 "
+                  fill="none" id="LoadState-to-InGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1276.1615,526.52,1285.8139,524.5625,1280.2358,523.6217,1281.1766,518.0436,1276.1615,526.52"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="114.2007" x="1371.5115" y="472.5684">"Start Game Loop"
+            </text>
+        </g><!--link GenerateSeed to GenerateLevel-->
+        <g id="link_GenerateSeed_GenerateLevel">
+            <path
+                d="M1781.6115,410.72 C1848.6615,421.24 1962.4215,443.56 2052.7615,484 C2077.4015,495.03 2097.7267,508.6735 2116.3467,522.9235 "
+                fill="none" id="GenerateSeed-to-GenerateLevel"
+                style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="2121.1115,526.57,2116.3954,517.9237,2117.1409,523.5312,2111.5334,524.2768,2121.1115,526.57"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="128.5654" x="2028.5615" y="472.5684">"Generate first level"
+            </text>
+        </g><!--link GenerateLevel to InGame-->
+        <g id="link_GenerateLevel_InGame">
+            <path d="M2092.8615,552 C1921.0615,552 1423.4615,552 1283.9515,552 " fill="none"
+                  id="GenerateLevel-to-InGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1277.9515,552,1286.9515,556,1282.9515,552,1286.9515,548,1277.9515,552"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="114.2007" x="1628.3115" y="545.5684">"Start Game Loop"
+            </text>
+        </g><!--link GenerateLevel to InGame-->
+        <g id="link_GenerateLevel_InGame">
+            <path
+                d="M2092.6815,556.65 C1996.1115,563.84 1796.4015,576.38 1627.3115,572 C1498.6615,568.67 1352.098,559.4819 1283.868,554.9019 "
+                fill="none" id="GenerateLevel-to-InGame-1" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1277.8815,554.5,1286.5934,559.0938,1282.8703,554.8349,1287.1292,551.1118,1277.8815,554.5"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="114.2007" x="1628.3115" y="568.5684">"Start Game Loop"
+            </text>
+        </g><!--link InGame to Movement-->
+        <g id="link_InGame_Movement">
+            <path
+                d="M1205.8115,553.84 C1041.3815,557.86 365.1215,576.24 276.7615,609 C250.0915,618.89 229.1573,635.0849 211.6973,651.4649 "
+                fill="none" id="InGame-to-Movement" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="207.3215,655.57,216.622,652.3295,210.968,652.149,211.1485,646.4951,207.3215,655.57"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="148.7002" x="277.7615" y="622.5684">"Input Move Command"
+            </text>
+        </g><!--link Movement to InGame-->
+        <g id="link_Movement_InGame">
+            <path
+                d="M146.3515,655.68 C128.9715,641.49 114.9015,623.58 128.7615,609 C166.7415,569.06 1012.982,555.9277 1199.792,553.5077 "
+                fill="none" id="Movement-to-InGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1205.7915,553.43,1196.7405,549.5469,1200.7919,553.4948,1196.8441,557.5462,1205.7915,553.43"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="107.3833" x="129.7615" y="622.5684">"Move Complete"
+            </text>
+        </g><!--link InGame to Interaction-->
+        <g id="link_InGame_Interaction">
+            <path
+                d="M1205.5815,553.31 C1074.4815,554.81 629.7615,563.25 587.7615,609 C564.6915,634.13 602.3527,652.973 640.1527,665.423 "
+                fill="none" id="InGame-to-Interaction" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="645.8515,667.3,638.5546,660.6853,641.1025,665.7358,636.0519,668.2837,645.8515,667.3"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="163.4839" x="588.7615" y="622.5684">"Input Interact Command"
+            </text>
+        </g><!--link Interaction to InGame-->
+        <g id="link_Interaction_InGame">
+            <path
+                d="M727.4415,655.65 C751.8515,639.75 785.8915,619.98 818.7615,609 C956.4715,563 1125.2726,554.7229 1199.6426,553.3229 "
+                fill="none" id="Interaction-to-InGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1205.6415,553.21,1196.5678,549.3801,1200.6424,553.3041,1196.7184,557.3787,1205.6415,553.21"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="141.978" x="819.7615" y="622.5684">"Interaction Complete"
+            </text>
+        </g><!--link InGame to Attack-->
+        <g id="link_InGame_Attack">
+            <path
+                d="M1205.5515,555.15 C1139.6615,559.91 1004.3115,573.82 975.7615,609 C952.9915,637.06 999.3452,657.6468 1035.9652,669.3268 "
+                fill="none" id="InGame-to-Attack" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1041.6815,671.15,1034.3226,664.6043,1036.9179,669.6307,1031.8916,672.226,1041.6815,671.15"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="155.6763" x="976.7615" y="622.5684">"Input Attack Command"
+            </text>
+        </g><!--link Attack to InGame-->
+        <g id="link_Attack_InGame">
+            <path d="M1105.7715,655.8 C1135.4915,633.34 1174.7348,603.6677 1204.5848,581.1077 "
+                  fill="none" id="Attack-to-InGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1209.3715,577.49,1199.7797,579.7254,1205.3826,580.5047,1204.6033,586.1076,1209.3715,577.49"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="114.3594" x="1163.8015" y="622.5684">"Attack Complete"
+            </text>
+        </g><!--link InGame to Inventory-->
+        <g id="link_InGame_Inventory">
+            <path
+                d="M1277.8515,555.08 C1375.6715,561.1 1640.2815,579.93 1665.7615,609 C1678.7415,623.81 1670.0611,637.6717 1653.5611,651.7117 "
+                fill="none" id="InGame-to-Inventory" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1648.9915,655.6,1658.4381,652.8139,1652.7995,652.3597,1653.2537,646.7212,1648.9915,655.6"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="174.3574" x="1672.0015" y="622.5684">"Input Inventory Command"
+            </text>
+        </g><!--link Inventory to InGame-->
+        <g id="link_Inventory_InGame">
+            <path
+                d="M1580.0415,655.59 C1555.4215,637.62 1523.4915,615.28 1508.7615,609 C1430.3315,575.58 1336.1597,562.0868 1283.6197,556.6568 "
+                fill="none" id="Inventory-to-InGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1277.6515,556.04,1286.1926,560.944,1282.625,556.554,1287.015,552.9864,1277.6515,556.04"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="115.4258" x="1538.1915" y="622.5684">"Inventory Closed"
+            </text>
+        </g><!--link InGame to SaveExit-->
+        <g id="link_InGame_SaveExit">
+            <path
+                d="M1268.8315,577.3 C1285.6315,591.98 1307.9215,610.74 1328.7615,626 C1343.5715,636.85 1355.4362,644.7117 1370.2962,653.9517 "
+                fill="none" id="InGame-to-SaveExit" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1375.3915,657.12,1369.8608,648.9707,1371.1454,654.4798,1365.6364,655.7645,1375.3915,657.12"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="174.1543" x="1329.7615" y="622.5684">"Input Save/Exit Command"
+            </text>
+        </g><!--link InGame to LevelComplete-->
+        <g id="link_InGame_LevelComplete">
+            <path
+                d="M1277.6315,553.71 C1392.2415,556.36 1748.2315,567.81 1854.7615,609 C1881.4615,619.33 1902.6483,635.536 1920.3783,651.786 "
+                fill="none" id="InGame-to-LevelComplete" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1924.8015,655.84,1920.8693,646.8102,1921.1155,652.4617,1915.464,652.7078,1924.8015,655.84"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="114.3149" x="1887.0215" y="622.5684">"Level Completed"
+            </text>
+        </g><!--link InGame to GameOver-->
+        <g id="link_InGame_GameOver">
+            <path
+                d="M1205.9515,552.79 C1072.1915,552.44 602.5315,555.14 464.7615,609 C438.9915,619.08 419.0751,635.1587 402.4351,651.4787 "
+                fill="none" id="InGame-to-GameOver" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="398.1515,655.68,407.3778,652.2339,401.7212,652.179,401.7761,646.5224,398.1515,655.68"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="107.7705" x="465.7615" y="622.5684">"Player Defeated"
+            </text>
+        </g><!--link Attack to Attack-->
+        <g id="link_Attack_Attack">
+            <path
+                d="M1105.6315,669.7 C1123.6715,667.5 1140.3715,671.26 1140.3715,681 C1140.3715,690.74 1129.6274,695.2263 1111.5874,693.0263 "
+                fill="none" id="Attack-to-Attack" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1105.6315,692.3,1114.0811,697.3601,1110.5947,692.9053,1115.0495,689.4189,1105.6315,692.3"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="111.0015" x="1146.3715" y="686.0684">"Attack Continue"
+            </text>
+        </g><!--link Inventory to Inventory-->
+        <g id="link_Inventory_Inventory">
+            <path
+                d="M1654.5615,669.28 C1673.2615,668.16 1689.4315,672.07 1689.4315,681 C1689.4315,689.93 1679.2508,694.1987 1660.5508,693.0787 "
+                fill="none" id="Inventory-to-Inventory" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1654.5615,692.72,1663.3063,697.2509,1659.5526,693.0189,1663.7846,689.2652,1654.5615,692.72"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="77.6953" x="1695.4315" y="686.0684">"Apply Item"
+            </text>
+        </g><!--link SaveExit to SaveGame-->
+        <g id="link_SaveExit_SaveGame">
+            <path d="M1451.7815,691.6 C1541.7715,714.33 1761.6542,769.8507 1858.1042,794.2107 "
+                  fill="none" id="SaveExit-to-SaveGame" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1863.9215,795.68,1856.175,789.5979,1859.0737,794.4556,1854.216,797.3543,1863.9215,795.68"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="148.313" x="1691.9015" y="749.5684">"Confirm Save and Exit"
+            </text>
+        </g><!--link LevelComplete to GenerateLevel-->
+        <g id="link_LevelComplete_GenerateLevel">
+            <path
+                d="M1994.1815,655.56 C2010.3415,646.57 2028.5415,636.12 2044.7615,626 C2069.4115,610.63 2091.4669,595.5103 2112.0169,580.9403 "
+                fill="none" id="LevelComplete-to-GenerateLevel"
+                style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="2116.9115,577.47,2107.2561,579.4124,2112.8327,580.3619,2111.8831,585.9385,2116.9115,577.47"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="136.0747" x="2069.4715" y="622.5684">"Generate Next Level"
+            </text>
+        </g><!--link SaveGame to MainMenu-->
+        <g id="link_SaveGame_MainMenu">
+            <path
+                d="M1953.4715,800.79 C2048.4615,786.34 2261.7615,746.69 2261.7615,682 C2261.7615,274 2261.7615,274 2261.7615,274 C2261.7615,212.52 1812.267,166.8119 1665.047,153.4619 "
+                fill="none" id="SaveGame-to-MainMenu" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="1659.0715,152.92,1667.6735,157.7164,1664.0511,153.3716,1668.396,149.7491,1659.0715,152.92"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="141.4575" x="2262.7615" y="472.5684">"Return to Main Menu"
+            </text>
+        </g><!--link GameOver to *end*-->
+        <g id="link_GameOver_*end*">
+            <path
+                d="M330.3015,690.8 C265.7515,704.46 145.0215,734.39 51.7615,783 C43.1915,787.47 39.0901,790.3898 33.1301,795.6498 "
+                fill="none" id="GameOver-to-*end*" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="28.6315,799.62,38.0262,796.6637,32.3803,796.3115,32.7326,790.6656,28.6315,799.62"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+                  textLength="79.7012" x="164.2115" y="749.5684">"Game Ends"
+            </text>
+        </g><!--link Exit to *end*-->
+        <g id="link_Exit_*end*">
+            <path
+                d="M1387.3615,276.9 C1198.2915,283.75 17.7615,329.42 17.7615,401 C17.7615,401 17.7615,401 17.7615,682 C17.7615,724.55 19.2919,769.2244 20.1119,790.6344 "
+                fill="none" id="Exit-to-*end*" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="20.3415,796.63,23.9941,787.4835,20.1502,791.6337,16,787.7897,20.3415,796.63"
+                     style="stroke:#181818;stroke-width:1;"/>
+        </g><!--SRC=[bLHDQzmm4BtxLmm-5aBl8IoaRGWBIHgwnzA3MC_kcjgIiMRTBAN_lJEZ3yj9NTg51UlDUpEZDv8y6KAeF-31ZGXqGhWtFTPWF0HCbl2p0lvzVVSDhgusy6XQ-uZsh61QQEG9VoZ_6Znsk2Ue6GaPtv8Vd6bUiGLQez-zj5HGPLbNLQeeZ7kqEF9sTeWDC-kqPWqs8MEkcHhOwVwlOsbl9fOUSmCpG_XR6zkj6Hj96sMA6-hgLrNvuEG3JjZ1y-YE8thVEgjUAbg0qT55n-KMGfPo3uTsz0ITuFL26wZ_t9zuMaIaEO444O0Rq-oH7L8gAsQ_kJcrnrF7Vy9ci_d_LbGHutgQt8GzMfajbnlEf0XyT7rlR1nRGTzQubfx4XEp8e6hgbiYi_y-2-9wlSZ47RdnKfP8q9fenuSd7jAe4UIzGciQTOo3GuVn6Ag52Naha8_F4ux2VUxCXRy-uG6DSiEbINukvv1CrRmfxMpbabn6bffet98-k_bdvkn-PbfgxJdtaQnztKMsl7D-DcF9BYPrEmpT1RQ4VQ3cYQJnfCnSd-zJhnZmN22-9dhd5oFv-wLymXSA0hrYkKJvIehW2z9vj41EKH2Og-LP2bqULqajyZlRU8xdrZbM_GO0]-->
+    </g>
+</svg>
