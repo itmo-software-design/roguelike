@@ -1,7 +1,6 @@
 package ui.console
 
 import com.googlecode.lanterna.gui2.*
-import engine.GameSession
 import ui.console.game.GameMapScreen
 import ui.localize.localize
 
@@ -45,8 +44,8 @@ class PlayerNameScreen(
         nextButton.isEnabled = false
         val text = playerTextBox.text
         if (text.isNotBlank()) {
-            GameSession.playerName = text
-            GameMapScreen(window) {
+            val uiContext = UIContext(text)
+            GameMapScreen(window, uiContext) {
                 MainMenuScreen(window)
             }
         } else {

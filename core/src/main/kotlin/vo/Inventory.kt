@@ -1,4 +1,4 @@
-package com.github.itmosoftwaredesign.roguelike.utils.vo
+package vo
 
 class Inventory : Iterable<Item> {
     private val items: MutableList<Item> = mutableListOf()

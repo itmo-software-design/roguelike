@@ -10,6 +10,7 @@ object LocalizationSource {
         "input.player-name" to "Player Name:",
 
         "title.inventory" to "Inventory",
+        "title.player-info" to "Player Info",
 
         "text.play" to "Play",
         "text.exit" to "Exit",
@@ -22,7 +23,8 @@ object LocalizationSource {
 
         "title.item.info" to "Info - %s",
 
-        "game.screen.title" to "The Tail of %s",
+        "game.screen.title" to "The Tail of %s.",
+        "game.screen.hp.title" to "The Tail of %s. %d/%d HP",
 
         "game.screen.hint.inventory" to "Press I to open the inventory",
         "game.screen.hint.interact" to "Press E to interact",
@@ -33,7 +35,7 @@ object LocalizationSource {
     /**
      * Get localization by code and format with passed substitutions
      */
-    fun getLocalization(code: String, vararg args: String): String {
+    fun getLocalization(code: String, vararg args: Any?): String {
         val localization = builtInLocalizations[code] ?: code
         if (args.isEmpty()) {
             return localization
@@ -43,6 +45,6 @@ object LocalizationSource {
 
 }
 
-fun String.localize(vararg args: String): String {
+fun String.localize(vararg args: Any?): String {
     return LocalizationSource.getLocalization(this, *args)
 }

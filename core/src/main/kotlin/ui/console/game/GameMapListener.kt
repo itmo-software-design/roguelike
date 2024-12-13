@@ -21,6 +21,7 @@ import ui.localize.localize
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
+ * Game window event listener. Map keyboard events into game's events.
  *
  * @author sibmaks
  * @since 0.0.1
@@ -68,9 +69,9 @@ class GameMapListener : WindowListener {
                     MessageDialogButton.Yes,
                     MessageDialogButton.No
                 )
+                deliverEvent?.set(true)
                 if (result == MessageDialogButton.Yes) {
                     MessageBroker.send(TOPIC_UI, GameScreenExit())
-                    deliverEvent?.set(true)
                     onClosed()
                 }
             }

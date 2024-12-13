@@ -1,4 +1,4 @@
-package com.github.itmosoftwaredesign.roguelike.utils.vo
+package vo
 
 
 open class Item(
