@@ -1,5 +1,6 @@
 package engine.action
 
+import engine.GameSession
 import engine.factory.MobManager
 import io.github.oshai.kotlinlogging.KotlinLogging
 import messages.player.MoveDirection
@@ -17,25 +18,33 @@ object MoveAction : Action<Position, Boolean> {
     private val logger = KotlinLogging.logger {}
 
     override fun perform(actor: Character, target: Position, dungeonLevel: DungeonLevel): Boolean {
-        val moveByX = if (actor.position.x <= target.x) {
-            actor.position.copy(x = actor.position.x + 1)
-        } else {
-            actor.position.copy(x = actor.position.x - 1)
-        }
-        if (tryToMove(actor, moveByX, dungeonLevel)) {
-            logger.debug { "$actor moved by X" }
-            return true
-        }
+//        val moveByX = if (actor.position.x <= target.x) {
+//            actor.position.copy(x = actor.position.x + 1)
+//        } else {
+//            actor.position.copy(x = actor.position.x - 1)
+//        }
+//        if (tryToMove(actor, moveByX, dungeonLevel)) {
+//            logger.debug { "$actor moved by X" }
+//            return true
+//        }
+//
+//        val moveByY = if (actor.position.y < target.y) {
+//            actor.position.copy(y = actor.position.y + 1)
+//        } else {
+//            actor.position.copy(y = actor.position.y - 1)
+//        }
+//        if (tryToMove(actor, moveByY, dungeonLevel)) {
+//            logger.debug { "$actor moved by Y" }
+//            return true
+//        }
 
-        val moveByY = if (actor.position.y < target.y) {
-            actor.position.copy(y = actor.position.y + 1)
-        } else {
-            actor.position.copy(y = actor.position.y - 1)
-        }
-        if (tryToMove(actor, moveByY, dungeonLevel)) {
-            logger.debug { "$actor moved by Y" }
-            return true
-        }
+        actor.position.neighbours
+            .sortedBy { it.manhattanDistanceTo(target) }
+            .forEach {
+                if (tryToMove(actor, it, dungeonLevel)) {
+                    return true
+                }
+            }
 
 
         logger.debug { "$actor failed to move to $target" }
@@ -73,7 +82,7 @@ object MoveAction : Action<Position, Boolean> {
         newPosition: Position,
         dungeonLevel: DungeonLevel
     ): Boolean {
-        if (!dungeonLevel.isTileFreeAt(newPosition)) {
+        if (!isTileFreeAt(dungeonLevel, newPosition)) {
             logger.warn {
                 "Actor $actor can not move from ${actor.position} to $newPosition. " +
                         "Tile in position is ${dungeonLevel.getTileAt(newPosition)}. " +
@@ -85,5 +94,16 @@ object MoveAction : Action<Position, Boolean> {
         logger.debug { "$actor moved from ${actor.position} to $newPosition" }
         actor.position = newPosition
         return true
+    }
+
+    /**
+     * Проверяет, что тайл свободен
+     */
+    private fun isTileFreeAt(dungeonLevel: DungeonLevel, position: Position): Boolean {
+        val tile = dungeonLevel.getTileAt(position)
+
+        return !tile.type.blocked // тайл не блокирует движение
+                && MobManager.getMobAt(dungeonLevel, position) == null // в этой позиции нет мобов
+                && GameSession.player.position != position // и нас тут нет тоже
     }
 }

@@ -60,9 +60,9 @@ object AStarPathfinder {
             closedList.add(currentNode.position)
 
             // Проверяем соседние узлы
-            for (neighbor in getNeighbors(currentNode.position)) {
+            for (neighbor in currentNode.position.neighbours) {
                 // Пропускаем если соседний узел уже исследован или является препятствием
-                if (closedList.contains(neighbor) || !isWalkable(neighbor, level)) {
+                if (closedList.contains(neighbor) || level.getTileAt(neighbor).type.blocked) {
                     continue
                 }
 
@@ -95,25 +95,5 @@ object AStarPathfinder {
         }
         return path.reversed()
             .drop(1) // исключаем стартовую ноду
-    }
-
-    /**
-     * Получаем соседние клетки
-     */
-    private fun getNeighbors(position: Position): List<Position> {
-        return listOf(
-            Position(position.x - 1, position.y),
-            Position(position.x + 1, position.y),
-            Position(position.x, position.y - 1),
-            Position(position.x, position.y + 1)
-        )
-    }
-
-    /**
-     * Проверка, можно ли пройти по данному месту (не является ли оно стеной или другим препятствием)
-     */
-    private fun isWalkable(position: Position, level: DungeonLevel): Boolean {
-        val tile = level.getTileAt(position)
-        return !tile.type.blocked
     }
 }

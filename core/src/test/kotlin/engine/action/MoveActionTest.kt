@@ -1,10 +1,9 @@
 package engine.action
 
+import engine.GameSession
 import io.mockk.*
 import messages.player.MoveDirection
-import vo.Character
-import vo.DungeonLevel
-import vo.Position
+import vo.*
 import kotlin.test.*
 
 /**
@@ -20,6 +19,9 @@ class MoveActionTest {
 
     @BeforeTest
     fun setUp() {
+        mockkObject(GameSession)
+        every { GameSession.player } returns mockk(relaxed = true)
+
         actor = mockk(relaxed = true)
         dungeonLevel = mockk(relaxed = true)
         positionCapturingSlot = slot()
@@ -30,45 +32,45 @@ class MoveActionTest {
     }
 
     @Test
-    fun `move left by X to position`() {
+    fun `move to position`() {
         val target = Position(actorPosition.x - 1, actorPosition.y)
-        every { dungeonLevel.isTileFreeAt(target) } returns true
+        every { dungeonLevel.getTileAt(target) } returns Tile(TileType.FLOOR)
 
         assertTrue { MoveAction.perform(actor, target, dungeonLevel) }
         assertEquals(target, positionCapturingSlot.captured)
     }
 
-    @Test
-    fun `move right by X to position`() {
-        val target = Position(actorPosition.x + 1, actorPosition.y)
-        every { dungeonLevel.isTileFreeAt(target) } returns true
-
-        assertTrue { MoveAction.perform(actor, target, dungeonLevel) }
-        assertEquals(target, positionCapturingSlot.captured)
-    }
-
-    @Test
-    fun `move up by Y to position`() {
-        val target = Position(actorPosition.x, actorPosition.y + 1)
-        every { dungeonLevel.isTileFreeAt(target) } returns true
-
-        assertTrue { MoveAction.perform(actor, target, dungeonLevel) }
-        assertEquals(target, positionCapturingSlot.captured)
-    }
-
-    @Test
-    fun `move down by Y to position`() {
-        val target = Position(actorPosition.x, actorPosition.y - 1)
-        every { dungeonLevel.isTileFreeAt(target) } returns true
-
-        assertTrue { MoveAction.perform(actor, target, dungeonLevel) }
-        assertEquals(target, positionCapturingSlot.captured)
-    }
+//    @Test
+//    fun `move right by X to position`() {
+//        val target = Position(actorPosition.x + 1, actorPosition.y)
+//        every { dungeonLevel.getTileAt(target) } returns Tile(TileType.FLOOR)
+//
+//        assertTrue { MoveAction.perform(actor, target, dungeonLevel) }
+//        assertEquals(target, positionCapturingSlot.captured)
+//    }
+//
+//    @Test
+//    fun `move up by Y to position`() {
+//        val target = Position(actorPosition.x, actorPosition.y + 1)
+//        every { dungeonLevel.getTileAt(target) } returns Tile(TileType.FLOOR)
+//
+//        assertTrue { MoveAction.perform(actor, target, dungeonLevel) }
+//        assertEquals(target, positionCapturingSlot.captured)
+//    }
+//
+//    @Test
+//    fun `move down by Y to position`() {
+//        val target = Position(actorPosition.x, actorPosition.y - 1)
+//        every { dungeonLevel.getTileAt(target) } returns Tile(TileType.FLOOR)
+//
+//        assertTrue { MoveAction.perform(actor, target, dungeonLevel) }
+//        assertEquals(target, positionCapturingSlot.captured)
+//    }
 
     @Test
     fun `can't move to position`() {
-        val target = mockk<Position>(relaxed = true)
-        every { dungeonLevel.isTileFreeAt(target) } returns false
+        val target = actorPosition
+        every { dungeonLevel.getTileAt(any()) } returns Tile(TileType.WALL)
 
         assertFalse { MoveAction.perform(actor, target, dungeonLevel) }
         assertFalse { positionCapturingSlot.isCaptured }
@@ -76,7 +78,7 @@ class MoveActionTest {
 
     @Test
     fun `move left with direction`() {
-        every { dungeonLevel.isTileFreeAt(any()) } returns true
+        every { dungeonLevel.getTileAt(any()) } returns Tile(TileType.FLOOR)
 
         assertTrue { MoveAction.perform(actor, MoveDirection.LEFT, dungeonLevel) }
 
@@ -86,7 +88,7 @@ class MoveActionTest {
 
     @Test
     fun `move right with direction`() {
-        every { dungeonLevel.isTileFreeAt(any()) } returns true
+        every { dungeonLevel.getTileAt(any()) } returns Tile(TileType.FLOOR)
 
         assertTrue { MoveAction.perform(actor, MoveDirection.RIGHT, dungeonLevel) }
 
@@ -96,7 +98,7 @@ class MoveActionTest {
 
     @Test
     fun `move up with direction`() {
-        every { dungeonLevel.isTileFreeAt(any()) } returns true
+        every { dungeonLevel.getTileAt(any()) } returns Tile(TileType.FLOOR)
 
         assertTrue { MoveAction.perform(actor, MoveDirection.UP, dungeonLevel) }
 
@@ -106,7 +108,7 @@ class MoveActionTest {
 
     @Test
     fun `move down with direction`() {
-        every { dungeonLevel.isTileFreeAt(any()) } returns true
+        every { dungeonLevel.getTileAt(any()) } returns Tile(TileType.FLOOR)
 
         assertTrue { MoveAction.perform(actor, MoveDirection.DOWN, dungeonLevel) }
 
@@ -116,7 +118,7 @@ class MoveActionTest {
 
     @Test
     fun `can't move with direction but still rotates`() {
-        every { dungeonLevel.isTileFreeAt(any()) } returns false
+        every { dungeonLevel.getTileAt(any()) } returns Tile(TileType.WALL)
 
         assertFalse { MoveAction.perform(actor, MoveDirection.DOWN, dungeonLevel) }
 

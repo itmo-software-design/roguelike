@@ -38,12 +38,13 @@ data class Position(var x: Int, var y: Int) {
      * Могут выходить за границы карты
      */
     val neighbours
-        get() = listOf(
+        get() = mutableListOf(
             copy(x = x + 1),
-            copy(x = x - 1),
             copy(y = y + 1),
+            copy(x = x - 1),
             copy(y = y - 1)
-        )
+        ).shuffled() // немного рандома для не одинакового поведения мобов
+            .toList()
 
     companion object {
         val ZERO = Position(0, 0)

@@ -120,7 +120,7 @@ class DungeonLevelGenerator(
                 room.bottomLeft.y + 1, room.topRight.y
             )
 
-            if (dungeonLevel.isTileFreeAt(mobPosition)) {
+            if (MobManager.canSpawnAt(dungeonLevel, mobPosition)) {
                 val mob = MobManager.spawn(mobPosition)
                 dungeonLevel.enemies.add(mob)
                 mobCreated += 1

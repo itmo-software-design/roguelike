@@ -8,6 +8,7 @@ import com.googlecode.lanterna.gui2.ComponentRenderer
 import com.googlecode.lanterna.gui2.Panel
 import com.googlecode.lanterna.gui2.TextGUIGraphics
 import engine.GameSession
+import engine.action.CheckVisibilityAction
 import engine.factory.MobManager
 import ui.console.RenderContext
 import vo.*
@@ -41,10 +42,7 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
 
                 if (tile.isExplored) {
                     val screenPosition = getScreenPosition(screenCenter, tilePosition, player)
-
-                    if (screenPosition.x in 0 until viewWidth && screenPosition.y in 0 until viewHeight) {
-                        renderExploredTile(tile, screenPosition.x, screenPosition.y, graphics)
-                    }
+                    renderExploredTile(tile, screenPosition, graphics)
                 }
             }
         }
@@ -61,21 +59,14 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
             if (current in visited || distance > player.fovRadius) {
                 continue
             }
+
             visited.add(current)
 
-            // Определить положение на экране
+            // Определить положение текущего тайла на экране
             val screenPosition = getScreenPosition(screenCenter, current, player)
-
-
-            // Убедиться, что не выходим за пределы экрана
-            if (screenPosition.x !in 0 until viewWidth || screenPosition.y !in 0 until viewHeight) {
-                continue
-            }
-
-            // Получить текущий тайл
             val tile = level.getTileAt(current)
             tile.isExplored = true
-            renderTile(tile, screenPosition.x, screenPosition.y, graphics)
+            renderTile(tile, screenPosition, graphics)
 
             // Добавить соседние тайлы, если обзор не блокируется
             if (screenPosition == screenCenter // игнорируем тайл, на котором стоим
@@ -83,19 +74,27 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
             ) {
                 current.neighbours.forEach {
                     if (level.isInBounds(it)) {
-                        queue.add(it to distance + 1)
+                        val newDistance = if (CheckVisibilityAction.perform(player, it, level)) {
+                            distance + 1
+                        } else {
+                            player.fovRadius // добавим только этот тайл к отрисовке
+                        }
+                        queue.add(it to newDistance)
                     }
                 }
             }
         }
 
-        MobManager.getActiveMobs(level).forEach {
-            val screenPosition = getScreenPosition(screenCenter, it.position, player)
-            renderMob(it.type, screenPosition.x, screenPosition.y, graphics)
-        }
+        // Покажем живых мобов, которых видно
+        MobManager.getActiveMobs(level)
+            .filter { CheckVisibilityAction.perform(player, it.position, level) }
+            .forEach {
+                val screenPosition = getScreenPosition(screenCenter, it.position, player)
+                renderMob(it.type, screenPosition, graphics)
+            }
 
         // Покажем игрока
-        renderPlayer(screenCenter.x, screenCenter.y, graphics)
+        renderPlayer(screenCenter, graphics)
     }
 
     override fun getPreferredSize(component: Panel?): TerminalSize {
@@ -112,30 +111,63 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
         return Position(screenX, screenY)
     }
 
-    private fun renderPlayer(x: Int, y: Int, graphics: TextGUIGraphics) {
-        graphics.setForegroundColor(TextColor.ANSI.WHITE)
-        graphics.setBackgroundColor(TextColor.ANSI.BLACK)
-        graphics.putString(TerminalPosition(x, y), "$")
+    private fun checkScreenPositionIsInBounds(
+        screenPosition: Position,
+        graphics: TextGUIGraphics
+    ): Boolean {
+        val terminalSize = graphics.size
+        val viewWidth = terminalSize.columns
+        val viewHeight = terminalSize.rows
+        return screenPosition.x in 0 until viewWidth && screenPosition.y in 0 until viewHeight
     }
 
-    private fun renderMob(mobType: MobType, x: Int, y: Int, graphics: TextGUIGraphics) {
+    private fun renderPlayer(screenPosition: Position, graphics: TextGUIGraphics) {
+        if (!checkScreenPositionIsInBounds(screenPosition, graphics)) {
+            return
+        }
+
         graphics.setForegroundColor(TextColor.ANSI.WHITE)
         graphics.setBackgroundColor(TextColor.ANSI.BLACK)
-        graphics.putString(TerminalPosition(x, y), mobType.symbol.toString())
+        graphics.putString(TerminalPosition(screenPosition.x, screenPosition.y), "$")
     }
 
-    private fun renderExploredTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics) {
+    private fun renderMob(mobType: MobType, screenPosition: Position, graphics: TextGUIGraphics) {
+        if (!checkScreenPositionIsInBounds(screenPosition, graphics)) {
+            return
+        }
+
+        graphics.setForegroundColor(TextColor.ANSI.WHITE)
+        graphics.setBackgroundColor(TextColor.ANSI.BLACK)
+        graphics.putString(
+            TerminalPosition(screenPosition.x, screenPosition.y),
+            mobType.symbol.toString()
+        )
+    }
+
+    private fun renderExploredTile(
+        tile: Tile,
+        screenPosition: Position,
+        graphics: TextGUIGraphics
+    ) {
+        if (!checkScreenPositionIsInBounds(screenPosition, graphics)) {
+            return
+        }
+
         val (_, _, char) = getTileRenderParams(tile)
         graphics.setForegroundColor(TextColor.ANSI.BLACK_BRIGHT)
         graphics.setBackgroundColor(TextColor.ANSI.BLACK)
-        graphics.putString(TerminalPosition(x, y), char)
+        graphics.putString(TerminalPosition(screenPosition.x, screenPosition.y), char)
     }
 
-    private fun renderTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics) {
+    private fun renderTile(tile: Tile, screenPosition: Position, graphics: TextGUIGraphics) {
+        if (!checkScreenPositionIsInBounds(screenPosition, graphics)) {
+            return
+        }
+
         val (fgColor, bgColor, char) = getTileRenderParams(tile)
         graphics.setForegroundColor(fgColor)
         graphics.setBackgroundColor(bgColor)
-        graphics.putString(TerminalPosition(x, y), char)
+        graphics.putString(TerminalPosition(screenPosition.x, screenPosition.y), char)
     }
 
     private fun getTileRenderParams(tile: Tile): Triple<ANSI, ANSI, String> {

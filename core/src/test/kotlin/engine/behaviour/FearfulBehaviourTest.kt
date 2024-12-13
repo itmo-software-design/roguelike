@@ -36,7 +36,7 @@ class FearfulBehaviourTest {
 
     @Test
     fun `behave basically if player is not visible`() {
-        every { CheckVisibilityAction.perform(mob, player, dungeonLevel) } returns false
+        every { CheckVisibilityAction.perform(mob, player.position, dungeonLevel) } returns false
 
         behaviour.act(mob, dungeonLevel, player)
 
@@ -46,7 +46,7 @@ class FearfulBehaviourTest {
 
     @Test
     fun `try to run away if player is visible`() {
-        every { CheckVisibilityAction.perform(mob, player, dungeonLevel) } returns true
+        every { CheckVisibilityAction.perform(mob, player.position, dungeonLevel) } returns true
         val neighbourMoPosition = mockk<Position>(relaxed = true)
         every { neighbourMoPosition.manhattanDistanceTo(any()) } returnsMany listOf(1, 2, 3)
         every { mob.position.neighbours } returns listOf(

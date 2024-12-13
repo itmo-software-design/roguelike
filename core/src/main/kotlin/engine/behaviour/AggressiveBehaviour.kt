@@ -19,7 +19,7 @@ class AggressiveBehaviour(parentBehaviour: Behaviour) : BehaviourDecorator(paren
      * Двигается в сторону игрока, по возможности наносит урон
      */
     override fun act(mob: Mob, dungeonLevel: DungeonLevel, player: Player) {
-        if (CheckVisibilityAction.perform(mob, player, dungeonLevel)) {
+        if (CheckVisibilityAction.perform(mob, player.position, dungeonLevel)) {
             val nextPosition = findPath(mob.position, player.position, dungeonLevel).firstOrNull()
             if (nextPosition != null) {
                 if (nextPosition == player.position) {

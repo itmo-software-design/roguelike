@@ -13,19 +13,19 @@ import kotlin.test.assertTrue
  */
 class CheckVisibilityActionTest {
     private lateinit var actor: Character
-    private lateinit var target: Character
+    private lateinit var target: Position
     private lateinit var dungeonLevel: DungeonLevel
 
     @BeforeTest
     fun setUp() {
         actor = mockk(relaxed = true)
-        target = mockk(relaxed = true)
+        target = Position(2, 1)
         dungeonLevel = mockk(relaxed = true)
     }
 
     @Test
     fun `target is outside of FOV`() {
-        every { actor.position.manhattanDistanceTo(target.position) } returns 1
+        every { actor.position.manhattanDistanceTo(target) } returns 1
         every { actor.fovRadius } returns 0
 
         assertFalse { CheckVisibilityAction.perform(actor, target, dungeonLevel) }
@@ -34,7 +34,6 @@ class CheckVisibilityActionTest {
     @Test
     fun `target is not visible behind an obstacle`() {
         every { actor.position } returns Position.ZERO
-        every { target.position } returns Position(2, 1)
         every { actor.fovRadius } returns 10
 
         val visibleTile = mockk<Tile>()
@@ -51,15 +50,32 @@ class CheckVisibilityActionTest {
     }
 
     @Test
-    fun `target is visible `() {
+    fun `target is visible`() {
         every { actor.position } returns Position.ZERO
-        every { target.position } returns Position(2, 1)
         every { actor.fovRadius } returns 10
 
         val visibleTile = mockk<Tile>()
         every { visibleTile.type } returns TileType.FLOOR
         every { dungeonLevel.getTileAt(any()) } returnsMany listOf(
             visibleTile,
+            visibleTile,
+            visibleTile
+        )
+
+        assertTrue { CheckVisibilityAction.perform(actor, target, dungeonLevel) }
+    }
+
+    @Test
+    fun `target is still visible`() {
+        every { actor.position } returns Position.ZERO
+        every { actor.fovRadius } returns 10
+
+        val visibleTile = mockk<Tile>()
+        every { visibleTile.type } returns TileType.FLOOR
+        val blockVisibleTile = mockk<Tile>()
+        every { blockVisibleTile.type } returns TileType.WALL
+        every { dungeonLevel.getTileAt(any()) } returnsMany listOf(
+            blockVisibleTile,
             visibleTile,
             visibleTile
         )

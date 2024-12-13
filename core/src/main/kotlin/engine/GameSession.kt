@@ -41,8 +41,10 @@ object GameSession {
     /**
      * Создает нового игрока и генерирует уровни.
      */
-    fun startNewGame(playerName: String, firstDungeonLevel: DungeonLevel) {
-        player = Player(playerName, 100, 2, 1, firstDungeonLevel.startPosition)
+    fun startNewGame(playerName: String) {
+        val randomSeed = playerName.hashCode()
+        val firstDungeonLevel = DungeonLevelGenerator(randomSeed).generate()
+        player = Player(playerName, 100, 10, 1, firstDungeonLevel.startPosition)
         dungeonLevels = mutableListOf(firstDungeonLevel)
         addMoreLevels()
         currentDungeonLevel = firstDungeonLevel

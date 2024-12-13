@@ -25,18 +25,29 @@ open class BasicBehaviour(parentBehaviour: Behaviour = PassiveBehaviour()) :
             rebuildPath(mob, dungeonLevel)
         }
 
-        val nextDestination = path.removeFirst()
-        if (!MoveAction.perform(mob, nextDestination, dungeonLevel)) {
-            // Если подвигаться не получилось, попробуем перестроить маршрут
-            rebuildPath(mob, dungeonLevel)
+
+        val nextDestination = path.removeFirstOrNull()
+        if (nextDestination == null) {
+            parentBehaviour.act(mob, dungeonLevel, player) // если вот вообще некуда идти, то я хз, что делать
+        } else {
+            if (!MoveAction.perform(mob, nextDestination, dungeonLevel)) {
+                // Если подвигаться не получилось, попробуем перестроить маршрут
+                rebuildPath(mob, dungeonLevel)
+            }
         }
     }
 
     private fun rebuildPath(mob: Mob, dungeonLevel: DungeonLevel) {
         path.clear()
-        val sortedRooms = dungeonLevel.rooms.maxBy {
-            it.center.euclideanDistanceTo(mob.position)
+
+        dungeonLevel.rooms.sortedBy {
+            it.center.euclideanDistanceTo(mob.position) // пытаемся построить маршрут от самой дальней к ближайшей комнате
+        }.forEach {
+            val foundPath = findPath(mob.position, it.center, dungeonLevel)
+            if (foundPath.isNotEmpty()) {
+                path.addAll(foundPath)
+                return@forEach
+            }
         }
-        path.addAll(findPath(mob.position, sortedRooms.center, dungeonLevel))
     }
 }

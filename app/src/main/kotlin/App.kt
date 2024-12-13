@@ -6,7 +6,6 @@ import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
-import engine.DungeonLevelGenerator
 import engine.GameSession
 import messages.MessageBroker
 import messages.TOPIC_UI
@@ -40,8 +39,7 @@ fun main() {
         MessageBroker.subscribe(TOPIC_UI) {
             when (it) {
                 is GameScreenOpened -> {
-                    val firstLevel = DungeonLevelGenerator(it.playerName.hashCode()).generate()
-                    GameSession.startNewGame(it.playerName, firstLevel)
+                    GameSession.startNewGame(it.playerName)
                     gameStarted = true
                 }
             }

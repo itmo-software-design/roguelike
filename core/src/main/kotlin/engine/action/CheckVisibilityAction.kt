@@ -12,18 +12,20 @@ import kotlin.math.abs
  * @author MikhailShad
  * @since 0.0.1
  */
-object CheckVisibilityAction : Action<Character, Boolean> {
+object CheckVisibilityAction : Action<Position, Boolean> {
     private val logger = KotlinLogging.logger {}
 
-    override fun perform(actor: Character, target: Character, dungeonLevel: DungeonLevel): Boolean {
-        val distance = actor.position.manhattanDistanceTo(target.position)
+    override fun perform(actor: Character, target: Position, dungeonLevel: DungeonLevel): Boolean {
+        val distance = actor.position.manhattanDistanceTo(target)
         if (distance > actor.fovRadius) {
-            logger.debug { "$actor does not see $target" }
+            logger.trace { "$actor does not see $target" }
             return false
         }
 
-        val lineOfSight = getLineOfSight(actor.position, target.position)
-        return lineOfSight.map { dungeonLevel.getTileAt(it) }
+        val lineOfSight = getLineOfSight(actor.position, target)
+        val tilesAtLineOfSight = lineOfSight.map { dungeonLevel.getTileAt(it) }
+        return tilesAtLineOfSight.drop(1) // игнорируем стартовый тайл, так как мы уже на нем стоим
+            .dropLast(1) // и последний, куда упирается взгляд
             .all { tile -> !tile.type.blockSight }
     }
 

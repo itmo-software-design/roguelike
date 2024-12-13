@@ -1,7 +1,5 @@
 package vo
 
-import engine.factory.MobManager
-
 /**
  * Уровень подземелья
  *
@@ -40,16 +38,6 @@ class DungeonLevel(
      */
     fun isInBounds(position: Position): Boolean {
         return position.x in 0 until width && position.y in 0 until height
-    }
-
-    /**
-     * Проверяет, что тайл свободен
-     */
-    fun isTileFreeAt(position: Position): Boolean {
-        val tile = getTileAt(position)
-
-        return !tile.type.blocked // тайл не блокирует движение
-                && MobManager.getMobAt(this, position) == null // в этой позиции никого нет
     }
 }
 
