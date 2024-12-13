@@ -207,7 +207,7 @@ class DungeonLevelGenerator(
         for (x in minOf(x1, x2)..maxOf(x1, x2)) {
             val tile = tiles[x][y]
             if (tile.type == TileType.WALL) {
-                tile.type = TileType.DOOR
+                tile.type = TileType.DOOR_CLOSED
             } else if (tile.type == TileType.NONE) {
                 tile.type = TileType.HALL
             }
@@ -218,7 +218,7 @@ class DungeonLevelGenerator(
         for (y in minOf(y1, y2)..maxOf(y1, y2)) {
             val tile = tiles[x][y]
             if (tile.type == TileType.WALL) {
-                tile.type = TileType.DOOR
+                tile.type = TileType.DOOR_CLOSED
             } else if (tile.type == TileType.NONE) {
                 tile.type = TileType.HALL
             }

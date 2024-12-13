@@ -73,13 +73,8 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
                 || !tile.type.blockSight // проверяем, что тайл не блокирует обзор
             ) {
                 current.neighbours.forEach {
-                    if (level.isInBounds(it)) {
-                        val newDistance = if (CheckVisibilityAction.perform(player, it, level)) {
-                            distance + 1
-                        } else {
-                            player.fovRadius // добавим только этот тайл к отрисовке
-                        }
-                        queue.add(it to newDistance)
+                    if (level.isInBounds(it) && CheckVisibilityAction.perform(player, it, level)) {
+                        queue.add(it to distance + 1)
                     }
                 }
             }
@@ -177,7 +172,8 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
             TileType.WATER -> Triple(TextColor.ANSI.BLUE_BRIGHT, TextColor.ANSI.BLUE, "~")
             TileType.GRASS -> Triple(TextColor.ANSI.GREEN, TextColor.ANSI.GREEN_BRIGHT, "|")
             TileType.HALL -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK_BRIGHT, "o")
-            TileType.DOOR -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK, "+")
+            TileType.DOOR_CLOSED -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK, "+")
+            TileType.DOOR_OPENED -> Triple(TextColor.ANSI.YELLOW, TextColor.ANSI.BLACK, "_")
             TileType.CONSUMABLE -> Triple(
                 TextColor.ANSI.GREEN_BRIGHT,
                 TextColor.ANSI.BLACK_BRIGHT,

@@ -58,9 +58,10 @@ enum class TileType(
     val blockSight: Boolean,
 ) {
     FLOOR(blocked = false, blockSight = false),
-    HALL(blocked = false, blockSight = true),
+    HALL(blocked = false, blockSight = false),
     WALL(blocked = true, blockSight = true),
-    DOOR(blocked = false, blockSight = true),
+    DOOR_CLOSED(blocked = false, blockSight = true),
+    DOOR_OPENED(blocked = false, blockSight = false),
     GRASS(blocked = false, blockSight = true),
     WATER(blocked = true, blockSight = false),
     NONE(blocked = true, blockSight = false),
@@ -85,7 +86,8 @@ data class Tile(
             TileType.HALL -> "o"
             TileType.WALL -> "#"
             TileType.NONE -> " "
-            TileType.DOOR -> "+"
+            TileType.DOOR_CLOSED -> "+"
+            TileType.DOOR_OPENED -> "_"
             TileType.PORTAL -> "0"
             TileType.GRASS -> "|"
             TileType.WATER -> "~"
