@@ -12,10 +12,10 @@ fi
 
 for file in $CHANGED_FILES
 do
-    OUTPUT_FILE="$(basename "$file" .puml).png"
+    OUTPUT_FILE="$(basename "$file" .puml).svg"
     echo "$OUTPUT_FILE"
-    echo "Generating PNG for $file -> docs/images/$OUTPUT_FILE"
-    $PLANTUML_CMD -tpng "$file" -o "../images" || exit 1
+    echo "Generating SVG for $file -> docs/images/$OUTPUT_FILE"
+    $PLANTUML_CMD -tsvg "$file" -o "../images" || exit 1
 done
 
 echo "PlantUML schemas are up to date"
