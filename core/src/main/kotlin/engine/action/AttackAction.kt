@@ -3,6 +3,8 @@ package engine.action
 import io.github.oshai.kotlinlogging.KotlinLogging
 import vo.Character
 import vo.DungeonLevel
+import vo.Mob
+import vo.Player
 
 /**
  * Атака актора
@@ -25,7 +27,11 @@ object AttackAction : Action<Character, Unit> {
             target.health -= damage
             if (!target.isAlive) {
                 logger.debug { "$actor kills $target" }
-                // TODO: gain XP or end game
+                if (actor is Player) {
+                    actor.addExperience((target as Mob).type.xp)
+                } else {
+                    // TODO: you died screen
+                }
             }
         }
     }

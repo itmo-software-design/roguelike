@@ -46,9 +46,10 @@ enum class MobType(
     val maxHealth: Int,
     val baseAttack: Int,
     val baseDefense: Int,
-    val fovRadius: Int
+    val fovRadius: Int,
+    val xp: Int
 ) {
-    GOBLIN("Goblin", 'G', 10, 10, 1, 5),
-    SLIME("Slime", 'S', 5, 5, 1, 2),
-    BAT("Bat", 'B', 1, 3, 1, 10)
+    GOBLIN("Goblin", 'G', 10, 10, 1, 5, 3),
+    SLIME("Slime", 'S', 5, 5, 1, 2, 2),
+    BAT("Bat", 'B', 1, 3, 1, 10, 1)
 }
