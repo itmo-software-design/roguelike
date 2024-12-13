@@ -1,18 +1,21 @@
 @startuml
 package core {
     package vo {
+        abstract class Entity {
+            + position : Position
+            + abstract symbol.get(): Char
+        }
+
         ' Абстрактный класс для общих свойств персонажей
-        abstract class Character {
+        abstract class Character extends Entity {
             + health : int
-            - maxHealth : int
-            + attack : int
+            + maxHealth : int
             - baseAttack : int
             + defense : int
             - baseDefense : int
-            + position : Position
+            + fovRadius : Int
             + direction: MoveDirection
             + isAlive: Boolean
-            + hit(target : Character)
         }
         Character o-- Position
         Character o-- MoveDirection
@@ -21,7 +24,10 @@ package core {
         class Player extends Character {
             + name : String
             + inventory : Inventory
-            - experienceManager : ExperienceManager
+            + level: Int
+            + currentPoints: Int
+            + pointsToNextLevel: Int
+            - experienceManager: ExperienceManager
             + addExperience()
         }
         Player *-- Inventory
@@ -29,12 +35,12 @@ package core {
 
         ' Класс Менеджера уровней
         class ExperienceManager {
-            +- currentLevel: int
-            +- currentPoints: int
-            +- pointsToNextLevel: int
-            +- healthBoost: int
-            +- attackBoost: int
-            +- defenceBoost: int
+            + currentLevel: int
+            + currentPoints: int
+            + pointsToNextLevel: int
+            + healthBoost: int
+            + attackBoost: int
+            + defenceBoost: int
             + addExperience(points: int)
         }
 
@@ -77,15 +83,39 @@ package core {
             + consume()
         }
 
-       ' Класс уровня
-        class Level {
-            + tiles: Array<Array<Tile>>
-            - rooms: List<Room>
-            + startPosition: Position
+        class Mob extends Character {
+            + mobType: MobType
+            + behaviour: Behaviour
+            + position: Position
         }
-        Level "1" *-- "many" Tile
-        Level "1" *-- "many" Room
-        Level <-- Position
+        Mob *-- MobType
+        Mob *-- Behaviour
+
+        enum MobType {
+            + mobName: String,
+            + symbol: Char,
+            + maxHealth: Int,
+            + baseAttack: Int,
+            + baseDefense: Int,
+            + fovRadius: Int,
+            + xp: Int
+        }
+
+       ' Класс уровня
+        class DungeonLevel {
+            + tiles: Array<Array<Tile>>
+            + rooms: List<Room>
+            + enemies: MutableList<Mob>
+            + width: Int
+            + height: Int
+            + startPosition: Position
+            + getTileAt(position: Position): Tile
+            + isInBounds(position: Position): Boolean
+        }
+        DungeonLevel "1" *-- "many" Tile
+        DungeonLevel "1" *-- "many" Room
+        DungeonLevel "1" <-- "many" Room
+        DungeonLevel <-- Position
 
        ' Класс тайла карты
         class Tile {
@@ -106,14 +136,19 @@ package core {
             + topRight: Position
             + center: Position
             + distanceFromZero: Position
-            + intersects(other: Room)
+            + intersects(other: Room): Boolean
+            + isInside(position: Position): Boolean
         }
         Room o-- Position
 
         ' Класс для позиции на карте
         class Position {
-            + x : int
-            + y : int
+            + x : Int
+            + y : Int
+            + distanceToZero: Int
+            + neighbours: List<Position>
+            + euclideanDistanceTo(other: Position): Int
+            + manhattanDistanceTo(other: Position): Int
         }
 
         interface Renderable {}
@@ -137,13 +172,18 @@ package core {
                 class GameMapPanelRenderer {
                     + drawComponent(graphics: TextGUIGraphics?, component: Panel?)
                     + getPreferredSize(component: Panel?): TerminalSize
-                    - addTileToQueueIfVisible(level: Level, x: Int, y: Int, distance: Int, queue: ArrayDeque<Pair<Position, Int>>)
-                    - renderPlayer(x: Int, y: Int, graphics: TextGUIGraphics)
-                    - renderExploredTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics)
-                    - renderTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics)
+                    - getScreenPosition(screenCenter: Position, levelPosition: Position, player: Player): Position
+                    - checkScreenPositionIsInBounds(screenPosition: Position, graphics: TextGUIGraphics): Boolean
+                    - renderPlayer(screenPosition: Position, graphics: TextGUIGraphics)
+                    - renderMob(mobType: MobType, screenPosition: Position, graphics: TextGUIGraphics)
+                    - renderExploredTile(tile: Tile, screenPosition: Position, graphics: TextGUIGraphics)
+                    - renderTile(tile: Tile, screenPosition: Position, graphics: TextGUIGraphics)
                     - getTileRenderParams(tile: Tile): Triple<ANSI, ANSI, String>
                 }
                 GameMapPanelRenderer <-- GameSession
+                GameMapPanelRenderer <-- CheckVisibilityAction
+                GameMapPanelRenderer <-- MobManager
+                GameMapPanelRenderer <-- RenderContext
 
                 class GameMapScreen {
                     - gameMapListener: GameMapListener
@@ -239,27 +279,122 @@ package core {
     }
 
     package engine {
+        package action {
+            interface Action<T,R> {
+                perform(actor: Character, target: T, dungeonLevel: DungeonLevel): R
+            }
+
+            object AttackAction {
+                - logger: KotlinLogging.logger
+                + perform(actor: Character, target: Character, dungeonLevel: DungeonLevel)
+            }
+            AttackAction <|-- Action
+            AttackAction <-- Character
+
+            object CheckVisibilityAction {
+                - logger: KotlinLogging.logger
+                + perform(actor: Character, target: Position, dungeonLevel: DungeonLevel): Boolean
+                - getLineOfSight(start: Position, end: Position): List<Position>
+            }
+            CheckVisibilityAction <|-- Action
+            CheckVisibilityAction <-- Character
+            CheckVisibilityAction <-- DungeonLevel
+            CheckVisibilityAction <-- Position
+
+            object MoveAction {
+                - logger: KotlinLogging.logger
+                + perform(actor: Character, target: Position, dungeonLevel: DungeonLevel): Boolean
+                + perform(actor: Character, target: MoveDirection, dungeonLevel: DungeonLevel): Boolean
+                - tryToMove(actor: Character, newPosition: Position, dungeonLevel: DungeonLevel): Boolean
+                + isTileFreeAt(dungeonLevel: DungeonLevel, position: Position): Boolean
+            }
+            MoveAction <|-- Action
+            MoveAction <-- Character
+            MoveAction <-- DungeonLevel
+            MoveAction <-- Position
+            MoveAction <-- MobManager
+        }
+
+        package behaviour {
+            interface Behaviour {
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+            }
+            Behaviour <-- Mob
+            Behaviour <-- DungeonLevel
+            Behaviour <-- Player
+
+            abstract class BehaviourDecorator implements Behaviour {
+                # parentBehaviour: Behaviour
+            }
+
+            class PassiveBehaviour extends Behaviour {}
+
+            class isAliveBehaviour extends BehaviourDecorator {
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+            }
+
+            class BasicBehaviour extends BehaviourDecorator {
+                - path: ArrayDeque<Position>
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+                - rebuildPath(mob: Mob, dungeonLevel: DungeonLevel)
+            }
+            BasicBehaviour <-- MoveAction
+            BasicBehaviour <-- AStarPathfinder
+
+            object AStarPathfinder {
+                + findPath(start: Position, end: Position, level: DungeonLevel): List<Position>
+                - reconstructPath(node: AStarPathfinder.Node): List<Position>
+            }
+
+            class AggressiveBehaviour extends BehaviourDecorator {
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+            }
+            AggressiveBehaviour <-- CheckVisibilityAction
+            AggressiveBehaviour <-- AttackAction
+            AggressiveBehaviour <-- MoveAction
+
+            class FearfulBehaviour extends BehaviourDecorator {
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+            }
+            FearfulBehaviour <-- CheckVisibilityAction
+            FearfulBehaviour <-- MoveAction
+        }
+
+        package factory {
+            object MobManager {
+                - mobCount: Int
+                + canSpawnAt(dungeonLevel: DungeonLevel, position: Position): Boolean
+                + spawn(position: Position): Mob
+                - decideMobType(): MobType
+                + getActiveMobs(dungeonLevel: DungeonLevel): List<Mob>
+                + getMobAt(dungeonLevel: DungeonLevel, position: Position): Mob?
+            }
+            MobManager *-- Mob
+            MobManager <-- DungeonLevel
+        }
+
         object GameSession {
-            + playerName: String
             + player: Player
-            + levels: MutableList<Level>
-            + currentLevel: Level
+            + dungeonLevels: MutableList<DungeonLevel>
+            + currentDungeonLevel: DungeonLevel
             - levelsCount: Int
             - currentLevelId: Int
-            + startNewGame(playerName: String, firstLevel: Level)
+            + isPlayerInitialized(): Boolean
+            + startNewGame(playerName: String, firstLevel: DungeonLevel)
             + moveToNextLevel()
             + addMoreLevels()
+            + loadStateFromFile(filePath: Path)
         }
         GameSession *-- Player
-        GameSession <-- LevelGenerator
-        GameSession "1" <-- "many" Level
+        GameSession <-- DungeonLevelGenerator
+        GameSession "1" <-- "many" DungeonLevel
 
-        class LevelGenerator {
+        class DungeonLevelGenerator {
             - randomizer: Random
             - roomCount: Int
             - tiles: Array<Array<Tile>>
             - initializeTiles(): Array<Array<Tile>>
-            + generate(): Level
+            + generate(): DungeonLevel
             - placeItems(rooms: List<Room>)
             - placeMobs(rooms: List<Room>)
             - placePortal(room: Room)
@@ -271,7 +406,8 @@ package core {
             - carveHorizontalTunnelWithDoors(x1: Int, x2: Int, y: Int)
             - carveVerticalTunnelWithDoors(y1: Int, y2: Int, x: Int)
         }
-        LevelGenerator <-- Level
+        DungeonLevelGenerator *-- DungeonLevel
+        DungeonLevelGenerator <-- MobManager
     }
 }
 
@@ -279,7 +415,8 @@ package app {
     class App {
         + main()
     }
-    App <-- LevelGenerator
+    App *-- GameLoop
+    App <-- DungeonLevelGenerator
     App <-- GameSession
     App <-- MessageBroker
     App <-- GameScreenOpened
@@ -308,5 +445,8 @@ package app {
     GameLoop <-- PlayerInteract
     GameLoop <-- GameScreenExit
     GameLoop <-- InventoryScreen
+    GameLoop <-- MobManager
+    GameLoop <-- MoveAction
+    GameLoop <-- AttackAction
 }
 @enduml
