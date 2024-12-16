@@ -31,10 +31,13 @@ object MobManager {
      */
     fun spawn(position: Position): Mob {
         val mobType = decideMobType()
+
         val behaviour = when (mobType) {
             MobType.GOBLIN -> IsAliveBehaviour(AggressiveBehaviour(BasicBehaviour()))
             MobType.SLIME -> IsAliveBehaviour(AggressiveBehaviour(PassiveBehaviour()))
             MobType.BAT -> IsAliveBehaviour(FearfulBehaviour(BasicBehaviour()))
+            MobType.SOURCE_TOXIC_MOLD -> IsAliveBehaviour(AttackBehaviour(SpreadBehaviour(PassiveBehaviour())))
+            MobType.TOXIC_MOLD -> IsAliveBehaviour(AttackBehaviour(SpreadBehaviour(PassiveBehaviour())))
         }
 
         return Mob(mobType, behaviour, position)
@@ -48,10 +51,11 @@ object MobManager {
 //        }
 
         // В целях тестирования по очереди создадим моба каждого типа
-        return when (mobCount++ % 3) {
+        return when (mobCount++ % MobType.entries.size) {
             0 -> MobType.GOBLIN
             1 -> MobType.SLIME
-            else -> MobType.BAT
+            2 -> MobType.BAT
+            else -> MobType.SOURCE_TOXIC_MOLD
         }
     }
 
