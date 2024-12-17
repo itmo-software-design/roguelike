@@ -2,8 +2,6 @@ package engine.behaviour
 
 import engine.action.AttackAction
 import engine.action.CheckVisibilityAction
-import engine.action.MoveAction
-import engine.behaviour.AStarPathfinder.findPath
 import vo.DungeonLevel
 import vo.Mob
 import vo.Player
@@ -20,10 +18,7 @@ class AttackBehaviour(parentBehaviour: Behaviour) : BehaviourDecorator(parentBeh
      */
     override fun act(mob: Mob, dungeonLevel: DungeonLevel, player: Player) {
         if (CheckVisibilityAction.perform(mob, player.position, dungeonLevel)) {
-            val nextPosition = findPath(mob.position, player.position, dungeonLevel).firstOrNull()
-            if (nextPosition == player.position) {
-                AttackAction.perform(mob, player, dungeonLevel)
-            }
+            AttackAction.perform(mob, player, dungeonLevel)
         } else {
             parentBehaviour.act(mob, dungeonLevel, player)
         }

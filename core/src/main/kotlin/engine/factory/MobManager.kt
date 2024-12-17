@@ -1,10 +1,7 @@
 package engine.factory
 
 import engine.behaviour.*
-import vo.DungeonLevel
-import vo.Mob
-import vo.MobType
-import vo.Position
+import vo.*
 
 /**
  * Фабрика мобов
@@ -22,8 +19,8 @@ object MobManager {
         val tile = dungeonLevel.getTileAt(position)
 
         return !tile.type.blocked // тайл не блокирует движение
-                && getMobAt(dungeonLevel, position) == null // в этой позиции нет мобов
-                && dungeonLevel.startPosition != position // и нас тут нет тоже
+            && getMobAt(dungeonLevel, position) == null // в этой позиции нет мобов
+            && dungeonLevel.startPosition != position // и нас тут нет тоже
     }
 
     /**
@@ -32,15 +29,40 @@ object MobManager {
     fun spawn(position: Position): Mob {
         val mobType = decideMobType()
 
-        val behaviour = when (mobType) {
+        val behaviour = getMobBehaviour(mobType)
+
+        return when (mobType) {
+            MobType.GOBLIN -> Mob(mobType, behaviour, position)
+            MobType.SLIME -> Mob(mobType, behaviour, position)
+            MobType.BAT -> Mob(mobType, behaviour, position)
+            MobType.TOXIC_MOLD_ROOT -> MoldMob(mobType, behaviour, position, 2)
+            MobType.TOXIC_MOLD -> throw IllegalArgumentException("Impossible to spawn TOXIC_MOLD")
+        }
+    }
+
+    fun getMobBehaviour(mobType: MobType): IsAliveBehaviour {
+        return when (mobType) {
             MobType.GOBLIN -> IsAliveBehaviour(AggressiveBehaviour(BasicBehaviour()))
             MobType.SLIME -> IsAliveBehaviour(AggressiveBehaviour(PassiveBehaviour()))
             MobType.BAT -> IsAliveBehaviour(FearfulBehaviour(BasicBehaviour()))
-            MobType.SOURCE_TOXIC_MOLD -> IsAliveBehaviour(AttackBehaviour(SpreadBehaviour(PassiveBehaviour())))
-            MobType.TOXIC_MOLD -> IsAliveBehaviour(AttackBehaviour(SpreadBehaviour(PassiveBehaviour())))
-        }
+            MobType.TOXIC_MOLD_ROOT -> IsAliveBehaviour(
+                AttackBehaviour(
+                    SpreadBehaviour(
+                        PassiveBehaviour()
+                    )
+                )
+            )
 
-        return Mob(mobType, behaviour, position)
+            MobType.TOXIC_MOLD -> IsAliveBehaviour(
+                IsRootAliveBehaviour(
+                    AttackBehaviour(
+                        SpreadBehaviour(
+                            PassiveBehaviour()
+                        )
+                    )
+                )
+            )
+        }
     }
 
     private fun decideMobType(): MobType {
@@ -55,7 +77,7 @@ object MobManager {
             0 -> MobType.GOBLIN
             1 -> MobType.SLIME
             2 -> MobType.BAT
-            else -> MobType.SOURCE_TOXIC_MOLD
+            else -> MobType.TOXIC_MOLD_ROOT
         }
     }
 
