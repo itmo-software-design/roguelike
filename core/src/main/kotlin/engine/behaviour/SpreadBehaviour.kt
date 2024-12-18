@@ -2,9 +2,10 @@ package engine.behaviour
 
 import engine.factory.MobManager
 import io.github.oshai.kotlinlogging.KotlinLogging
-import vo.*
-import kotlin.math.max
-import kotlin.math.min
+import vo.DungeonLevel
+import vo.Mob
+import vo.Player
+import vo.SpreadableMob
 import kotlin.random.Random
 
 /**
@@ -27,34 +28,30 @@ class SpreadBehaviour(parentBehaviour: Behaviour) : BehaviourDecorator(parentBeh
             return parentBehaviour.act(mob, dungeonLevel, player)
         }
 
-        if (randomizer.nextDouble(1.0) >= 0.7) {
+        if (randomizer.nextDouble(1.0) >= mob.spreadProbability) {
+            logger.debug { "$mob skipped spawning" }
             return parentBehaviour.act(mob, dungeonLevel, player)
         }
 
-        val x1 = max(mob.position.x - 1, 0)
-        val x2 = min(mob.position.x + 2, dungeonLevel.width)
-        val y1 = max(mob.position.y - 1, 0)
-        val y2 = min(mob.position.y + 2, dungeonLevel.height)
-        val mobPosition = generateRandomPosition(x1, x2, y1, y2)
-
-        if (!MobManager.canSpawnAt(dungeonLevel, mobPosition)) {
+        val spreadPosition = mob.position.neighbours.firstOrNull {
+            MobManager.canSpawnAt(dungeonLevel, it)
+        }
+        if (spreadPosition == null) {
+            logger.debug { "$mob can not spawn child mob at ${mob.position.neighbours}" }
             return parentBehaviour.act(mob, dungeonLevel, player)
         }
+
         val spread = mob.clone()
-        val health = mob.health - (spread.maxDistance - spread.distance)
-        if (spread.maxDistance < spread.distance || health < 0) {
+        if (spread == null) {
+            logger.debug { "$mob can not spawn child mob due to incorrect inner conditions" }
             return parentBehaviour.act(mob, dungeonLevel, player)
         }
-        spread.health = health
-        spread.position = mobPosition
 
-        logger.debug { "Spreading $mob to position $mobPosition" }
+        spread.position = spreadPosition
+        logger.debug { "Spreading $mob to position $spreadPosition" }
         dungeonLevel.enemies.add(spread)
+
+        return parentBehaviour.act(mob, dungeonLevel, player) // все еще выполняем базовое поведение
     }
 
-    private fun generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position {
-        val x = randomizer.nextInt(x1, x2)
-        val y = randomizer.nextInt(y1, y2)
-        return Position(x, y)
-    }
 }

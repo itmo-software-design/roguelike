@@ -1,5 +1,7 @@
 package engine
 
+import engine.factory.FirstLevelMobFactory
+import engine.factory.SecondLevelMobFactory
 import vo.DungeonLevel
 import vo.Inventory
 import vo.Player
@@ -43,7 +45,7 @@ object GameSession {
      */
     fun startNewGame(playerName: String) {
         val randomSeed = playerName.hashCode()
-        val firstDungeonLevel = DungeonLevelGenerator(randomSeed).generate()
+        val firstDungeonLevel = DungeonLevelGenerator(randomSeed, FirstLevelMobFactory).generate()
         player = Player(playerName, 100, 10, 1, firstDungeonLevel.startPosition)
         dungeonLevels = mutableListOf(firstDungeonLevel)
         addMoreLevels()
@@ -62,7 +64,12 @@ object GameSession {
 
     private fun addMoreLevels() {
         for (level in 0 until levelsCount) {
-            dungeonLevels.add(DungeonLevelGenerator(42 + level + 1).generate())
+            dungeonLevels.add(
+                DungeonLevelGenerator(
+                    42 + level + 1,
+                    SecondLevelMobFactory
+                ).generate()
+            )
         }
     }
 

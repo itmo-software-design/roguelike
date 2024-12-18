@@ -1,7 +1,9 @@
 package engine.factory
 
-import engine.behaviour.*
-import vo.*
+import vo.DungeonLevel
+import vo.Mob
+import vo.MobType
+import vo.Position
 
 /**
  * Фабрика мобов
@@ -26,58 +28,13 @@ object MobManager {
     /**
      * Размещает моба в выбранной позиции
      */
-    fun spawn(position: Position): Mob {
-        val mobType = decideMobType()
-
-        val behaviour = getMobBehaviour(mobType)
-
-        return when (mobType) {
-            MobType.GOBLIN -> Mob(mobType, behaviour, position)
-            MobType.SLIME -> Mob(mobType, behaviour, position)
-            MobType.BAT -> Mob(mobType, behaviour, position)
-            MobType.TOXIC_MOLD_ROOT -> MoldMob(mobType, behaviour, position, 2)
-            MobType.TOXIC_MOLD -> throw IllegalArgumentException("Impossible to spawn TOXIC_MOLD")
-        }
-    }
-
-    fun getMobBehaviour(mobType: MobType): IsAliveBehaviour {
-        return when (mobType) {
-            MobType.GOBLIN -> IsAliveBehaviour(AggressiveBehaviour(BasicBehaviour()))
-            MobType.SLIME -> IsAliveBehaviour(AggressiveBehaviour(PassiveBehaviour()))
-            MobType.BAT -> IsAliveBehaviour(FearfulBehaviour(BasicBehaviour()))
-            MobType.TOXIC_MOLD_ROOT -> IsAliveBehaviour(
-                AttackBehaviour(
-                    SpreadBehaviour(
-                        PassiveBehaviour()
-                    )
-                )
-            )
-
-            MobType.TOXIC_MOLD -> IsAliveBehaviour(
-                IsRootAliveBehaviour(
-                    AttackBehaviour(
-                        SpreadBehaviour(
-                            PassiveBehaviour()
-                        )
-                    )
-                )
-            )
-        }
-    }
-
-    private fun decideMobType(): MobType {
-//        when (Random.nextInt(100)) {
-//            in 0 until 10 -> MobType.GOBLIN
-//            in 10 until 50 -> MobType.SLIME
-//            else -> MobType.BAT
-//        }
-
+    fun spawn(mobFactory: MobFactory, position: Position): Mob {
         // В целях тестирования по очереди создадим моба каждого типа
         return when (mobCount++ % MobType.entries.size) {
-            0 -> MobType.GOBLIN
-            1 -> MobType.SLIME
-            2 -> MobType.BAT
-            else -> MobType.TOXIC_MOLD_ROOT
+            0 -> mobFactory.spawnWeakMob(position)
+            1 -> mobFactory.spawnBasicMob(position)
+            2 -> mobFactory.spawnStrongMob(position)
+            else -> mobFactory.spawnSpreadableMob(position)
         }
     }
 
@@ -89,3 +46,5 @@ object MobManager {
         return dungeonLevel.enemies.find { it.position == position && it.isAlive }
     }
 }
+
+

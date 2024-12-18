@@ -1,5 +1,6 @@
 package engine
 
+import engine.factory.MobFactory
 import engine.factory.MobManager
 import vo.*
 import java.util.*
@@ -7,6 +8,7 @@ import kotlin.random.Random
 
 class DungeonLevelGenerator(
     seed: Int,
+    private val mobFactory: MobFactory,
     private val height: Int = 30,
     private val width: Int = 50,
     roomCount: Int = 5,
@@ -121,7 +123,7 @@ class DungeonLevelGenerator(
             )
 
             if (MobManager.canSpawnAt(dungeonLevel, mobPosition)) {
-                val mob = MobManager.spawn(mobPosition)
+                val mob = MobManager.spawn(mobFactory, mobPosition)
                 dungeonLevel.enemies.add(mob)
                 mobCreated += 1
             }

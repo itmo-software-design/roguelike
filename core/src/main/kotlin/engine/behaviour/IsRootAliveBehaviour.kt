@@ -1,6 +1,5 @@
 package engine.behaviour
 
-import engine.factory.MobManager
 import io.github.oshai.kotlinlogging.KotlinLogging
 import vo.DungeonLevel
 import vo.Mob
@@ -22,11 +21,13 @@ class IsRootAliveBehaviour(parentBehaviour: Behaviour) : BehaviourDecorator(pare
             return parentBehaviour.act(mob, dungeonLevel, player)
         }
 
-        val root = MobManager.getMobAt(dungeonLevel, mob.root)
-        if (root == null || root.health <= 0 || root.type != mob.rootType) {
-            mob.health--
-        } else {
+        if (mob.root == null) {
             return parentBehaviour.act(mob, dungeonLevel, player)
+        }
+
+        val root = mob.root
+        if (!root.isAlive) {
+            mob.health--
         }
     }
 }
