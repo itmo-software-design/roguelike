@@ -2,7 +2,7 @@ package engine.dungeon
 
 import vo.DungeonLevel
 
-class DungeonLevelBuilder(private val generator: DefaultDungeonLevelGenerator = DefaultDungeonLevelGenerator()) {
+class DungeonLevelBuilder(private val generator: DungeonLevelGenerator = DefaultDungeonLevelGenerator()) {
     private var levelCount: Int = 0
     private var height: Int = 0
     private var width: Int = 0

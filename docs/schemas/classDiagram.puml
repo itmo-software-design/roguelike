@@ -44,6 +44,11 @@ package core {
             + addExperience(points: int)
         }
 
+        ' Объект рандомайзера
+        object Randomizer {
+            + generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position
+        }
+
         ' Класс инвентаря
         class Inventory {
             - items : List<Item>
@@ -217,10 +222,11 @@ package core {
                 - onExitButton()
             }
 
-            class PlayerNameScreen {
+            class GameConfigurationScreen {
                 - window: Window
                 - onReturn: () -> Unit
                 - playerTextBox: TextBox
+                - fileTextBox: TextBox
                 - nextButton: Button
                 - returnButton: Button
                 - init()
@@ -360,6 +366,54 @@ package core {
             FearfulBehaviour <-- MoveAction
         }
 
+        package dungeon {
+            class DungeonLevelGenerator {
+                - randomizer: Random
+                - roomCount: Int
+                - tiles: Array<Array<Tile>>
+                - initializeTiles(): Array<Array<Tile>>
+                + generate(): DungeonLevel
+                - placeItems(rooms: List<Room>)
+                - placePortal(room: Room)
+                - generateRandomRoom(): Room
+                - carveRoom(room: Room)
+                - generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position
+                - connectRooms(rooms: List<Room>)
+                - connectRooms(room1: Room, room2: Room)
+                - carveHorizontalTunnelWithDoors(x1: Int, x2: Int, y: Int)
+                - carveVerticalTunnelWithDoors(y1: Int, y2: Int, x: Int)
+            }
+
+            DungeonLevelGenerator *-- DungeonLevel
+            DungeonLevelGenerator <-- MobManager
+
+            interface DungeonLevelGenerator {
+                + generate(levelCount: Int, height: Int, width: Int, roomCount: Int): List<DungeonLevel>
+                + loadFromFile(filePath: String): List<DungeonLevel>?
+            }
+
+            class DefaultDungeonLevelGenerator implements DungeonLevelGenerator {}
+
+            class DungeonLevelBuilder {
+                # generator DungeonLevelGenerator
+                + generate(): DungeonLevelBuilder
+                + build(): List<DungeonLevel>
+            }
+
+            DungeonLevelBuilder <-- DungeonLevelGenerator
+
+            class DungeonLevelDirector {
+                + constructRandomLevels(builder: DungeonLevelBuilder)
+                + loadLevelsFromFile(builder: DungeonLevelBuilder, filePath: Path)
+            }
+
+            DungeonLevelDirector <-- DungeonLevelBuilder
+
+            class DungeonLevelFileLoader {
+                + load(filePath: String): List<DungeonLevel>
+            }
+        }
+
         package factory {
             object MobManager {
                 - mobCount: Int
@@ -368,6 +422,7 @@ package core {
                 - decideMobType(): MobType
                 + getActiveMobs(dungeonLevel: DungeonLevel): List<Mob>
                 + getMobAt(dungeonLevel: DungeonLevel, position: Position): Mob?
+                + generateMobs(dungeonLevel: DungeonLevel)
             }
             MobManager *-- Mob
             MobManager <-- DungeonLevel
@@ -388,26 +443,6 @@ package core {
         GameSession *-- Player
         GameSession <-- DungeonLevelGenerator
         GameSession "1" <-- "many" DungeonLevel
-
-        class DungeonLevelGenerator {
-            - randomizer: Random
-            - roomCount: Int
-            - tiles: Array<Array<Tile>>
-            - initializeTiles(): Array<Array<Tile>>
-            + generate(): DungeonLevel
-            - placeItems(rooms: List<Room>)
-            - placeMobs(rooms: List<Room>)
-            - placePortal(room: Room)
-            - generateRandomRoom(): Room
-            - carveRoom(room: Room)
-            - generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position
-            - connectRooms(rooms: List<Room>)
-            - connectRooms(room1: Room, room2: Room)
-            - carveHorizontalTunnelWithDoors(x1: Int, x2: Int, y: Int)
-            - carveVerticalTunnelWithDoors(y1: Int, y2: Int, x: Int)
-        }
-        DungeonLevelGenerator *-- DungeonLevel
-        DungeonLevelGenerator <-- MobManager
     }
 }
 

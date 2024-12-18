@@ -7,8 +7,8 @@ rectangle "Roguelike" {
     [KeyboardInputHandler]
 
     rectangle "Utils" {
-        [SaveLoadManager]
-        [RandomSeedGenerator]
+        [LoadManager]
+        [Randomizer]
     }
     rectangle "Game Logic" {
         [Game Manager]
