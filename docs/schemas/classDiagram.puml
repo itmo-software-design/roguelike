@@ -360,6 +360,87 @@ package core {
             FearfulBehaviour <-- MoveAction
         }
 
+        package dungeon {
+            class DungeonLevelRandomGenerator {
+                - random: Random
+                - roomCount: Int
+                - tiles: Array<Array<Tile>>
+                - initializeTiles(): Array<Array<Tile>>
+                + generate(): DungeonLevel
+                - placeItems(rooms: List<Room>)
+                - placePortal(room: Room)
+                - generateRandomRoom(): Room
+                - carveRoom(room: Room)
+                - generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position
+                - connectRooms(rooms: List<Room>)
+                - connectRooms(room1: Room, room2: Room)
+                - carveHorizontalTunnelWithDoors(x1: Int, x2: Int, y: Int)
+                - carveVerticalTunnelWithDoors(y1: Int, y2: Int, x: Int)
+            }
+
+            DungeonLevelRandomGenerator <-- DungeonLevel
+
+            class DungeonLevelGenerator {
+                + randomBuilder(): DungeonLevelGeneratorRandomBuilder
+                + fileBuilder(): DungeonLevelGeneratorFileBuilder
+            }
+
+            class DungeonLevelBuilder {
+                - tiles: Array<Array<Tile>>?
+                - rooms: List<Room>?
+                - mobFactory: MobFactory
+
+                + tiles(tiles: Array<Array<Tile>>): DungeonLevelBuilder
+                + rooms(rooms: List<Room>): DungeonLevelBuilder
+                + mobFactory(mobFactory: MobFactory): DungeonLevelBuilder
+                + build(): DungeonLevel
+            }
+
+            DungeonLevelBuilder <-- DungeonLevel
+            DungeonLevelBuilder <-- MobFactory
+
+            class DungeonLevelGeneratorRandomBuilder {
+                - seed: Int
+                - mobFactory: MobFactory
+                - height: Int
+                - width: Int
+                - roomCount: Int
+                - roomMinCount: Int?
+                - roomMaxCount: Int?
+                - roomMinSize: Int
+                - roomMaxSize: Int
+
+                + seed(value: Int): DungeonLevelGeneratorRandomBuilder
+                + mobFactory(value: MobFactory): DungeonLevelGeneratorRandomBuilder
+                + height(value: Int): DungeonLevelGeneratorRandomBuilder
+                + width(value: Int): DungeonLevelGeneratorRandomBuilder
+                + roomCount(value: Int): DungeonLevelGeneratorRandomBuilder
+                + roomMinCount(value: Int?): DungeonLevelGeneratorRandomBuilder
+                + roomMaxCount(value: Int?): DungeonLevelGeneratorRandomBuilder
+                + roomMinSize(value: Int): DungeonLevelGeneratorRandomBuilder
+                + roomMaxSize(value: Int): DungeonLevelGeneratorRandomBuilder
+                + generate(): DungeonLevelBuilder
+            }
+
+            DungeonLevelGeneratorRandomBuilder <-- DungeonLevelBuilder
+            DungeonLevelGeneratorRandomBuilder <-- MobFactory
+
+            class DungeonLevelGeneratorFileBuilder {
+                - mobFactory: MobFactory
+
+                + mobFactory(value: MobFactory): DungeonLevelGeneratorFileBuilder
+                + file(path: String): DungeonLevelBuilder
+            }
+
+            DungeonLevelGeneratorFileBuilder <-- MobFactory
+            DungeonLevelGeneratorFileBuilder <-- DungeonLevelBuilder
+
+            DungeonLevelGeneratorRandomBuilder <-- MobFactory
+            DungeonLevelGenerator *-- DungeonLevelGeneratorRandomBuilder
+            DungeonLevelGenerator *-- DungeonLevelGeneratorFileBuilder
+            DungeonLevelGenerator *-- DungeonLevelBuilder
+        }
+
         package factory {
             object MobManager {
                 - mobCount: Int
@@ -368,6 +449,7 @@ package core {
                 - decideMobType(): MobType
                 + getActiveMobs(dungeonLevel: DungeonLevel): List<Mob>
                 + getMobAt(dungeonLevel: DungeonLevel, position: Position): Mob?
+                + generateMobs(mobFactory: MobFactory, dungeonLevel: DungeonLevel)
             }
             MobManager *-- Mob
             MobManager <-- DungeonLevel
@@ -388,26 +470,6 @@ package core {
         GameSession *-- Player
         GameSession <-- DungeonLevelGenerator
         GameSession "1" <-- "many" DungeonLevel
-
-        class DungeonLevelGenerator {
-            - randomizer: Random
-            - roomCount: Int
-            - tiles: Array<Array<Tile>>
-            - initializeTiles(): Array<Array<Tile>>
-            + generate(): DungeonLevel
-            - placeItems(rooms: List<Room>)
-            - placeMobs(rooms: List<Room>)
-            - placePortal(room: Room)
-            - generateRandomRoom(): Room
-            - carveRoom(room: Room)
-            - generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position
-            - connectRooms(rooms: List<Room>)
-            - connectRooms(room1: Room, room2: Room)
-            - carveHorizontalTunnelWithDoors(x1: Int, x2: Int, y: Int)
-            - carveVerticalTunnelWithDoors(y1: Int, y2: Int, x: Int)
-        }
-        DungeonLevelGenerator *-- DungeonLevel
-        DungeonLevelGenerator <-- MobManager
     }
 }
 

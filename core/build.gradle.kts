@@ -12,6 +12,7 @@ dependencies {
     implementation(libs.bundles.kotlinxEcosystem)
     implementation(libs.bundles.logging)
     implementation(libs.lanterna)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     testImplementation(kotlin("test"))
     testImplementation(libs.mockk)
     testImplementation(libs.junit.jupiter.params)
