@@ -26,7 +26,7 @@ class MainMenuScreen(private var window: Window) : Panel() {
         playButton.isEnabled = false
         exitButton.isEnabled = false
         window.removeWindowListener(windowListener)
-        PlayerNameScreen(window) {
+        GameConfigurationScreen(window) {
             MainMenuScreen(window)
         }
     }

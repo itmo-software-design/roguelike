@@ -4,11 +4,12 @@ import com.googlecode.lanterna.gui2.*
 import ui.console.game.GameMapScreen
 import ui.localize.localize
 
-class PlayerNameScreen(
+class GameConfigurationScreen(
     private var window: Window,
     private var onReturn: () -> Unit
 ) : Panel() {
     private val playerTextBox: TextBox = TextBox()
+    private val fileTextBox: TextBox = TextBox()
     private val nextButton: Button = Button("text.play".localize(), this::onNextButtonClick)
     private val returnButton: Button = Button("text.back".localize(), this::onReturnButtonClick)
 
@@ -25,6 +26,10 @@ class PlayerNameScreen(
 
         formPanel.addComponent(Label("input.player-name".localize()))
         formPanel.addComponent(playerTextBox)
+        formPanel.addComponent(EmptySpace())
+        formPanel.addComponent(EmptySpace())
+        formPanel.addComponent(Label("input.file-name".localize()))
+        formPanel.addComponent(fileTextBox)
 
         addComponent(Separator(Direction.HORIZONTAL))
 
@@ -42,9 +47,10 @@ class PlayerNameScreen(
 
     private fun onNextButtonClick() {
         nextButton.isEnabled = false
-        val text = playerTextBox.text
-        if (text.isNotBlank()) {
-            val uiContext = UIContext(text)
+        val playerName = playerTextBox.text
+        val fileName = fileTextBox.text
+        if (playerName.isNotBlank()) {
+            val uiContext = UIContext(playerName, fileName)
             GameMapScreen(window, uiContext) {
                 MainMenuScreen(window)
             }

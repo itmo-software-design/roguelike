@@ -1,5 +1,6 @@
 package engine.factory
 
+import vo.Randomizer
 import engine.behaviour.*
 import vo.DungeonLevel
 import vo.Mob
@@ -38,6 +39,29 @@ object MobManager {
         }
 
         return Mob(mobType, behaviour, position)
+    }
+
+    /**
+     * Сгенерировать мобов и добавить их на уровень
+     */
+    fun generateMobs(dungeonLevel: DungeonLevel) {
+        val nMobs = Randomizer.nextInt(dungeonLevel.rooms.size, 2 * dungeonLevel.rooms.size)
+
+        var mobCreated = 0
+        while (mobCreated < nMobs) { // рандомно размещает мобов по комнатам
+            val room = dungeonLevel.rooms[Randomizer.nextInt(dungeonLevel.rooms.size)]
+
+            val mobPosition = Randomizer.generateRandomPosition(
+                room.bottomLeft.x + 1, room.topRight.x,
+                room.bottomLeft.y + 1, room.topRight.y
+            )
+
+            if (canSpawnAt(dungeonLevel, mobPosition)) {
+                val mob = spawn(mobPosition)
+                dungeonLevel.enemies.add(mob)
+                mobCreated += 1
+            }
+        }
     }
 
     private fun decideMobType(): MobType {

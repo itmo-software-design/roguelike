@@ -1,5 +1,6 @@
 package vo
 
+import kotlinx.serialization.Serializable
 import kotlin.math.abs
 
 /**
@@ -8,6 +9,7 @@ import kotlin.math.abs
  * @since MikhailShad
  * @since 0.0.1
  */
+@Serializable
 data class Position(var x: Int, var y: Int) {
     /**
      * Квадрат расстояния от текущей точки до другой точки на уровне

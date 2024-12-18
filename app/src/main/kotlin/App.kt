@@ -39,7 +39,7 @@ fun main() {
         MessageBroker.subscribe(TOPIC_UI) {
             when (it) {
                 is GameScreenOpened -> {
-                    GameSession.startNewGame(it.playerName)
+                    GameSession.startNewGame(it.playerName, it.fileName)
                     gameStarted = true
                 }
             }

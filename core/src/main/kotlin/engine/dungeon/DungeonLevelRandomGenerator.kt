@@ -1,12 +1,11 @@
-package engine
+package engine.dungeon
 
+import vo.Randomizer
 import engine.factory.MobManager
 import vo.*
 import java.util.*
-import kotlin.random.Random
 
-class DungeonLevelGenerator(
-    seed: Int,
+class DungeonLevelRandomGenerator(
     private val height: Int = 30,
     private val width: Int = 50,
     roomCount: Int = 5,
@@ -16,16 +15,15 @@ class DungeonLevelGenerator(
     private val roomMaxSize: Int = 10
 ) {
 
-    private val randomizer = Random(seed)
     private val roomCount = if (roomMinCount != null && roomMaxCount != null) {
-        randomizer.nextInt(
+        Randomizer.nextInt(
             roomMinCount.coerceAtLeast(1),
             roomMaxCount.coerceAtLeast(2)
         )
     } else {
         roomCount
     }
-    private val tiles: Array<Array<Tile>> = initializeTiles()
+    private var tiles: Array<Array<Tile>> = initializeTiles()
 
 
     private fun initializeTiles(): Array<Array<Tile>> {
@@ -37,6 +35,7 @@ class DungeonLevelGenerator(
      * Размещает комнаты, предметы и мобов.
      */
     fun generate(): DungeonLevel {
+        tiles = initializeTiles()
         val rooms: MutableList<Room> = mutableListOf()
         for (i in 1..roomCount) {
             val maxRetries = 5
@@ -63,20 +62,20 @@ class DungeonLevelGenerator(
 
         placePortal(dungeonLevel)
         placeItems(rooms)
-        placeMobs(dungeonLevel)
+        MobManager.generateMobs(dungeonLevel)
 
         return dungeonLevel
     }
 
     private fun placeItems(rooms: List<Room>) {
-        var nConsumable = randomizer.nextInt(rooms.size / 2, rooms.size)
-        var nWeapon = randomizer.nextInt(rooms.size / 2, rooms.size)
-        var nArmor = randomizer.nextInt(rooms.size / 2, rooms.size)
+        var nConsumable = Randomizer.nextInt(rooms.size / 2, rooms.size)
+        var nWeapon = Randomizer.nextInt(rooms.size / 2, rooms.size)
+        var nArmor = Randomizer.nextInt(rooms.size / 2, rooms.size)
 
         val totalItems = nConsumable + nWeapon + nArmor
 
         repeat(totalItems) { // рандомно размещает предметы в разных комнатах
-            val room = rooms[randomizer.nextInt(rooms.size)]
+            val room = rooms[Randomizer.nextInt(rooms.size)]
 
             val pos = generateRandomPosition(
                 room.bottomLeft.x + 1, room.topRight.x,
@@ -108,28 +107,8 @@ class DungeonLevelGenerator(
         }
     }
 
-    private fun placeMobs(dungeonLevel: DungeonLevel) {
-        val nMobs = randomizer.nextInt(dungeonLevel.rooms.size, 2 * dungeonLevel.rooms.size)
-
-        var mobCreated = 0
-        while (mobCreated < nMobs) { // рандомно размещает мобов по комнатам
-            val room = dungeonLevel.rooms[randomizer.nextInt(dungeonLevel.rooms.size)]
-
-            val mobPosition = generateRandomPosition(
-                room.bottomLeft.x + 1, room.topRight.x,
-                room.bottomLeft.y + 1, room.topRight.y
-            )
-
-            if (MobManager.canSpawnAt(dungeonLevel, mobPosition)) {
-                val mob = MobManager.spawn(mobPosition)
-                dungeonLevel.enemies.add(mob)
-                mobCreated += 1
-            }
-        }
-    }
-
     private fun placePortal(dungeonLevel: DungeonLevel) {
-        val portalRoomNumber = randomizer.nextInt(dungeonLevel.rooms.size)
+        val portalRoomNumber = Randomizer.nextInt(dungeonLevel.rooms.size)
         val room = dungeonLevel.rooms[portalRoomNumber]
         val pos = generateRandomPosition(
             room.bottomLeft.x + 1,
@@ -141,10 +120,10 @@ class DungeonLevelGenerator(
     }
 
     private fun generateRandomRoom(): Room {
-        val roomWidth = randomizer.nextInt(roomMinSize, roomMaxSize)
-        val roomHeight = randomizer.nextInt(roomMinSize, roomMaxSize)
-        val x = randomizer.nextInt(0, width - roomWidth)
-        val y = randomizer.nextInt(0, height - roomHeight)
+        val roomWidth = Randomizer.nextInt(roomMinSize, roomMaxSize)
+        val roomHeight = Randomizer.nextInt(roomMinSize, roomMaxSize)
+        val x = Randomizer.nextInt(0, width - roomWidth)
+        val y = Randomizer.nextInt(0, height - roomHeight)
         return Room(Position(x, y), roomWidth, roomHeight)
     }
 
@@ -170,8 +149,8 @@ class DungeonLevelGenerator(
     }
 
     private fun generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position {
-        val x = randomizer.nextInt(x1, x2)
-        val y = randomizer.nextInt(y1, y2)
+        val x = Randomizer.nextInt(x1, x2)
+        val y = Randomizer.nextInt(y1, y2)
         return Position(x, y)
     }
 
@@ -194,7 +173,7 @@ class DungeonLevelGenerator(
         val center1 = room1.center
         val center2 = room2.center
 
-        if (randomizer.nextBoolean()) {
+        if (Randomizer.nextBoolean()) {
             carveHorizontalTunnelWithDoors(center1.x, center2.x, center1.y)
             carveVerticalTunnelWithDoors(center1.y, center2.y, center2.x)
         } else {

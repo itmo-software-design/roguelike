@@ -27,23 +27,26 @@ class PlayerNameScreenTest {
 
     private lateinit var mockWindow: Window
     private lateinit var mockOnReturn: () -> Unit
-    private lateinit var playerNameScreen: PlayerNameScreen
+    private lateinit var gameConfigurationScreen: GameConfigurationScreen
 
     @BeforeEach
     fun setUp() {
         mockWindow = mockk(relaxed = true)
         mockOnReturn = mockk(relaxed = true)
-        playerNameScreen = PlayerNameScreen(mockWindow, mockOnReturn)
+        gameConfigurationScreen = GameConfigurationScreen(mockWindow, mockOnReturn)
     }
 
     @Test
     fun `should initialize UI components with localized text`() {
-        val labels = playerNameScreen.children.filterIsInstance<Label>()
-        val textBox =
-            (playerNameScreen.children.elementAt(2) as Panel).children.filterIsInstance<TextBox>()
+        val labels = gameConfigurationScreen.children.filterIsInstance<Label>()
+        val playerNameTextBox =
+            (gameConfigurationScreen.children.elementAt(2) as Panel).children.filterIsInstance<TextBox>()
                 .first()
+        val fileNameTextBox =
+            (gameConfigurationScreen.children.elementAt(2) as Panel).children.filterIsInstance<TextBox>()
+                .last()
         val buttons =
-            (playerNameScreen.children.last() as Panel).children.filterIsInstance<Button>()
+            (gameConfigurationScreen.children.last() as Panel).children.filterIsInstance<Button>()
 
         assertTrue(labels.any { it.text == "title.welcome".localize() })
         assertEquals(
@@ -54,17 +57,18 @@ class PlayerNameScreenTest {
             "text.back".localize(),
             buttons.find { it.label == "text.back".localize() }?.label
         )
-        assertNotNull(textBox, "Player name TextBox should exist")
+        assertNotNull(playerNameTextBox, "Player name TextBox should exist")
+        assertNotNull(fileNameTextBox, "File name TextBox should exist")
     }
 
     @Test
     fun `should transition to GameMapScreen when Next button is clicked with valid name`() {
         val mockGameMapScreen = mockk<GameMapScreen>(relaxed = true)
         val textBox =
-            (playerNameScreen.children.elementAt(2) as Panel).children.filterIsInstance<TextBox>()
+            (gameConfigurationScreen.children.elementAt(2) as Panel).children.filterIsInstance<TextBox>()
                 .first()
         val nextButton =
-            (playerNameScreen.children.last() as Panel).children.filterIsInstance<Button>()
+            (gameConfigurationScreen.children.last() as Panel).children.filterIsInstance<Button>()
                 .find { it.label == "text.play".localize() }
 
         textBox.text = "PlayerName"
@@ -80,10 +84,10 @@ class PlayerNameScreenTest {
     @Test
     fun `should disable Next button and not transition when name is blank`() {
         val textBox =
-            (playerNameScreen.children.elementAt(2) as Panel).children.filterIsInstance<TextBox>()
+            (gameConfigurationScreen.children.elementAt(2) as Panel).children.filterIsInstance<TextBox>()
                 .first()
         val nextButton =
-            (playerNameScreen.children.last() as Panel).children.filterIsInstance<Button>()
+            (gameConfigurationScreen.children.last() as Panel).children.filterIsInstance<Button>()
                 .find { it.label == "text.play".localize() }
 
         textBox.text = ""
@@ -99,7 +103,7 @@ class PlayerNameScreenTest {
     @Test
     fun `should invoke onReturn callback when Return button is clicked`() {
         val returnButton =
-            (playerNameScreen.children.last() as Panel).children.filterIsInstance<Button>()
+            (gameConfigurationScreen.children.last() as Panel).children.filterIsInstance<Button>()
                 .find { it.label == "text.back".localize() }
 
         returnButton?.onEnterFocus(Interactable.FocusChangeDirection.UP, returnButton)

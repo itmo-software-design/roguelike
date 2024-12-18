@@ -51,7 +51,7 @@ class GameMapScreen(
             onReturn()
         }
 
-        MessageBroker.send(TOPIC_UI, GameScreenOpened(uiContext.playerName))
+        MessageBroker.send(TOPIC_UI, GameScreenOpened(uiContext.playerName, uiContext.fileName))
 
         window.component = this
     }

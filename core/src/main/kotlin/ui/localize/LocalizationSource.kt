@@ -8,6 +8,7 @@ object LocalizationSource {
         "title.welcome" to "Welcome to our Rogue Like!\nIntroduce yourself, wanderer, what is your name?",
         "title.game.exit" to "Are you sure you want to exit?",
         "input.player-name" to "Player Name:",
+        "input.file-name" to "File Name (empty for a new map):",
 
         "title.inventory" to "Inventory",
         "title.player-info" to "Player Info",

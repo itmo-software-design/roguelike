@@ -5,4 +5,4 @@ package ui.console
  * @author sibmaks
  * @since 0.0.1
  */
-data class UIContext(var playerName: String)
+data class UIContext(var playerName: String, var fileName: String)

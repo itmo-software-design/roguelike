@@ -84,6 +84,6 @@ class GameMapScreenTest {
 
     @Test
     fun `GameScreenOpened message is sent on initialization`() {
-        verify { MessageBroker.send(TOPIC_UI, GameScreenOpened("TestPlayer")) }
+        verify { MessageBroker.send(TOPIC_UI, GameScreenOpened("TestPlayer", "")) }
     }
 }
