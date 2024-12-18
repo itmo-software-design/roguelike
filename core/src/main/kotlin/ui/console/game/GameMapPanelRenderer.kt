@@ -131,7 +131,7 @@ class GameMapPanelRenderer : ComponentRenderer<Panel> {
             return
         }
 
-        graphics.setForegroundColor(TextColor.ANSI.WHITE)
+        graphics.setForegroundColor(mobType.color)
         graphics.setBackgroundColor(TextColor.ANSI.BLACK)
         graphics.putString(
             TerminalPosition(screenPosition.x, screenPosition.y),
