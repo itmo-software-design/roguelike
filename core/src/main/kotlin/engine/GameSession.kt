@@ -1,7 +1,9 @@
 package engine
 
 import engine.dungeon.DungeonLevelGenerator
+import engine.factory.BossFactory
 import engine.factory.FirstLevelMobFactory
+import engine.factory.SecondLevelMobFactory
 import kotlinx.serialization.Serializable
 import vo.DungeonLevel
 import vo.Player
@@ -42,7 +44,6 @@ object GameSession {
      */
     var seed: Int = 42
 
-
     private const val BOSS_LEVEL_FILE_PATH = "levels/boss_level.json"
     internal const val DUNGEON_LEVELS_COUNT = 3
     private const val BOSS_LEVEL_NUM = DUNGEON_LEVELS_COUNT - 1
@@ -82,6 +83,8 @@ object GameSession {
         val nextLevel = if (currentDungeonLevelNum == BOSS_LEVEL_NUM) {
             DungeonLevelGenerator.fileBuilder()
                 .file(BOSS_LEVEL_FILE_PATH)
+                .mobLimit(1)
+                .mobFactory(BossFactory)
                 .build()
         } else {
             DungeonLevelGenerator

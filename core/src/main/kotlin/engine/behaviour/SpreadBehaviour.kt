@@ -1,12 +1,12 @@
 package engine.behaviour
 
+import engine.Randomizer
 import engine.factory.MobManager
 import io.github.oshai.kotlinlogging.KotlinLogging
 import vo.DungeonLevel
 import vo.Mob
 import vo.Player
 import vo.SpreadableMob
-import kotlin.random.Random
 
 /**
  * Распространяемся на рядом стоящие ячейки
@@ -17,7 +17,7 @@ import kotlin.random.Random
 class SpreadBehaviour(parentBehaviour: Behaviour) : BehaviourDecorator(parentBehaviour) {
     private val logger = KotlinLogging.logger {}
 
-    private val randomizer = Random(System.currentTimeMillis())
+    private val randomizer = Randomizer.random
 
     /**
      * Распространяемся на рядом стоящие ячейки

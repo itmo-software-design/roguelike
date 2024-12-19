@@ -1,11 +1,10 @@
 package engine.factory
 
+import engine.Randomizer
 import vo.DungeonLevel
 import vo.Mob
 import vo.MobType
 import vo.Position
-import kotlin.random.Random
-import kotlin.random.nextInt
 
 /**
  * Фабрика мобов
@@ -15,7 +14,7 @@ import kotlin.random.nextInt
  */
 object MobManager {
     private var mobCount = 0
-    private val random = Random(42)
+    private val random = Randomizer.random
 
     /**
      * Проверяет, можно ли расположить моба в указанной точке на уровне
@@ -32,6 +31,10 @@ object MobManager {
      * Размещает моба в выбранной позиции
      */
     fun spawn(mobFactory: MobFactory, position: Position): Mob {
+        if (mobFactory is BossFactory) {
+            return mobFactory.spawnBoss(position)
+        }
+
         // В целях тестирования по очереди создадим моба каждого типа
         return when (mobCount++ % MobType.entries.size) {
             0 -> mobFactory.spawnWeakMob(position)
@@ -44,8 +47,14 @@ object MobManager {
     /**
      * Сгенерировать мобов и добавить их на уровень
      */
-    fun generateMobs(mobFactory: MobFactory, dungeonLevel: DungeonLevel) {
-        val nMobs = random.nextInt(dungeonLevel.rooms.size, 2 * dungeonLevel.rooms.size)
+    fun generateMobs(
+        mobFactory: MobFactory,
+        dungeonLevel: DungeonLevel,
+        mobLimit: Int? = null
+    ) {
+        val nMobs = mobLimit
+            ?: random.nextInt(dungeonLevel.rooms.size, 2 * dungeonLevel.rooms.size)
+
 
         var mobCreated = 0
         while (mobCreated < nMobs) { // рандомно размещает мобов по комнатам

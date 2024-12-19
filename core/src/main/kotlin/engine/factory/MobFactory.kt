@@ -32,6 +32,11 @@ interface MobFactory {
      * Размещает само-реплицирующегося моба в выбранной позиции
      */
     fun spawnSpreadableMob(position: Position): SpreadableMob
+
+    /**
+     * Размещает босса
+     */
+    fun spawnBoss(position: Position): Mob
 }
 
 /**
@@ -73,6 +78,8 @@ object FirstLevelMobFactory : MobFactory {
             healthPenalty = { mob -> mob.distance.coerceIn(0..mob.maxDistance) }
         )
     }
+
+    override fun spawnBoss(position: Position): Mob = throw UnsupportedOperationException()
 }
 
 /**
@@ -130,4 +137,29 @@ object SecondLevelMobFactory : MobFactory {
             healthPenalty = { 0 }
         )
     }
+
+    override fun spawnBoss(position: Position): Mob = throw UnsupportedOperationException()
+}
+
+/**
+ * Фабрика босса
+ *
+ * @author MikhailShad
+ * @since 0.0.1
+ */
+object BossFactory : MobFactory {
+    override fun spawnWeakMob(position: Position): Mob = throw UnsupportedOperationException()
+
+    override fun spawnBasicMob(position: Position): Mob = throw UnsupportedOperationException()
+
+    override fun spawnStrongMob(position: Position): Mob = throw UnsupportedOperationException()
+
+    override fun spawnSpreadableMob(position: Position): SpreadableMob =
+        throw UnsupportedOperationException()
+
+    override fun spawnBoss(position: Position): Mob = Mob(
+        MobType.DUNGEON_MASTER, AggressiveBehaviour(BasicBehaviour()),
+        position
+    )
+
 }

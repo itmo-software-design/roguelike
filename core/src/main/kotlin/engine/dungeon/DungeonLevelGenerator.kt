@@ -14,6 +14,7 @@ class DungeonLevelGenerator {
         private var tiles: Array<Array<Tile>>? = null
         private var rooms: List<Room>? = null
         private var mobFactory: MobFactory = FirstLevelMobFactory
+        private var mobLimit: Int? = null
 
         internal fun tiles(tiles: Array<Array<Tile>>): DungeonLevelBuilder {
             this.tiles = tiles
@@ -30,6 +31,11 @@ class DungeonLevelGenerator {
             return this
         }
 
+        fun mobLimit(mobLimit: Int): DungeonLevelBuilder {
+            this.mobLimit = mobLimit
+            return this
+        }
+
         fun build(): DungeonLevel {
             val levelTiles = tiles
                 ?: throw IllegalStateException("tiles must be set before build()")
@@ -39,7 +45,7 @@ class DungeonLevelGenerator {
                 tiles = levelTiles,
                 rooms = levelRooms
             )
-            MobManager.generateMobs(mobFactory, level)
+            MobManager.generateMobs(mobFactory, level, mobLimit)
             return level
         }
     }

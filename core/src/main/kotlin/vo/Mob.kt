@@ -118,4 +118,5 @@ enum class MobType(
     SLIME("Slime", 'S', TextColor.ANSI.YELLOW, 5, 5, 1, 2, 2),
     BAT("Bat", 'B', TextColor.ANSI.WHITE, 1, 3, 1, 10, 1),
     TOXIC_MOLD("Toxic Mold", 'V', TextColor.ANSI.GREEN, 3, 3, 1, 1, 3),
+    DUNGEON_MASTER("Dungeon Master", 'D', TextColor.ANSI.MAGENTA_BRIGHT, 50, 25, 10, 20, 100)
 }

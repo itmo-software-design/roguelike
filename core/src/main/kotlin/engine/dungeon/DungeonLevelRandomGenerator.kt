@@ -1,8 +1,8 @@
 package engine.dungeon
 
+import engine.Randomizer
 import vo.*
 import java.util.*
-import kotlin.random.Random
 
 class DungeonLevelRandomGenerator(
     seed: Int = 42,
@@ -15,7 +15,7 @@ class DungeonLevelRandomGenerator(
     private val roomMaxSize: Int = 10
 ) {
 
-    private val random = Random(seed)
+    private val random = Randomizer.seed(seed)
 
     private val roomCount = if (roomMinCount != null && roomMaxCount != null) {
         random.nextInt(
