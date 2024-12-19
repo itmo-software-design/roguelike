@@ -1,14 +1,19 @@
 package vo
 
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+
 /**
  * Уровень подземелья
  *
  * @author MikhailShad
  * @since 0.0.1
  */
+@Serializable
 class DungeonLevel(
     val tiles: Array<Array<Tile>>,
     val rooms: List<Room>,
+    @Transient
     val enemies: MutableList<Mob> = mutableListOf()
 ) {
     /**
@@ -73,10 +78,11 @@ enum class TileType(
     PORTAL(blocked = true, blockSight = false),
 }
 
+@Serializable
 data class Tile(
     var type: TileType,
     var isExplored: Boolean = false
-) : Renderable {
+) {
     override fun toString(): String {
         return when (type) {
             TileType.CONSUMABLE -> "c"
@@ -101,35 +107,38 @@ data class Tile(
  * @author MikhailShad
  * @since 0.0.1
  */
+@Serializable
 class Room(
     val bottomLeft: Position,
-    width: Int,
-    height: Int
+    val rawWidth: Int,
+    val rawHeight: Int
 ) {
     /**
      * Ширина комнаты
      *
      * Минимум 3 символа: стена, пол, стена
      */
-    val width = width.coerceAtLeast(3)
+    val width = rawWidth.coerceAtLeast(3)
 
     /**
      * Высота комнаты
      *
      * Минимум 3 символа: стена, пол, стена
      */
-    val height = height.coerceAtLeast(3)
+    val height = rawHeight.coerceAtLeast(3)
 
     /**
      * Правый верхний угол комнаты
      *
      * Полезно держать предварительно посчитанным для определения пересечения с другими комнатами
      */
+    @Transient
     val topRight = Position(bottomLeft.x + width, bottomLeft.y + height)
 
     /**
      * Центр комнаты
      */
+    @Transient
     val center = Position(
         x = bottomLeft.x + width / 2,
         y = bottomLeft.y + height / 2
@@ -138,6 +147,7 @@ class Room(
     /**
      * Евклидово расстояние до центра комнаты
      */
+    @Transient
     val distanceFromZero = center.distanceToZero
 
     /**
