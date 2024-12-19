@@ -39,7 +39,7 @@ class PlayerNameScreenTest {
     @Test
     fun `should initialize UI components with localized text`() {
         val labels = playerNameScreen.children.filterIsInstance<Label>()
-        val textBox =
+        val playerNameTextBox =
             (playerNameScreen.children.elementAt(2) as Panel).children.filterIsInstance<TextBox>()
                 .first()
         val buttons =
@@ -54,7 +54,7 @@ class PlayerNameScreenTest {
             "text.back".localize(),
             buttons.find { it.label == "text.back".localize() }?.label
         )
-        assertNotNull(textBox, "Player name TextBox should exist")
+        assertNotNull(playerNameTextBox, "Player name TextBox should exist")
     }
 
     @Test

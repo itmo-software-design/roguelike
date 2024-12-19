@@ -8,7 +8,7 @@ class PlayerNameScreen(
     private var window: Window,
     private var onReturn: () -> Unit
 ) : Panel() {
-    private val playerTextBox: TextBox = TextBox()
+    private val playerNameTextBox: TextBox = TextBox()
     private val nextButton: Button = Button("text.play".localize(), this::onNextButtonClick)
     private val returnButton: Button = Button("text.back".localize(), this::onReturnButtonClick)
 
@@ -24,7 +24,7 @@ class PlayerNameScreen(
         addComponent(formPanel)
 
         formPanel.addComponent(Label("input.player-name".localize()))
-        formPanel.addComponent(playerTextBox)
+        formPanel.addComponent(playerNameTextBox)
 
         addComponent(Separator(Direction.HORIZONTAL))
 
@@ -42,9 +42,9 @@ class PlayerNameScreen(
 
     private fun onNextButtonClick() {
         nextButton.isEnabled = false
-        val text = playerTextBox.text
-        if (text.isNotBlank()) {
-            val uiContext = UIContext(text)
+        val playerName = playerNameTextBox.text
+        if (playerName.isNotBlank()) {
+            val uiContext = UIContext(playerName)
             GameMapScreen(window, uiContext) {
                 MainMenuScreen(window)
             }

@@ -1,8 +1,7 @@
 package engine.factory
 
-import io.mockk.confirmVerified
 import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.verifyAll
 import vo.Position
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -23,14 +22,12 @@ class MobManagerTest {
 
     @Test
     fun `check spawn for different mob types`() {
-        MobManager.spawn(mobFactory, position)
-        verify(exactly = 1) { mobFactory.spawnWeakMob(position) }
-        MobManager.spawn(mobFactory, position)
-        verify(exactly = 1) { mobFactory.spawnBasicMob(position) }
-        MobManager.spawn(mobFactory, position)
-        verify(exactly = 1) { mobFactory.spawnStrongMob(position) }
-        MobManager.spawn(mobFactory, position)
-        verify(exactly = 1) { mobFactory.spawnSpreadableMob(position) }
-        confirmVerified(mobFactory)
+        repeat(4) { MobManager.spawn(mobFactory, position) }
+        verifyAll {
+            mobFactory.spawnWeakMob(position)
+            mobFactory.spawnBasicMob(position)
+            mobFactory.spawnStrongMob(position)
+            mobFactory.spawnSpreadableMob(position)
+        }
     }
 }
