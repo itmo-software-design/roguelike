@@ -86,10 +86,20 @@ package core {
         class Mob extends Character {
             + mobType: MobType
             + behaviour: Behaviour
-            + position: Position
+            + name: String,
+            + xp: Int
         }
         Mob *-- MobType
         Mob *-- Behaviour
+
+        class SpreadableMob extends Mob {
+            + healthPenalty: (SpreadableMob) -> Int
+            + spreadProbability: Double
+            + root: SpreadableMob?
+            + maxDistance: Int
+            + distance: Int
+            + clone(): SpreadableMob?
+        }
 
         enum MobType {
             + mobName: String,
@@ -358,6 +368,26 @@ package core {
             }
             FearfulBehaviour <-- CheckVisibilityAction
             FearfulBehaviour <-- MoveAction
+
+            class AttackBehaviour extends BehaviourDecorator {
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+            }
+            AttackBehaviour <-- AttackAction
+
+            class IsRootAlveBehaviour extends BehaviourDecorator {
+                - logger: KotlinLogging.logger
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+            }
+            SpreadBehaviour <-- Mob
+
+            class SpreadBehaviour extends BehaviourDecorator {
+                - logger: KotlinLogging.logger
+                - randomizer: Random
+
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+            }
+            SpreadBehaviour <-- Randomizer
+            SpreadBehaviour <-- SpreadableMob
         }
 
         package dungeon {
@@ -377,27 +407,30 @@ package core {
                 - carveHorizontalTunnelWithDoors(x1: Int, x2: Int, y: Int)
                 - carveVerticalTunnelWithDoors(y1: Int, y2: Int, x: Int)
             }
-
-            DungeonLevelRandomGenerator <-- DungeonLevel
+            DungeonLevelRandomGenerator *-- DungeonLevel
 
             class DungeonLevelGenerator {
                 + randomBuilder(): DungeonLevelGeneratorRandomBuilder
                 + fileBuilder(): DungeonLevelGeneratorFileBuilder
             }
+            DungeonLevelGenerator *-- DungeonLevelGeneratorRandomBuilder
+            DungeonLevelGenerator *-- DungeonLevelGeneratorFileBuilder
 
             class DungeonLevelBuilder {
                 - tiles: Array<Array<Tile>>?
                 - rooms: List<Room>?
                 - mobFactory: MobFactory
+                - mobLimit: Int?
 
                 + tiles(tiles: Array<Array<Tile>>): DungeonLevelBuilder
                 + rooms(rooms: List<Room>): DungeonLevelBuilder
                 + mobFactory(mobFactory: MobFactory): DungeonLevelBuilder
+                + mobLimit(mobLimit: Int): DungeonLevelBuilder
                 + build(): DungeonLevel
             }
-
-            DungeonLevelBuilder <-- DungeonLevel
-            DungeonLevelBuilder <-- MobFactory
+            DungeonLevelBuilder *-- DungeonLevel
+            DungeonLevelBuilder o-- MobFactory
+            DungeonLevelBuilder <-- MobManager
 
             class DungeonLevelGeneratorRandomBuilder {
                 - seed: Int
@@ -421,9 +454,7 @@ package core {
                 + roomMaxSize(value: Int): DungeonLevelGeneratorRandomBuilder
                 + generate(): DungeonLevelBuilder
             }
-
-            DungeonLevelGeneratorRandomBuilder <-- DungeonLevelBuilder
-            DungeonLevelGeneratorRandomBuilder <-- MobFactory
+            DungeonLevelGeneratorRandomBuilder *-- DungeonLevelBuilder
 
             class DungeonLevelGeneratorFileBuilder {
                 - mobFactory: MobFactory
@@ -431,26 +462,50 @@ package core {
                 + mobFactory(value: MobFactory): DungeonLevelGeneratorFileBuilder
                 + file(path: String): DungeonLevelBuilder
             }
-
-            DungeonLevelGeneratorFileBuilder <-- MobFactory
-            DungeonLevelGeneratorFileBuilder <-- DungeonLevelBuilder
-
-            DungeonLevelGeneratorRandomBuilder <-- MobFactory
-            DungeonLevelGenerator *-- DungeonLevelGeneratorRandomBuilder
-            DungeonLevelGenerator *-- DungeonLevelGeneratorFileBuilder
-            DungeonLevelGenerator *-- DungeonLevelBuilder
+            DungeonLevelGeneratorFileBuilder *-- DungeonLevelBuilder
         }
 
         package factory {
+            interface MobFactory {
+                + spawnWeakMob(position: Position): Mob
+                + spawnBasicMob(position: Position): Mob
+                + spawnStrongMob(position: Position): Mob
+                + spawnSpreadableMob(position: Position): SpreadableMob
+                + spawnBoss(position: Position): Mob
+            }
+            MobFactory *-- Mob
+
+            object FirstLevelMobFactory {
+                + spawnWeakMob(position: Position): Mob
+                + spawnBasicMob(position: Position): Mob
+                + spawnStrongMob(position: Position): Mob
+                + spawnSpreadableMob(position: Position): SpreadableMob
+            }
+            FirstLevelMobFactory <|-- MobFactory
+
+            object SecondLevelMobFactory {
+                + spawnWeakMob(position: Position): Mob
+                + spawnBasicMob(position: Position): Mob
+                + spawnStrongMob(position: Position): Mob
+                + spawnSpreadableMob(position: Position): SpreadableMob
+            }
+            SecondLevelMobFactory <|-- MobFactory
+
+            object BossFactory {
+                + spawnBoss(position: Position): Mob
+            }
+            BossFactory <|-- MobFactory
+
             object MobManager {
                 - mobCount: Int
+                - random: Random
                 + canSpawnAt(dungeonLevel: DungeonLevel, position: Position): Boolean
                 + spawn(position: Position): Mob
-                - decideMobType(): MobType
                 + getActiveMobs(dungeonLevel: DungeonLevel): List<Mob>
                 + getMobAt(dungeonLevel: DungeonLevel, position: Position): Mob?
                 + generateMobs(mobFactory: MobFactory, dungeonLevel: DungeonLevel)
             }
+            MobManager <-- Randomizer
             MobManager *-- Mob
             MobManager <-- DungeonLevel
         }
@@ -459,17 +514,20 @@ package core {
             + player: Player
             + dungeonLevels: MutableList<DungeonLevel>
             + currentDungeonLevel: DungeonLevel
-            - levelsCount: Int
-            - currentLevelId: Int
+            + seed: Int
+            + currentDungeonLevelNum: Int
             + isPlayerInitialized(): Boolean
-            + startNewGame(playerName: String, firstLevel: DungeonLevel)
+            + startNewGame(playerName: String)
             + moveToNextLevel()
-            + addMoreLevels()
-            + loadStateFromFile(filePath: Path)
         }
         GameSession *-- Player
         GameSession <-- DungeonLevelGenerator
         GameSession "1" <-- "many" DungeonLevel
+
+        object Randomizer {
+            + random: Random
+            + seed(seed:Int): Random
+        }
     }
 }
 
