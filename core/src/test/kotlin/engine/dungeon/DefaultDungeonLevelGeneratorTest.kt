@@ -18,7 +18,7 @@ class DefaultDungeonLevelGeneratorTest {
             .width(width)
             .height(height)
             .roomCount(roomCount)
-            .generate()
+            .toLevelBuilder()
             .build()
 
         // then
@@ -30,7 +30,7 @@ class DefaultDungeonLevelGeneratorTest {
     @Test
     fun `should load level from file and add random mobs`() {
         // given
-        val filePath = javaClass.classLoader.getResource("levels/boss_level.json")!!.path.toString()
+        val filePath = "levels/boss_level.json"
 
         // when
         val level = DungeonLevelGenerator
@@ -40,6 +40,6 @@ class DefaultDungeonLevelGeneratorTest {
             .build()
 
         // then
-        assert(level.enemies.count() > 0)
+        assert(level.enemies.isNotEmpty())
     }
 }

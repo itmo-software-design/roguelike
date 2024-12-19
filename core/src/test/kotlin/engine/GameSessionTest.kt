@@ -1,6 +1,7 @@
 package engine
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class GameSessionTest {
 
@@ -14,7 +15,7 @@ class GameSessionTest {
 
         // then
         assert(GameSession.player.name == playerName)
-        assert(GameSession.dungeonLevels.count() > 0)
+        assert(GameSession.dungeonLevels.isNotEmpty())
         assert(GameSession.currentDungeonLevel == GameSession.dungeonLevels.first())
         assert(GameSession.currentDungeonLevelNum == 0)
     }
@@ -25,13 +26,14 @@ class GameSessionTest {
         GameSession.startNewGame("playerName")
 
         // when/then
-        for (level in 0..GameSession.DUNGEON_LEVELS_COUNT) {
+        for (levelNum in 1 until GameSession.DUNGEON_LEVELS_COUNT) {
             GameSession.moveToNextLevel()
-            val levelNum = (level + 1) % GameSession.DUNGEON_LEVELS_COUNT
+
             assert(GameSession.currentDungeonLevelNum == levelNum)
             assert(GameSession.currentDungeonLevel == GameSession.dungeonLevels[levelNum])
             assert(GameSession.player.position == GameSession.dungeonLevels[levelNum].startPosition)
-            assert(GameSession.player.inventory.count() == 0)
         }
+
+        assertThrows<RuntimeException> { GameSession.moveToNextLevel() }
     }
 }

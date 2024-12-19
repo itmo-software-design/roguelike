@@ -15,12 +15,12 @@ class DungeonLevelGenerator {
         private var rooms: List<Room>? = null
         private var mobFactory: MobFactory = FirstLevelMobFactory
 
-        fun tiles(tiles: Array<Array<Tile>>): DungeonLevelBuilder {
+        internal fun tiles(tiles: Array<Array<Tile>>): DungeonLevelBuilder {
             this.tiles = tiles
             return this
         }
 
-        fun rooms(rooms: List<Room>): DungeonLevelBuilder {
+        internal fun rooms(rooms: List<Room>): DungeonLevelBuilder {
             this.rooms = rooms
             return this
         }
@@ -31,8 +31,10 @@ class DungeonLevelGenerator {
         }
 
         fun build(): DungeonLevel {
-            val levelTiles = tiles ?: throw IllegalStateException("tiles must be set before build()")
-            val levelRooms = rooms ?: throw IllegalStateException("rooms must be set before build()")
+            val levelTiles = tiles
+                ?: throw IllegalStateException("tiles must be set before build()")
+            val levelRooms = rooms
+                ?: throw IllegalStateException("rooms must be set before build()")
             val level = DungeonLevel(
                 tiles = levelTiles,
                 rooms = levelRooms
@@ -101,7 +103,7 @@ class DungeonLevelGenerator {
             return this
         }
 
-        fun generate(): DungeonLevelBuilder {
+        fun toLevelBuilder(): DungeonLevelBuilder {
             val generator = DungeonLevelRandomGenerator(
                 seed = seed,
                 height = height,
@@ -132,7 +134,9 @@ class DungeonLevelGenerator {
         }
 
         fun file(path: String): DungeonLevelBuilder {
-            val jsonContent = File(path).readText()
+            val resourcePath = this.javaClass.classLoader.getResource(path)?.file
+                ?: throw RuntimeException("No resource $path found to load")
+            val jsonContent = File(resourcePath).readText()
             val loadedDungeonLevel = Json.decodeFromString<DungeonLevel>(jsonContent)
 
             return DungeonLevelBuilder()

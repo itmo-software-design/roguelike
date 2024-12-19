@@ -2,10 +2,8 @@ package engine
 
 import engine.dungeon.DungeonLevelGenerator
 import engine.factory.FirstLevelMobFactory
-import engine.factory.SecondLevelMobFactory
 import kotlinx.serialization.Serializable
 import vo.DungeonLevel
-import vo.Inventory
 import vo.Player
 
 /**
@@ -30,7 +28,7 @@ object GameSession {
     /**
      * Список уровней
      */
-    var dungeonLevels = mutableListOf<DungeonLevel>()
+    lateinit var dungeonLevels: MutableList<DungeonLevel>
         private set
 
     /**
@@ -39,6 +37,12 @@ object GameSession {
     lateinit var currentDungeonLevel: DungeonLevel
         private set
 
+    /**
+     * Ядро генерации псевдослучайных чисел
+     */
+    var seed: Int = 42
+
+
     private const val BOSS_LEVEL_FILE_PATH = "levels/boss_level.json"
     internal const val DUNGEON_LEVELS_COUNT = 3
     private const val BOSS_LEVEL_NUM = DUNGEON_LEVELS_COUNT - 1
@@ -46,48 +50,53 @@ object GameSession {
         private set
 
     /**
-     * Создает нового игрока и генерирует уровни.
-     * Если пользователь ввел имя файла - пытаемся загрузить карту из файла.
+     * Создает нового игрока и генерирует первый уровень
      */
     fun startNewGame(playerName: String) {
-        generateLevels()
-        val firstDungeonLevel = dungeonLevels.first()
+        seed = playerName.hashCode()
+        val firstDungeonLevel = DungeonLevelGenerator
+            .randomBuilder()
+            .seed(seed)
+            .mobFactory(FirstLevelMobFactory)
+            .height(30)
+            .width(50)
+            .roomCount(5)
+            .toLevelBuilder()
+            .build()
+
+        dungeonLevels = mutableListOf(firstDungeonLevel)
+        currentDungeonLevel = firstDungeonLevel
+        currentDungeonLevelNum = 0
 
         player = Player(playerName, 100, 10, 1, firstDungeonLevel.startPosition)
-        currentDungeonLevelNum = 0
-        currentDungeonLevel = firstDungeonLevel
-    }
-
-    private fun generateLevels() {
-        for (level in 0 until DUNGEON_LEVELS_COUNT) {
-            val mobFactory = when (level) {
-                0 -> FirstLevelMobFactory
-                BOSS_LEVEL_NUM -> SecondLevelMobFactory /* Can be special BossFactory */
-                else -> SecondLevelMobFactory
-            }
-
-            // TODO: We can load level from file using DungeonLevelGenerator.fileBuilder() if needed (e.x.: for BOSS level)
-            val dungeonLevel = DungeonLevelGenerator
-                .randomBuilder()
-                .seed(42 + level + 1)
-                .mobFactory(mobFactory)
-                .height(30)
-                .width(50)
-                .roomCount(5)
-                .generate()
-                .build()
-
-            dungeonLevels.add(dungeonLevel)
-        }
     }
 
     /**
-     * Обновляет текущий уровень, позицию игрока и инвентарь.
+     * Генерирует следующий уровень и переносит на него игрока
      */
     fun moveToNextLevel() {
-        currentDungeonLevelNum = (currentDungeonLevelNum + 1) % DUNGEON_LEVELS_COUNT // TODO: show 'Game Finished' plane
-        currentDungeonLevel = dungeonLevels[currentDungeonLevelNum]
-        player.position = currentDungeonLevel.startPosition
-        player.inventory = Inventory() // TODO: Should inventory be taken over?
+        if (++currentDungeonLevelNum == DUNGEON_LEVELS_COUNT) {
+            throw RuntimeException("Reached the deepest dungeon level")
+        }
+
+        val nextLevel = if (currentDungeonLevelNum == BOSS_LEVEL_NUM) {
+            DungeonLevelGenerator.fileBuilder()
+                .file(BOSS_LEVEL_FILE_PATH)
+                .build()
+        } else {
+            DungeonLevelGenerator
+                .randomBuilder()
+                .seed(seed)
+                .mobFactory(SecondLevelMobFactory)
+                .height(30)
+                .width(50)
+                .roomCount(5)
+                .toLevelBuilder()
+                .build()
+        }
+
+        dungeonLevels.add(nextLevel)
+        currentDungeonLevel = nextLevel
+        player.position = nextLevel.startPosition
     }
 }
