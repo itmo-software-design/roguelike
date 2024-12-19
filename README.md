@@ -12,7 +12,8 @@ ___
 
 - [x] [Часть 1. Архитектурное описание](https://github.com/itmo-software-design/roguelike/pull/1)
 - [x] [Часть 2. Реализация прототипа](https://github.com/itmo-software-design/roguelike/pull/2)
-- [ ] [Часть 3. Реализация поведения мобов](https://github.com/itmo-software-design/roguelike/pull/3)
+- [x] [Часть 3. Реализация поведения мобов](https://github.com/itmo-software-design/roguelike/pull/3)
+- [ ] [Часть 4](https://github.com/itmo-software-design/roguelike/pull/9)
 
 ___
 
