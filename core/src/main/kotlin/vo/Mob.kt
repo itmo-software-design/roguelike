@@ -2,7 +2,9 @@ package vo
 
 import com.googlecode.lanterna.TextColor
 import engine.behaviour.Behaviour
+import engine.state.HealthyState
 import engine.behaviour.IsAliveBehaviour
+import engine.state.State
 import messages.player.MoveDirection
 
 /**
@@ -13,9 +15,10 @@ import messages.player.MoveDirection
  */
 open class Mob(
     val type: MobType,
-    behaviour: Behaviour,
+    val defaultBehaviour: Behaviour,
     position: Position,
     maxHealth: Int? = null,
+    criticalHealth: Int? = null,
     baseAttack: Int? = null,
     baseDefense: Int? = null,
     fovRadius: Int? = null,
@@ -38,6 +41,30 @@ open class Mob(
      */
     val xp = xp ?: type.xp
 
+
+    /**
+     * Критический уровень здоровья моба, при котором у него меняется состояние.
+     * Если health < criticalHealth -> FearfulBehaviour
+     * Если health >= criticalHealth -> IsAliveBehaviour(defaultBehaviour)
+     */
+    private val criticalHealth = criticalHealth ?: type.criticalHealth
+
+    /**
+     * Возвращает True, если текущий уровень здоровья моба меньше критического
+     */
+    fun healthIsCritical(): Boolean {
+        return health < criticalHealth
+    }
+
+    override var health: Int
+        get() {
+            return super.health
+        }
+        set(value) {
+            super.health = value
+            state.checkHealth()
+        }
+
     /**
      * Символ для отображения моба на карте
      */
@@ -46,7 +73,12 @@ open class Mob(
     /**
      * Поведение моба
      */
-    var behaviour = IsAliveBehaviour(behaviour)
+    var behaviour: Behaviour = IsAliveBehaviour(defaultBehaviour)
+
+    /**
+     * Состояние моба
+     */
+    var state: State = HealthyState(this)
 
     override fun toString(): String {
         return "${name}[$health/$maxHealth] at $position"
@@ -109,14 +141,15 @@ enum class MobType(
     val symbol: Char,
     val color: TextColor,
     val maxHealth: Int,
+    val criticalHealth: Int,
     val baseAttack: Int,
     val baseDefense: Int,
     val fovRadius: Int,
     val xp: Int
 ) {
-    GOBLIN("Goblin", 'G', TextColor.ANSI.RED, 10, 10, 1, 5, 3),
-    SLIME("Slime", 'S', TextColor.ANSI.YELLOW, 5, 5, 1, 2, 2),
-    BAT("Bat", 'B', TextColor.ANSI.WHITE, 1, 3, 1, 10, 1),
-    TOXIC_MOLD("Toxic Mold", 'V', TextColor.ANSI.GREEN, 3, 3, 1, 1, 3),
-    DUNGEON_MASTER("Dungeon Master", 'D', TextColor.ANSI.MAGENTA_BRIGHT, 50, 25, 10, 20, 100)
+    GOBLIN("Goblin", 'G', TextColor.ANSI.RED, 10, 2, 10, 1, 5, 3),
+    SLIME("Slime", 'S', TextColor.ANSI.YELLOW, 5, 1, 5, 1, 2, 2),
+    BAT("Bat", 'B', TextColor.ANSI.WHITE, 1, 1, 3, 1, 10, 1),
+    TOXIC_MOLD("Toxic Mold", 'V', TextColor.ANSI.GREEN, 3, 1, 3, 1, 1, 3),
+    DUNGEON_MASTER("Dungeon Master", 'D', TextColor.ANSI.MAGENTA_BRIGHT, 50, 10, 25, 10, 20, 100)
 }
