@@ -1,7 +1,15 @@
 package engine.state
 
-import vo.Mob
+import engine.behaviour.Behaviour
 
-abstract class State(protected open val mob: Mob) {
-    abstract fun checkHealth()
+/**
+ * Состояние [vo.Character]
+ *
+ * @author gkashin
+ */
+interface State {
+    /**
+     * Возвращает поведение моба согласно его состоянию
+     */
+    fun getBehaviour(): Behaviour
 }

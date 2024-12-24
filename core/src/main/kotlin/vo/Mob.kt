@@ -2,8 +2,8 @@ package vo
 
 import com.googlecode.lanterna.TextColor
 import engine.behaviour.Behaviour
-import engine.state.HealthyState
-import engine.behaviour.IsAliveBehaviour
+import engine.state.NormalState
+import engine.state.PanicState
 import engine.state.State
 import messages.player.MoveDirection
 
@@ -15,7 +15,7 @@ import messages.player.MoveDirection
  */
 open class Mob(
     val type: MobType,
-    val defaultBehaviour: Behaviour,
+    protected val defaultBehaviour: Behaviour,
     position: Position,
     maxHealth: Int? = null,
     criticalHealth: Int? = null,
@@ -52,18 +52,9 @@ open class Mob(
     /**
      * Возвращает True, если текущий уровень здоровья моба меньше критического
      */
-    fun healthIsCritical(): Boolean {
+    private fun healthIsCritical(): Boolean {
         return health < criticalHealth
     }
-
-    override var health: Int
-        get() {
-            return super.health
-        }
-        set(value) {
-            super.health = value
-            state.checkHealth()
-        }
 
     /**
      * Символ для отображения моба на карте
@@ -71,14 +62,23 @@ open class Mob(
     override var symbol = type.symbol
 
     /**
-     * Поведение моба
-     */
-    var behaviour: Behaviour = IsAliveBehaviour(defaultBehaviour)
-
-    /**
      * Состояние моба
      */
-    var state: State = HealthyState(this)
+    var state: State = NormalState(defaultBehaviour)
+        protected set
+
+    /**
+     * Проверяет условия изменения состояния и меняет его при необходимости
+     */
+    fun checkState() {
+        when {
+            state is NormalState && healthIsCritical() -> state = PanicState(defaultBehaviour)
+            state is PanicState && !healthIsCritical() -> state = NormalState(defaultBehaviour)
+            else -> {
+                // do nothing
+            }
+        }
+    }
 
     override fun toString(): String {
         return "${name}[$health/$maxHealth] at $position"
@@ -118,7 +118,7 @@ class SpreadableMob(
 
         val clone = SpreadableMob(
             this.type,
-            this.behaviour,
+            this.defaultBehaviour,
             this.position,
             this.healthPenalty,
             this.spreadProbability,
@@ -151,5 +151,5 @@ enum class MobType(
     SLIME("Slime", 'S', TextColor.ANSI.YELLOW, 5, 1, 5, 1, 2, 2),
     BAT("Bat", 'B', TextColor.ANSI.WHITE, 1, 1, 3, 1, 10, 1),
     TOXIC_MOLD("Toxic Mold", 'V', TextColor.ANSI.GREEN, 3, 1, 3, 1, 1, 3),
-    DUNGEON_MASTER("Dungeon Master", 'D', TextColor.ANSI.MAGENTA_BRIGHT, 50, 10, 25, 10, 20, 100)
+    DUNGEON_MASTER("Dungeon Master", 'D', TextColor.ANSI.MAGENTA_BRIGHT, 50, 0, 25, 10, 20, 100)
 }

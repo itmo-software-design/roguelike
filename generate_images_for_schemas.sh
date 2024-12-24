@@ -10,7 +10,7 @@ if [ ${#CHANGED_FILES[@]} -eq 0 ]; then
     exit 0
 fi
 
-for file in $CHANGED_FILES
+for file in "${CHANGED_FILES[@]}"
 do
     OUTPUT_FILE="$(basename "$file" .puml).svg"
     echo "$OUTPUT_FILE"
