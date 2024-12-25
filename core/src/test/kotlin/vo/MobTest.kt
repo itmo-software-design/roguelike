@@ -2,6 +2,7 @@ package vo
 
 import engine.behaviour.Behaviour
 import engine.behaviour.FearfulBehaviour
+import engine.state.ConfusedState
 import engine.state.NormalState
 import engine.state.PanicState
 import io.mockk.mockk
@@ -47,5 +48,32 @@ class MobTest {
         mob.health = CRITICAL_HEALTH - 1
         assertTrue { mob.state is PanicState }
         assertTrue { mob.state.getBehaviour() is FearfulBehaviour }
+    }
+
+    @Test
+    fun `check expirable state back to normal state`() {
+        assertTrue { mob.state is NormalState }
+
+        val duration = 5
+        mob.applyTemporaryEffect(duration = duration)
+        repeat(duration) {
+            assertTrue { mob.state is ConfusedState }
+        }
+
+        assertTrue { mob.state is NormalState }
+    }
+
+    @Test
+    fun `check expirable state back to panic state`() {
+        mob.health = CRITICAL_HEALTH - 1
+        assertTrue { mob.state is PanicState }
+
+        val duration = 5
+        mob.applyTemporaryEffect(duration = duration)
+        repeat(duration) {
+            assertTrue { mob.state is ConfusedState }
+        }
+
+        assertTrue { mob.state is PanicState }
     }
 }

@@ -7,4 +7,6 @@ import engine.behaviour.Behaviour
  *
  * @author gkashin
  */
-class NormalState(defaultBehaviour: Behaviour) : DefaultState(defaultBehaviour)
+class NormalState(defaultBehaviour: Behaviour) : DefaultState(defaultBehaviour) {
+    override fun getBehaviour(): Behaviour = defaultBehaviour
+}

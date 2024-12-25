@@ -2,9 +2,7 @@ package vo
 
 import com.googlecode.lanterna.TextColor
 import engine.behaviour.Behaviour
-import engine.state.NormalState
-import engine.state.PanicState
-import engine.state.State
+import engine.state.*
 import messages.player.MoveDirection
 
 /**
@@ -69,6 +67,18 @@ open class Mob(
             /*
              * Проверяет условия изменения состояния и меняет его при необходимости
              */
+            if (field is ExpirableState) {
+                val expirableState = field as ExpirableState
+                if (!expirableState.isExpired) {
+                    expirableState.tick()
+                    return expirableState
+                } else {
+                    // если срок действия состояния истек, вернемся в нормальное состояние
+                    // и посмотрим, будет ли из него дальше совершен переход в другое состояние
+                    field = NormalState(defaultBehaviour)
+                }
+            }
+
             when {
                 field is NormalState && healthIsCritical() -> field = PanicState(defaultBehaviour)
                 field is PanicState && !healthIsCritical() -> field = NormalState(defaultBehaviour)
@@ -80,6 +90,14 @@ open class Mob(
             return field
         }
         protected set
+
+    /**
+     * Накладывает временный эффект на [duration] ходов
+     */
+    fun applyTemporaryEffect(duration: Int) {
+        // Можно расширить различными типами эффектов
+        state = ConfusedState(duration)
+    }
 
     override fun toString(): String {
         return "${name}[$health/$maxHealth] at $position"
