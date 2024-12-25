@@ -65,20 +65,21 @@ open class Mob(
      * Состояние моба
      */
     var state: State = NormalState(defaultBehaviour)
-        protected set
-
-    /**
-     * Проверяет условия изменения состояния и меняет его при необходимости
-     */
-    fun checkState() {
-        when {
-            state is NormalState && healthIsCritical() -> state = PanicState(defaultBehaviour)
-            state is PanicState && !healthIsCritical() -> state = NormalState(defaultBehaviour)
-            else -> {
-                // do nothing
+        get() {
+            /*
+             * Проверяет условия изменения состояния и меняет его при необходимости
+             */
+            when {
+                field is NormalState && healthIsCritical() -> field = PanicState(defaultBehaviour)
+                field is PanicState && !healthIsCritical() -> field = NormalState(defaultBehaviour)
+                else -> {
+                    // do nothing
+                }
             }
+
+            return field
         }
-    }
+        protected set
 
     override fun toString(): String {
         return "${name}[$health/$maxHealth] at $position"
