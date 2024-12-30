@@ -84,13 +84,16 @@ package core {
         }
 
         class Mob extends Character {
+            - criticalHealth: Int
+            - healthIsCritical(): Boolean
             + mobType: MobType
-            + behaviour: Behaviour
+            + state: State
             + name: String,
             + xp: Int
+            + applyTemporaryEffect(duration: Int)
         }
         Mob *-- MobType
-        Mob *-- Behaviour
+        Mob *-- State
 
         class SpreadableMob extends Mob {
             + healthPenalty: (SpreadableMob) -> Int
@@ -343,6 +346,10 @@ package core {
                 + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
             }
 
+            class ConfusedBehaviour extends Behaviour {
+                + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
+            }
+
             class BasicBehaviour extends BehaviourDecorator {
                 - path: ArrayDeque<Position>
                 + act(mob: Mob, dungeonLevel: DungeonLevel, player: Player)
@@ -388,6 +395,44 @@ package core {
             }
             SpreadBehaviour <-- Randomizer
             SpreadBehaviour <-- SpreadableMob
+        }
+
+        package state {
+            interface State {
+                + getBehaviour(): Behaviour
+            }
+
+            abstract class DefaultState extends State {
+                - defaultBehaviour: Behaviour
+            }
+
+            DefaultState <-- Behaviour
+
+            class ConfusedState extends ExpirableState {
+                + getBehaviour(): Behaviour
+            }
+
+            ConfusedState <-- Behaviour
+
+            class ExpirableState extends DefaultState {
+                - remainingTurns: Int
+                + isExpired(): Boolean
+                + tick()
+            }
+
+            ExpirableState <-- Behaviour
+
+            class NormalState extends DefaultState {
+                + getBehaviour(): Behaviour
+            }
+
+            NormalState <-- Behaviour
+
+            class PanicState extends DefaultState {
+                + getBehaviour(): Behaviour
+            }
+
+            PanicState <-- Behaviour
         }
 
         package dungeon {
