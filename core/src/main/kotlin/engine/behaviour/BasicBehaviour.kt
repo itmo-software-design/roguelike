@@ -34,6 +34,7 @@ open class BasicBehaviour(parentBehaviour: Behaviour = PassiveBehaviour()) :
                 // Если подвигаться не получилось, попробуем перестроить маршрут
                 rebuildPath(mob, dungeonLevel)
             }
+            mob.health += 1 // TODO: we need to find a good place where we can regenerate mobs
         }
     }
 

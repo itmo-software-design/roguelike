@@ -2,7 +2,7 @@ package vo
 
 import com.googlecode.lanterna.TextColor
 import engine.behaviour.Behaviour
-import engine.behaviour.IsAliveBehaviour
+import engine.state.*
 import messages.player.MoveDirection
 
 /**
@@ -13,9 +13,10 @@ import messages.player.MoveDirection
  */
 open class Mob(
     val type: MobType,
-    behaviour: Behaviour,
+    protected val defaultBehaviour: Behaviour,
     position: Position,
     maxHealth: Int? = null,
+    criticalHealth: Int? = null,
     baseAttack: Int? = null,
     baseDefense: Int? = null,
     fovRadius: Int? = null,
@@ -38,15 +39,65 @@ open class Mob(
      */
     val xp = xp ?: type.xp
 
+
+    /**
+     * Критический уровень здоровья моба, при котором у него меняется состояние.
+     * Если health < criticalHealth -> FearfulBehaviour
+     * Если health >= criticalHealth -> IsAliveBehaviour(defaultBehaviour)
+     */
+    private val criticalHealth = criticalHealth ?: type.criticalHealth
+
+    /**
+     * Возвращает True, если текущий уровень здоровья моба меньше критического
+     */
+    private fun healthIsCritical(): Boolean {
+        return health < criticalHealth
+    }
+
     /**
      * Символ для отображения моба на карте
      */
     override var symbol = type.symbol
 
     /**
-     * Поведение моба
+     * Состояние моба
      */
-    var behaviour = IsAliveBehaviour(behaviour)
+    var state: State = NormalState(defaultBehaviour)
+        get() {
+            /*
+             * Проверяет условия изменения состояния и меняет его при необходимости
+             */
+            if (field is ExpirableState) {
+                val expirableState = field as ExpirableState
+                if (!expirableState.isExpired) {
+                    expirableState.tick()
+                    return expirableState
+                } else {
+                    // если срок действия состояния истек, вернемся в нормальное состояние
+                    // и посмотрим, будет ли из него дальше совершен переход в другое состояние
+                    field = NormalState(defaultBehaviour)
+                }
+            }
+
+            when {
+                field is NormalState && healthIsCritical() -> field = PanicState(defaultBehaviour)
+                field is PanicState && !healthIsCritical() -> field = NormalState(defaultBehaviour)
+                else -> {
+                    // do nothing
+                }
+            }
+
+            return field
+        }
+        protected set
+
+    /**
+     * Накладывает временный эффект на [duration] ходов
+     */
+    fun applyTemporaryEffect(duration: Int) {
+        // Можно расширить различными типами эффектов
+        state = ConfusedState(duration)
+    }
 
     override fun toString(): String {
         return "${name}[$health/$maxHealth] at $position"
@@ -86,7 +137,7 @@ class SpreadableMob(
 
         val clone = SpreadableMob(
             this.type,
-            this.behaviour,
+            this.defaultBehaviour,
             this.position,
             this.healthPenalty,
             this.spreadProbability,
@@ -109,14 +160,15 @@ enum class MobType(
     val symbol: Char,
     val color: TextColor,
     val maxHealth: Int,
+    val criticalHealth: Int,
     val baseAttack: Int,
     val baseDefense: Int,
     val fovRadius: Int,
     val xp: Int
 ) {
-    GOBLIN("Goblin", 'G', TextColor.ANSI.RED, 10, 10, 1, 5, 3),
-    SLIME("Slime", 'S', TextColor.ANSI.YELLOW, 5, 5, 1, 2, 2),
-    BAT("Bat", 'B', TextColor.ANSI.WHITE, 1, 3, 1, 10, 1),
-    TOXIC_MOLD("Toxic Mold", 'V', TextColor.ANSI.GREEN, 3, 3, 1, 1, 3),
-    DUNGEON_MASTER("Dungeon Master", 'D', TextColor.ANSI.MAGENTA_BRIGHT, 50, 25, 10, 20, 100)
+    GOBLIN("Goblin", 'G', TextColor.ANSI.RED, 10, 2, 10, 1, 5, 3),
+    SLIME("Slime", 'S', TextColor.ANSI.YELLOW, 5, 1, 5, 1, 2, 2),
+    BAT("Bat", 'B', TextColor.ANSI.WHITE, 1, 1, 3, 1, 10, 1),
+    TOXIC_MOLD("Toxic Mold", 'V', TextColor.ANSI.GREEN, 3, 1, 3, 1, 1, 3),
+    DUNGEON_MASTER("Dungeon Master", 'D', TextColor.ANSI.MAGENTA_BRIGHT, 50, 0, 25, 10, 20, 100)
 }

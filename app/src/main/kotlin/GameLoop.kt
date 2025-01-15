@@ -179,7 +179,7 @@ class GameLoop {
 
     private fun updateGameState() {
         MobManager.getActiveMobs(GameSession.currentDungeonLevel).forEach {
-            it.behaviour.act(it, GameSession.currentDungeonLevel, GameSession.player)
+            it.state.getBehaviour().act(it, GameSession.currentDungeonLevel, GameSession.player)
         }
     }
 

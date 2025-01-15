@@ -50,7 +50,7 @@ object FirstLevelMobFactory : MobFactory {
         return Mob(
             MobType.BAT,
             FearfulBehaviour(BasicBehaviour()),
-            position
+            position,
         )
     }
 
@@ -58,7 +58,7 @@ object FirstLevelMobFactory : MobFactory {
         return Mob(
             MobType.SLIME,
             AggressiveBehaviour(PassiveBehaviour()),
-            position
+            position,
         )
     }
 
