@@ -1,18 +1,31 @@
-package com.github.itmosoftwaredesign.roguelike.utils.vo
+package vo
 
 import messages.player.MoveDirection
 
 /**
  * Абстрактный предок для персонажей игры
+ *
+ * @author MikhailShad
+ * @since 0.0.1
  */
 abstract class Character(
     maxHealth: Int,
     baseAttack: Int,
     baseDefense: Int,
-    var position: Position,
+    fovRadius: Int = 1,
+    position: Position,
     var direction: MoveDirection
-) {
-    val maxHealth: Int = maxHealth.coerceAtLeast(1)
+) : Entity(position) {
+    /**
+     * Максимальное количество здоровья
+     */
+    open val maxHealth: Int = maxHealth.coerceAtLeast(1)
+
+    /**
+     * Текущее количество здоровья
+     *
+     * Не может опускаться ниже 0 и превышать [Character.maxHealth]
+     */
     var health: Int = maxHealth
         set(value) {
             field = value.coerceIn(0, maxHealth)
@@ -24,16 +37,20 @@ abstract class Character(
     private val baseDefense: Int = baseDefense.coerceAtLeast(1)
     open val defense: Int get() = baseDefense
 
-    fun isAlive(): Boolean = health > 0
+    /**
+     * Радиус обзора
+     */
+    open var fovRadius = fovRadius
+        protected set
 
-    fun hit(target: Character) {
-        if (!isAlive()) {
-            return
-        }
+    /**
+     * Проверяет, жив ли персонаж
+     *
+     * @return `true`, если текущее здоровье больше 0; иначе `false`
+     */
+    val isAlive: Boolean get() = health > 0
 
-        val damage = attack - target.defense
-        if (damage > 0) {
-            target.health -= damage
-        }
+    override fun toString(): String {
+        return "${javaClass}[$health/$maxHealth] at $position"
     }
 }

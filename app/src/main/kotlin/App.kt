@@ -7,14 +7,14 @@ import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
 import engine.GameSession
-import engine.LevelGenerator
 import messages.MessageBroker
 import messages.TOPIC_UI
 import messages.ui.GameScreenOpened
 import ui.console.MainMenuScreen
 import ui.console.RenderContext
+import java.io.EOFException
 import java.io.IOException
-import kotlin.concurrent.thread
+import java.util.concurrent.TimeUnit
 
 
 fun main() {
@@ -35,15 +35,12 @@ fun main() {
             )
         )
 
+        var gameStarted = false
         MessageBroker.subscribe(TOPIC_UI) {
             when (it) {
                 is GameScreenOpened -> {
-                    val firstLevel = LevelGenerator(42).generate()
-                    GameSession.startNewGame(GameSession.playerName, firstLevel)
-                    thread {
-                        val gameLoop = GameLoop()
-                        gameLoop.start()
-                    }
+                    GameSession.startNewGame(it.playerName)
+                    gameStarted = true
                 }
             }
         }
@@ -56,7 +53,20 @@ fun main() {
             EmptySpace(RenderContext.backgroundColor)
         )
         RenderContext.gui = gui
-        gui.addWindowAndWait(window)
+        gui.addWindow(window)
+
+        do {
+            try {
+                while (!gameStarted) {
+                    gui.guiThread.processEventsAndUpdate()
+                    TimeUnit.MILLISECONDS.sleep(50)
+                }
+                val gameLoop = GameLoop()
+                gameLoop.start()
+            } catch (e: EOFException) {
+                break
+            }
+        } while (!Thread.interrupted())
     } catch (e: IOException) {
         e.printStackTrace()
     } finally {

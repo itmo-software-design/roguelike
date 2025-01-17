@@ -1,14 +1,11 @@
 package engine
 
-import com.github.itmosoftwaredesign.roguelike.utils.vo.*
-import vo.Level
-import vo.Room
-import vo.Tile
-import vo.TileType
+import engine.factory.MobManager
+import vo.*
 import java.util.*
 import kotlin.random.Random
 
-class LevelGenerator(
+class DungeonLevelGenerator(
     seed: Int,
     private val height: Int = 30,
     private val width: Int = 50,
@@ -39,7 +36,7 @@ class LevelGenerator(
      * Генерирует новый уровень.
      * Размещает комнаты, предметы и мобов.
      */
-    fun generate(): Level {
+    fun generate(): DungeonLevel {
         val rooms: MutableList<Room> = mutableListOf()
         for (i in 1..roomCount) {
             val maxRetries = 5
@@ -62,12 +59,13 @@ class LevelGenerator(
         }
 
         connectRooms(rooms)
-        val portalRoomNumber = randomizer.nextInt(rooms.size)
-        placePortal(rooms[portalRoomNumber])
-        placeItems(rooms)
-        placeMobs(rooms)
+        val dungeonLevel = DungeonLevel(tiles, rooms)
 
-        return Level(tiles, rooms)
+        placePortal(dungeonLevel)
+        placeItems(rooms)
+        placeMobs(dungeonLevel)
+
+        return dungeonLevel
     }
 
     private fun placeItems(rooms: List<Room>) {
@@ -90,14 +88,17 @@ class LevelGenerator(
                     nConsumable--
                     TileType.CONSUMABLE
                 }
+
                 nWeapon > 0 -> {
                     nWeapon--
                     TileType.WEAPON
                 }
+
                 nArmor > 0 -> {
                     nArmor--
                     TileType.ARMOR
                 }
+
                 else -> null
             }
 
@@ -107,26 +108,36 @@ class LevelGenerator(
         }
     }
 
-    private fun placeMobs(rooms: List<Room>) {
-        val nMobs = randomizer.nextInt(rooms.size, 2 * rooms.size)
+    private fun placeMobs(dungeonLevel: DungeonLevel) {
+        val nMobs = randomizer.nextInt(dungeonLevel.rooms.size, 2 * dungeonLevel.rooms.size)
 
-        repeat(nMobs) { // рандомно размещает мобов по комнатам
-            val room = rooms[randomizer.nextInt(rooms.size)]
+        var mobCreated = 0
+        while (mobCreated < nMobs) { // рандомно размещает мобов по комнатам
+            val room = dungeonLevel.rooms[randomizer.nextInt(dungeonLevel.rooms.size)]
 
-            val pos = generateRandomPosition(
+            val mobPosition = generateRandomPosition(
                 room.bottomLeft.x + 1, room.topRight.x,
                 room.bottomLeft.y + 1, room.topRight.y
             )
 
-            if (tiles[pos.x][pos.y].type == TileType.FLOOR) {
-                tiles[pos.x][pos.y].type = TileType.MOB
+            if (MobManager.canSpawnAt(dungeonLevel, mobPosition)) {
+                val mob = MobManager.spawn(mobPosition)
+                dungeonLevel.enemies.add(mob)
+                mobCreated += 1
             }
         }
     }
 
-    private fun placePortal(room: Room) {
-        val pos = generateRandomPosition(room.bottomLeft.x + 1, room.topRight.x, room.bottomLeft.y + 1, room.topRight.y)
-        tiles[pos.x][pos.y].type = TileType.PORTAL
+    private fun placePortal(dungeonLevel: DungeonLevel) {
+        val portalRoomNumber = randomizer.nextInt(dungeonLevel.rooms.size)
+        val room = dungeonLevel.rooms[portalRoomNumber]
+        val pos = generateRandomPosition(
+            room.bottomLeft.x + 1,
+            room.topRight.x,
+            room.bottomLeft.y + 1,
+            room.topRight.y
+        )
+        dungeonLevel.getTileAt(pos).type = TileType.PORTAL
     }
 
     private fun generateRandomRoom(): Room {
@@ -165,7 +176,8 @@ class LevelGenerator(
     }
 
     private fun connectRooms(rooms: List<Room>) {
-        val roomsQueue = PriorityQueue<Room>(rooms.size) { a, b -> a.distanceFromZero - b.distanceFromZero }
+        val roomsQueue =
+            PriorityQueue<Room>(rooms.size) { a, b -> a.distanceFromZero - b.distanceFromZero }
         roomsQueue.addAll(rooms)
 
         val first = roomsQueue.poll()
@@ -195,7 +207,7 @@ class LevelGenerator(
         for (x in minOf(x1, x2)..maxOf(x1, x2)) {
             val tile = tiles[x][y]
             if (tile.type == TileType.WALL) {
-                tile.type = TileType.DOOR
+                tile.type = TileType.DOOR_CLOSED
             } else if (tile.type == TileType.NONE) {
                 tile.type = TileType.HALL
             }
@@ -206,7 +218,7 @@ class LevelGenerator(
         for (y in minOf(y1, y2)..maxOf(y1, y2)) {
             val tile = tiles[x][y]
             if (tile.type == TileType.WALL) {
-                tile.type = TileType.DOOR
+                tile.type = TileType.DOOR_CLOSED
             } else if (tile.type == TileType.NONE) {
                 tile.type = TileType.HALL
             }

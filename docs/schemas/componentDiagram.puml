@@ -15,6 +15,7 @@ rectangle "Roguelike" {
         together {
             [Level Manager]
             [Character Manager]
+            [Experience Manager]
             [Combat Manager]
         }
     }
@@ -33,9 +34,9 @@ User -down-> [KeyboardInputHandler]
 [KeyboardInputHandler] -down-> [Game Logic]
 [Game Manager] -down-> [Level Manager]
 [Game Manager] -down-> [Character Manager]
+[Character Manager] -down-> [Experience Manager]
 [Game Manager] -down-> [Combat Manager]
 [Game Logic] -down-> [UI]
 [Game Logic] -left-> [Utils]
 UI -up-> User
-
 @enduml

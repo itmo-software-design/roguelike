@@ -10,6 +10,7 @@ plugins {
 dependencies {
     implementation(project(":core"))
     implementation(libs.lanterna)
+    implementation(libs.bundles.logging)
 }
 
 application {
