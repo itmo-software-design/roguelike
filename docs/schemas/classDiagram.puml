@@ -1,203 +1,309 @@
 @startuml
-' Абстрактный класс для общих свойств персонажей
-abstract class Character {
-    - health : int
-    - attack : int
-    - defense : int
-    - position : Position
-    + move(direction : Direction)
-    + attack(target : Character)
-    + updateHealth(amount : int)
+package core {
+    package vo {
+        ' Абстрактный класс для общих свойств персонажей
+        abstract class Character {
+            + health : int
+            - maxHealth : int
+            + attack : int
+            - baseAttack : int
+            + defense : int
+            - baseDefense : int
+            + position : Position
+            + direction: MoveDirection
+            + isAlive: Boolean
+            + hit(target : Character)
+        }
+        Character o-- Position
+        Character o-- MoveDirection
+
+        ' Класс игрока
+        class Player extends Character {
+            + name : String
+            + inventory : Inventory
+        }
+        Player *-- Inventory
+
+        ' Класс игры
+        class Game {
+            - currentLevel : Level
+            - player : Player
+            - isRunning : boolean
+            + start()
+            + update()
+            + checkLevelCompletion()
+            + exit()
+        }
+
+        ' Класс инвентаря
+        class Inventory {
+            - items : List<Item>
+            - equippedWeapon: Weapon?
+            - equippedArmor: Armor?
+            + addItem(item : Item)
+            + removeItem(item : Item)
+            + equipItem(item : Item)
+            + unequipItem(item : Item)
+            + getEquippedWeapon(): Weapon?
+            + getEquippedArmor(): Weapon?
+            + iterator(): Iterator<Item>
+        }
+        Inventory "1" o-- "many" Item
+
+        ' Классы предметов
+        class Item {
+            + name : String
+            + description : String
+            + use()
+        }
+
+        interface Equippable {
+            + equip()
+        }
+
+        class Weapon extends Item implements Equippable {
+            + damage : int
+        }
+
+        class Armor extends Item implements Equippable {
+            + defense : int
+        }
+
+        class Consumable extends Item {
+            + effect : String
+            + consume()
+        }
+
+       ' Класс уровня
+        class Level {
+            + tiles: Array<Array<Tile>>
+            - rooms: List<Room>
+            + startPosition: Position
+        }
+        Level "1" *-- "many" Tile
+        Level "1" *-- "many" Room
+        Level <-- Position
+
+       ' Класс тайла карты
+        class Tile {
+            + type: TileType
+            + isExplored: Boolean
+        }
+        Tile o-- TileType
+
+        enum TileType {
+            + blocked: Boolean
+            + blockSight: Boolean
+        }
+
+        class Room {
+            + bottomLeft: Position
+            + width: Int
+            + height: Int
+            + topRight: Position
+            + center: Position
+            + distanceFromZero: Position
+            + intersects(other: Room)
+        }
+        Room o-- Position
+
+        ' Класс для позиции на карте
+        class Position {
+            + x : int
+            + y : int
+        }
+
+        interface Renderable {}
+    }
+
+    package ui {
+        package console {
+            package game {
+                class GameMapListener {
+                    + onClosed: () -> Unit
+                    + onInput(basePane: Window?, keyStroke: KeyStroke?, deliverEvent: AtomicBoolean?)
+                    - sendMove(deliverEvent: AtomicBoolean?, direction: MoveDirection)
+                    - isInteract(keyStroke: KeyStroke)
+                    - isOpenInventory(keyStroke: KeyStroke)
+                    - isMoveLeft(keyStroke: KeyStroke)
+                    - isMoveDown(keyStroke: KeyStroke)
+                    - isMoveRight(keyStroke: KeyStroke)
+                    - isMoveUp(keyStroke: KeyStroke)
+                }
+
+                class GameMapPanelRenderer {
+                    + drawComponent(graphics: TextGUIGraphics?, component: Panel?)
+                    + getPreferredSize(component: Panel?): TerminalSize
+                    - addTileToQueueIfVisible(level: Level, x: Int, y: Int, distance: Int, queue: ArrayDeque<Pair<Position, Int>>)
+                    - renderPlayer(x: Int, y: Int, graphics: TextGUIGraphics)
+                    - renderExploredTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics)
+                    - renderTile(tile: Tile, x: Int, y: Int, graphics: TextGUIGraphics)
+                    - getTileRenderParams(tile: Tile): Triple<ANSI, ANSI, String>
+                }
+                GameMapPanelRenderer <-- GameSession
+
+                class GameMapScreen {
+                    - gameMapListener: GameMapListener
+                    - oldHints: Set<Window.Hint>
+                    - init()
+                }
+            }
+
+            class InventoryScreen {
+                - closeButton: Button
+                - containerPanel: Panel
+                - window: BasicWindow
+                - init()
+                - buildItemMenu(inventory: Inventory, item: Item, menu: Menu)
+                - updateMenuItem(menu: Menu)
+                - onButtonClick()
+            }
+            InventoryScreen <-- Inventory
+
+            class LootScreen {
+                - closeButton: Button
+                - init()
+                - onButtonClick()
+            }
+
+            class MainMenuScreen {
+                - playButton: Button
+                - exitButton: Button
+                - init()
+                - onPlayButton()
+                - onExitButton()
+            }
+
+            class PlayerNameScreen {
+                - window: Window
+                - onReturn: () -> Unit
+                - playerTextBox: TextBox
+                - nextButton: Button
+                - returnButton: Button
+                - init()
+                - onNextButtonClick()
+                - onReturnButtonClick()
+            }
+
+            object RenderContext {
+                + screen: Screen
+                + gui: MultiWindowTextGUI
+                + val backgroundColor = TextColor.ANSI
+            }
+        }
+
+        package localize {
+            class LocalizationSource {
+                - builtInLocalizations: Map<String, String>
+                + getLocalization(code: String, vararg args: String): String
+            }
+        }
+    }
+
+    package messages {
+        package player {
+            enum MoveDirection {
+            }
+
+            class MovePlayer extends Message {
+                - direction: MoveDirection
+            }
+            MovePlayer <-- MoveDirection
+
+            class OpenInventory extends Message {}
+
+            class PlayerInteract extends Message {}
+        }
+
+        package ui {
+            class GameScreenExit extends Message {}
+
+            class GameScreenOpened extends Message {}
+        }
+
+        interface Message {}
+
+        object MessageBroker {
+            - subscribers: ConcurrentHashMap<String, MutableSet<Subscriber>>
+            + subscribe(topic: String, subscriber: Subscriber)
+            + unsubscribe(topic: String, subscriber: Subscriber)
+            + send(topic: String, message: Message)
+        }
+
+        interface Subscriber {
+            + onMessage(message: Message)
+        }
+    }
+
+    package engine {
+        object GameSession {
+            + playerName: String
+            + player: Player
+            + levels: MutableList<Level>
+            + currentLevel: Level
+            - levelsCount: Int
+            - currentLevelId: Int
+            + startNewGame(playerName: String, firstLevel: Level)
+            + moveToNextLevel()
+            + addMoreLevels()
+        }
+        GameSession *-- Player
+        GameSession <-- LevelGenerator
+        GameSession "1" <-- "many" Level
+
+        class LevelGenerator {
+            - randomizer: Random
+            - roomCount: Int
+            - tiles: Array<Array<Tile>>
+            - initializeTiles(): Array<Array<Tile>>
+            + generate(): Level
+            - placeItems(rooms: List<Room>)
+            - placeMobs(rooms: List<Room>)
+            - placePortal(room: Room)
+            - generateRandomRoom(): Room
+            - carveRoom(room: Room)
+            - generateRandomPosition(x1: Int, x2: Int, y1: Int, y2: Int): Position
+            - connectRooms(rooms: List<Room>)
+            - connectRooms(room1: Room, room2: Room)
+            - carveHorizontalTunnelWithDoors(x1: Int, x2: Int, y: Int)
+            - carveVerticalTunnelWithDoors(y1: Int, y2: Int, x: Int)
+        }
+        LevelGenerator <-- Level
+    }
 }
 
-' Класс игрока
-class Player {
-    - name : String
-    - inventory : Inventory
-    + interact()
-    + updateStats()
-    + openInventory()
-    + closeInventory()
+package app {
+    class App {
+        + main()
+    }
+    App <-- LevelGenerator
+    App <-- GameSession
+    App <-- MessageBroker
+    App <-- GameScreenOpened
+    App <-- MainMenuScreen
+    App <-- RenderContext
+
+    class GameLoop {
+        - isRunning: Boolean
+        - events: ConcurrentLinkedQueue<Message>
+        - uiSubscriber: Subscriber
+        - playerSubscriber: Subscriber
+        - init()
+        + start()
+        - handleInput()
+        - canGoTo(newPosition: Position): Boolean
+        - tryInteract(position: Position, direction: MoveDirection)
+        - tryInteractAt(position: Position)
+        - updateGameState()
+        - stop()
+    }
+    GameLoop *-- Subscriber
+    GameLoop <-- MessageBroker
+    GameLoop <-- GameSession
+    GameLoop <-- MovePlayer
+    GameLoop <-- OpenInventory
+    GameLoop <-- PlayerInteract
+    GameLoop <-- GameScreenExit
+    GameLoop <-- InventoryScreen
 }
-
-' Класс врага
-class Enemy {
-    - type : String
-    + calculateDamage() : int
-    + move()
-}
-
-' Класс игры
-class Game {
-    - currentLevel : Level
-    - player : Player
-    - isRunning : boolean
-    + start()
-    + update()
-    + checkLevelCompletion()
-    + exit()
-}
-
-' Класс уровня
-class Level {
-    - map : Tile[][]
-    - enemies : List<Enemy>
-    - items : List<Item>
-    - exitPosition : Position
-    + generateLevel(seed : int)
-    + validateMovement(position : Position) : boolean
-    + updatePlayerPosition(player : Player)
-    + checkForInteractableElements(position : Position) : Element
-    + performInteraction(player : Player)
-    + checkForEnemiesInRange(player : Player) : Enemy
-    + removeEnemy(enemy : Enemy)
-    + checkLevelCompletion(player : Player) : boolean
-}
-
-' Класс инвентаря
-class Inventory {
-    - items : List<Item>
-    + open()
-    + close()
-    + addItem(item : Item)
-    + removeItem(item : Item)
-    + selectItem(index : int)
-    + equipItem(item : Item)
-    + useItem(item : Item)
-}
-
-' Классы предметов
-class Item {
-    - name : String
-    - description : String
-    + use(target : Player)
-}
-
-class Weapon extends Item {
-    - damage : int
-    + equip(player : Player)
-}
-
-class Armor extends Item {
-    - defense : int
-    + equip(player : Player)
-}
-
-class Consumable extends Item {
-    - effect : String
-    + consume(player : Player)
-}
-
-' Класс для позиции на карте
-class Position {
-    - x : int
-    - y : int
-}
-
-' Класс тайла карты
-class Tile {
-    - isWalkable : boolean
-    - isVisible : boolean
-    - content : Item / Enemy / null
-}
-
-' Класс для обработки ввода пользователя
-class InputHandler {
-    + processInput(input : String)
-}
-
-' Класс для сохранения и загрузки игры
-class SaveLoadSystem {
-    + saveGameState(game : Game)
-    + loadGameState(fileName : String) : Game
-    + generateRandomSeed() : int
-}
-
-' Класс системы боя
-class CombatSystem {
-    + attack(attacker : Character, defender : Character)
-}
-
-' Класс менеджера пользовательского интерфейса
-class UIManager {
-    + render()
-    + update()
-    + showInvalidCommandMessage()
-    + showNoElementsMessage()
-    + showNoEnemyMessage()
-    + showGameOverMessage()
-    + confirmExit() : boolean
-    + returnToMainMenu()
-}
-
-' Классы для различных экранов интерфейса
-class MainMenu {
-    + display()
-    + selectOption(option : String)
-}
-
-class GameScreen {
-    + display()
-    + redrawMap()
-}
-
-class InventoryScreen {
-    + display()
-    + close()
-}
-
-class StatusBar {
-    + updateStatus(player : Player)
-}
-
-class NotificationBar {
-    + showMessage(message : String)
-}
-
-' Связи между классами
-Character <|-- Player
-Character <|-- Enemy
-
-Game o-- Level
-Game o-- Player
-Game ..> InputHandler
-Game ..> UIManager
-Game ..> SaveLoadSystem
-Game ..> CombatSystem
-
-Level "1" *-- "many" Tile
-Level "1" *-- "many" Enemy
-Level "1" *-- "many" Item
-
-Player o-- Inventory
-Player o-- Position
-
-Enemy o-- Position
-
-Inventory "1" *-- "many" Item
-
-UIManager o-- MainMenu
-UIManager o-- GameScreen
-UIManager o-- InventoryScreen
-UIManager o-- StatusBar
-UIManager o-- NotificationBar
-
-' Дополнительные методы и взаимодействия
-Game ..> Level : validateMovement()
-Game ..> Level : updatePlayerPosition()
-Game ..> Level : checkForInteractableElements()
-Game ..> Level : performInteraction()
-Game ..> Level : checkForEnemiesInRange()
-Game ..> Level : removeEnemy()
-Game ..> Level : checkLevelCompletion()
-
-Player ..> Inventory : open()
-Player ..> Inventory : close()
-Player ..> Inventory : selectItem()
-Player ..> Inventory : equipItem()
-Player ..> Inventory : useItem()
-
-Game ..> SaveLoadSystem : saveGameState()
-Game ..> SaveLoadSystem : loadGameState()
-
 @enduml

@@ -1,0 +1,670 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     contentStyleType="text/css" height="2036px" preserveAspectRatio="none"
+     style="width:917px;height:2036px;background:#FFFFFF;" version="1.1" viewBox="0 0 917 2036"
+     width="917px" zoomAndPan="magnify">
+    <defs/>
+    <g>
+        <rect fill="none" height="1357.2832" style="stroke:#000000;stroke-width:1.5;"
+              width="822.6084" x="10" y="373.9727"/>
+        <rect fill="none" height="120.1973" style="stroke:#000000;stroke-width:1.5;"
+              width="657.5859" x="30" y="427.5938"/>
+        <rect fill="none" height="149.5078" style="stroke:#000000;stroke-width:1.5;"
+              width="657.5859" x="30" y="606.0566"/>
+        <rect fill="none" height="360.6816" style="stroke:#000000;stroke-width:1.5;"
+              width="677.5859" x="20" y="813.8301"/>
+        <rect fill="none" height="134.5527" style="stroke:#000000;stroke-width:1.5;" width="473.52"
+              x="30" y="838.1406"/>
+        <rect fill="none" height="75.9316" style="stroke:#000000;stroke-width:1.5;" width="547.3335"
+              x="140.2524" y="986.6934"/>
+        <rect fill="none" height="46.6211" style="stroke:#000000;stroke-width:1.5;" width="657.5859"
+              x="30" y="1076.625"/>
+        <rect fill="none" height="210.1289" style="stroke:#000000;stroke-width:1.5;" width="580.855"
+              x="20" y="1232.7773"/>
+        <rect fill="none" height="149.5078" style="stroke:#000000;stroke-width:1.5;" width="560.855"
+              x="30" y="1286.3984"/>
+        <rect fill="none" height="120.1973" style="stroke:#000000;stroke-width:1.5;"
+              width="792.6084" x="30" y="1559.793"/>
+        <rect fill="none" height="120.1973" style="stroke:#000000;stroke-width:1.5;"
+              width="657.5859" x="30" y="1817.877"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="63" x2="63"
+              y1="81.4883" y2="1955.0742"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="176.2524"
+              x2="176.2524" y1="81.4883" y2="1955.0742"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="400.7017"
+              x2="400.7017" y1="81.4883" y2="1955.0742"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="464.0591"
+              x2="464.0591" y1="81.4883" y2="1955.0742"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="541.52"
+              x2="541.52" y1="81.4883" y2="1955.0742"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="662.8525"
+              x2="662.8525" y1="81.4883" y2="1955.0742"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="749.5859"
+              x2="749.5859" y1="81.4883" y2="1955.0742"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="40.3594" x="40" y="78.5352">Player
+        </text>
+        <ellipse cx="63.1797" cy="13.5" fill="#E2E2F0" rx="8" ry="8"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <path
+            d="M63.1797,21.5 L63.1797,48.5 M50.1797,29.5 L76.1797,29.5 M63.1797,48.5 L50.1797,63.5 M63.1797,48.5 L76.1797,63.5 "
+            fill="none" style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="40.3594" x="40" y="1967.6094">Player
+        </text>
+        <ellipse cx="63.1797" cy="1979.0625" fill="#E2E2F0" rx="8" ry="8"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <path
+            d="M63.1797,1987.0625 L63.1797,2014.0625 M50.1797,1995.0625 L76.1797,1995.0625 M63.1797,2014.0625 L50.1797,2029.0625 M63.1797,2014.0625 L76.1797,2029.0625 "
+            fill="none" style="stroke:#181818;stroke-width:0.5;"/>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="52.7188" x="150.2524" y="50"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="38.7188" x="157.2524" y="70.5352">Game
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="52.7188" x="150.2524" y="1954.0742"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="38.7188" x="157.2524" y="1974.6094">Game
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="48.3574" x="376.7017" y="50"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="34.3574" x="383.7017" y="70.5352">Level
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="48.3574" x="376.7017" y="1954.0742"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="34.3574" x="383.7017" y="1974.6094">Level
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="58.4609" x="435.0591" y="50"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="44.4609" x="442.0591" y="70.5352">Enemy
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="58.4609" x="435.0591" y="1954.0742"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="44.4609" x="442.0591" y="1974.6094">Enemy
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="77.335" x="503.52" y="50"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="63.335" x="510.52" y="70.5352">Inventory
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="77.335" x="503.52" y="1954.0742"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="63.335" x="510.52" y="1974.6094">Inventory
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="27.7334" x="649.8525" y="50"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="13.7334" x="656.8525" y="70.5352">UI
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="27.7334" x="649.8525" y="1954.0742"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="13.7334" x="656.8525" y="1974.6094">UI
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="125.0225" x="687.5859" y="50"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="111.0225" x="694.5859" y="70.5352">SaveLoadSystem
+        </text>
+        <rect fill="#E2E2F0" height="30.4883" rx="2.5" ry="2.5"
+              style="stroke:#181818;stroke-width:0.5;" width="125.0225" x="687.5859" y="1954.0742"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing"
+              textLength="111.0225" x="694.5859" y="1974.6094">SaveLoadSystem
+        </text>
+        <rect fill="#EEEEEE" height="3" style="stroke:#EEEEEE;stroke-width:1;" width="910.3154"
+              x="0" y="112.1436"/>
+        <line style="stroke:#000000;stroke-width:1;" x1="0" x2="910.3154" y1="112.1436"
+              y2="112.1436"/>
+        <line style="stroke:#000000;stroke-width:1;" x1="0" x2="910.3154" y1="115.1436"
+              y2="115.1436"/>
+        <rect fill="#EEEEEE" height="23.3105" style="stroke:#000000;stroke-width:2;"
+              width="128.8608" x="390.7273" y="101.4883"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="110.5762" x="396.7273" y="118.0566">Before the Game
+        </text>
+        <polygon fill="#181818"
+                 points="738.0972,152.1094,748.0972,156.1094,738.0972,160.1094,742.0972,156.1094"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="63.1797" x2="744.0972" y1="156.1094"
+              y2="156.1094"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="69.291" x="70.1797" y="151.3672">Start Game
+        </text>
+        <line style="stroke:#181818;stroke-width:1;" x1="750.0972" x2="792.0972" y1="185.4199"
+              y2="185.4199"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="792.0972" x2="792.0972" y1="185.4199"
+              y2="198.4199"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="751.0972" x2="792.0972" y1="198.4199"
+              y2="198.4199"/>
+        <polygon fill="#181818"
+                 points="761.0972,194.4199,751.0972,198.4199,761.0972,202.4199,757.0972,198.4199"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="146.2183" x="757.0972" y="180.6777">Generate Random Seed
+        </text>
+        <polygon fill="#181818"
+                 points="411.8804,223.7305,401.8804,227.7305,411.8804,231.7305,407.8804,227.7305"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="405.8804" x2="749.0972" y1="227.7305"
+              y2="227.7305"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="124.2173" x="417.8804" y="222.9883">Generate First Level
+        </text>
+        <polygon fill="#181818"
+                 points="651.7192,253.041,661.7192,257.041,651.7192,261.041,655.7192,257.041"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="400.8804" x2="657.7192" y1="257.041"
+              y2="257.041"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="113.6992" x="407.8804" y="252.2988">Display First Level
+        </text>
+        <rect fill="#EEEEEE" height="3" style="stroke:#EEEEEE;stroke-width:1;" width="910.3154"
+              x="0" y="285.6963"/>
+        <line style="stroke:#000000;stroke-width:1;" x1="0" x2="910.3154" y1="285.6963"
+              y2="285.6963"/>
+        <line style="stroke:#000000;stroke-width:1;" x1="0" x2="910.3154" y1="288.6963"
+              y2="288.6963"/>
+        <rect fill="#EEEEEE" height="23.3105" style="stroke:#000000;stroke-width:2;"
+              width="129.4004" x="390.4575" y="275.041"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="111.1157" x="396.4575" y="291.6094">Main Game Loop
+        </text>
+        <polygon fill="#181818"
+                 points="651.7192,325.6621,661.7192,329.6621,651.7192,333.6621,655.7192,329.6621"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="63.1797" x2="657.7192" y1="329.6621"
+              y2="329.6621"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="101.7212" x="70.1797" y="324.9199">Input Command
+        </text>
+        <polygon fill="#181818"
+                 points="187.6118,354.9727,177.6118,358.9727,187.6118,362.9727,183.6118,358.9727"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="181.6118" x2="662.7192" y1="358.9727"
+              y2="358.9727"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="116.4414" x="193.6118" y="354.2305">Process Command
+        </text>
+        <path
+            d="M10,373.9727 L72.1387,373.9727 L72.1387,381.2832 L62.1387,391.2832 L10,391.2832 L10,373.9727 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="1357.2832" style="stroke:#000000;stroke-width:1.5;"
+              width="822.6084" x="10" y="373.9727"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="25" y="387.541">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="141.1523" x="87.1387" y="386.6074">[Command is
+            Movement]
+        </text>
+        <polygon fill="#181818"
+                 points="388.8804,408.5938,398.8804,412.5938,388.8804,416.5938,392.8804,412.5938"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="394.8804" y1="412.5938"
+              y2="412.5938"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="120.2373" x="183.6118" y="407.8516">Validate Movement
+        </text>
+        <path
+            d="M30,427.5938 L92.1387,427.5938 L92.1387,434.9043 L82.1387,444.9043 L30,444.9043 L30,427.5938 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="120.1973" style="stroke:#000000;stroke-width:1.5;"
+              width="657.5859" x="30" y="427.5938"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="45" y="441.1621">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="99.1504" x="107.1387" y="440.2285">[Movement Valid]
+        </text>
+        <polygon fill="#181818"
+                 points="388.8804,462.2148,398.8804,466.2148,388.8804,470.2148,392.8804,466.2148"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="394.8804" y1="466.2148"
+              y2="466.2148"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="140.5879" x="183.6118" y="461.4727">Update Player Position
+        </text>
+        <polygon fill="#181818"
+                 points="651.7192,491.5254,661.7192,495.5254,651.7192,499.5254,655.7192,495.5254"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="657.7192" y1="495.5254"
+              y2="495.5254"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="76.832" x="183.6118" y="490.7832">Redraw Map
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="30" x2="687.5859"
+              y1="504.5254" y2="504.5254"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="108.8613" x="35" y="515.1602">[Movement Invalid]
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,535.791,64.1797,539.791,74.1797,543.791,70.1797,539.791"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="662.7192" y1="539.791"
+              y2="539.791"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="206.5146" x="80.1797" y="535.0488">Show Movement Invalid Message
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="10" x2="832.6084"
+              y1="555.791" y2="555.791"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="143.7573" x="15" y="566.4258">[Command is
+            Interaction]
+        </text>
+        <polygon fill="#181818"
+                 points="388.8804,587.0566,398.8804,591.0566,388.8804,595.0566,392.8804,591.0566"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="394.8804" y1="591.0566"
+              y2="591.0566"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="200.2686" x="183.6118" y="586.3145">Check for Interactable Elements
+        </text>
+        <path
+            d="M30,606.0566 L92.1387,606.0566 L92.1387,613.3672 L82.1387,623.3672 L30,623.3672 L30,606.0566 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="149.5078" style="stroke:#000000;stroke-width:1.5;"
+              width="657.5859" x="30" y="606.0566"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="45" y="619.625">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="99.7412" x="107.1387" y="618.6914">[Element
+            Present]
+        </text>
+        <polygon fill="#181818"
+                 points="388.8804,640.6777,398.8804,644.6777,388.8804,648.6777,392.8804,644.6777"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="394.8804" y1="644.6777"
+              y2="644.6777"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="121.8306" x="183.6118" y="639.9355">Perform Interaction
+        </text>
+        <polygon fill="#181818"
+                 points="530.1875,669.9883,540.1875,673.9883,530.1875,677.9883,534.1875,673.9883"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="536.1875" y1="673.9883"
+              y2="673.9883"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="146.7324" x="183.6118" y="669.2461">Add Item (if applicable)
+        </text>
+        <polygon fill="#181818"
+                 points="651.7192,699.2988,661.7192,703.2988,651.7192,707.2988,655.7192,703.2988"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="657.7192" y1="703.2988"
+              y2="703.2988"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="75.3276" x="183.6118" y="698.5566">Update Map
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="30" x2="687.5859"
+              y1="712.2988" y2="712.2988"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="72.6816" x="35" y="722.9336">[No Element]
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,743.5645,64.1797,747.5645,74.1797,751.5645,70.1797,747.5645"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="662.7192" y1="747.5645"
+              y2="747.5645"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="174.2051" x="80.1797" y="742.8223">Show No Elements Message
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="10" x2="832.6084"
+              y1="763.5645" y2="763.5645"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="118.6743" x="15" y="774.1992">[Command is Attack]
+        </text>
+        <polygon fill="#181818"
+                 points="388.8804,794.8301,398.8804,798.8301,388.8804,802.8301,392.8804,798.8301"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="394.8804" y1="798.8301"
+              y2="798.8301"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="175.8618" x="183.6118" y="794.0879">Check for Enemies in Range
+        </text>
+        <path
+            d="M20,813.8301 L82.1387,813.8301 L82.1387,821.1406 L72.1387,831.1406 L20,831.1406 L20,813.8301 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="360.6816" style="stroke:#000000;stroke-width:1.5;"
+              width="677.5859" x="20" y="813.8301"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="35" y="827.3984">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="91.6738" x="97.1387" y="826.4648">[Enemy Present]
+        </text>
+        <path
+            d="M30,838.1406 L104.4468,838.1406 L104.4468,845.4512 L94.4468,855.4512 L30,855.4512 L30,838.1406 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="134.5527" style="stroke:#000000;stroke-width:1.5;" width="473.52"
+              x="30" y="838.1406"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="29.4468" x="45" y="851.709">loop
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="83.2573" x="119.4468" y="850.7754">[Combat Loop]
+        </text>
+        <polygon fill="#181818"
+                 points="452.2896,872.7617,462.2896,876.7617,452.2896,880.7617,456.2896,876.7617"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="458.2896" y1="876.7617"
+              y2="876.7617"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="113.3945" x="183.6118" y="872.0195">Calculate Damage
+        </text>
+        <polygon fill="#181818"
+                 points="187.6118,902.0723,177.6118,906.0723,187.6118,910.0723,183.6118,906.0723"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="181.6118" x2="463.2896" y1="906.0723"
+              y2="906.0723"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="97.4746" x="193.6118" y="901.3301">Return Damage
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,931.3828,64.1797,935.3828,74.1797,939.3828,70.1797,935.3828"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="175.6118" y1="935.3828"
+              y2="935.3828"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="89.4321" x="80.1797" y="930.6406">Update Health
+        </text>
+        <polygon fill="#181818"
+                 points="452.2896,960.6934,462.2896,964.6934,452.2896,968.6934,456.2896,964.6934"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="458.2896" y1="964.6934"
+              y2="964.6934"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="89.4321" x="183.6118" y="959.9512">Update Health
+        </text>
+        <path
+            d="M140.2524,986.6934 L202.3911,986.6934 L202.3911,994.0039 L192.3911,1004.0039 L140.2524,1004.0039 L140.2524,986.6934 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="75.9316" style="stroke:#000000;stroke-width:1.5;" width="547.3335"
+              x="140.2524" y="986.6934"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="155.2524" y="1000.2617">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="99.9668" x="217.3911" y="999.3281">[Enemy Defeated]
+        </text>
+        <polygon fill="#181818"
+                 points="388.8804,1021.3145,398.8804,1025.3145,388.8804,1029.3145,392.8804,1025.3145"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="394.8804" y1="1025.3145"
+              y2="1025.3145"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="159.9609" x="183.6118" y="1020.5723">Remove Enemy from Map
+        </text>
+        <polygon fill="#181818"
+                 points="651.7192,1050.625,661.7192,1054.625,651.7192,1058.625,655.7192,1054.625"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="657.7192" y1="1054.625"
+              y2="1054.625"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="75.3276" x="183.6118" y="1049.8828">Update Map
+        </text>
+        <path
+            d="M30,1076.625 L92.1387,1076.625 L92.1387,1083.9355 L82.1387,1093.9355 L30,1093.9355 L30,1076.625 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="46.6211" style="stroke:#000000;stroke-width:1.5;" width="657.5859"
+              x="30" y="1076.625"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="45" y="1090.1934">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="97.2598" x="107.1387" y="1089.2598">[Player
+            Defeated]
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,1111.2461,64.1797,1115.2461,74.1797,1119.2461,70.1797,1115.2461"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="662.7192" y1="1115.2461"
+              y2="1115.2461"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="164.9756" x="80.1797" y="1110.5039">Show Game Over Message
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="20" x2="697.5859"
+              y1="1131.2461" y2="1131.2461"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="64.6143" x="25" y="1141.8809">[No Enemy]
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,1162.5117,64.1797,1166.5117,74.1797,1170.5117,70.1797,1166.5117"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="662.7192" y1="1166.5117"
+              y2="1166.5117"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="158.5073" x="80.1797" y="1161.7695">Show No Enemy Message
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="10" x2="832.6084"
+              y1="1182.5117" y2="1182.5117"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="212.604" x="15" y="1193.1465">[Command is Inventory
+            Management]
+        </text>
+        <polygon fill="#181818"
+                 points="530.1875,1213.7773,540.1875,1217.7773,530.1875,1221.7773,534.1875,1217.7773"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="536.1875" y1="1217.7773"
+              y2="1217.7773"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="96.5161" x="183.6118" y="1213.0352">Open Inventory
+        </text>
+        <path
+            d="M20,1232.7773 L94.4468,1232.7773 L94.4468,1240.0879 L84.4468,1250.0879 L20,1250.0879 L20,1232.7773 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="210.1289" style="stroke:#000000;stroke-width:1.5;" width="580.855"
+              x="20" y="1232.7773"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="29.4468" x="35" y="1246.3457">loop
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="93.4785" x="109.4468" y="1245.4121">[Inventory
+            Loop]
+        </text>
+        <polygon fill="#181818"
+                 points="530.1875,1267.3984,540.1875,1271.3984,530.1875,1275.3984,534.1875,1271.3984"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="63.1797" x2="536.1875" y1="1271.3984"
+              y2="1271.3984"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="68.8657" x="70.1797" y="1266.6563">Select Item
+        </text>
+        <path
+            d="M30,1286.3984 L92.1387,1286.3984 L92.1387,1293.709 L82.1387,1303.709 L30,1303.709 L30,1286.3984 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="149.5078" style="stroke:#000000;stroke-width:1.5;" width="560.855"
+              x="30" y="1286.3984"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="45" y="1299.9668">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="106.1812" x="107.1387" y="1299.0332">[Item is
+            Equipable]
+        </text>
+        <polygon fill="#181818"
+                 points="187.6118,1321.0195,177.6118,1325.0195,187.6118,1329.0195,183.6118,1325.0195"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="181.6118" x2="541.1875" y1="1325.0195"
+              y2="1325.0195"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="67.3359" x="193.6118" y="1320.2773">Equip Item
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,1350.3301,64.1797,1354.3301,74.1797,1358.3301,70.1797,1354.3301"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="175.6118" y1="1354.3301"
+              y2="1354.3301"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="79.3013" x="80.1797" y="1349.5879">Update Stats
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="30" x2="590.855"
+              y1="1363.3301" y2="1363.3301"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="120.3931" x="35" y="1373.9648">[Item is Consumable]
+        </text>
+        <polygon fill="#181818"
+                 points="187.6118,1394.5957,177.6118,1398.5957,187.6118,1402.5957,183.6118,1398.5957"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="181.6118" x2="541.1875" y1="1398.5957"
+              y2="1398.5957"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="54.9771" x="193.6118" y="1393.8535">Use Item
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,1423.9063,64.1797,1427.9063,74.1797,1431.9063,70.1797,1427.9063"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="175.6118" y1="1427.9063"
+              y2="1427.9063"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="79.3013" x="80.1797" y="1423.1641">Update Stats
+        </text>
+        <polygon fill="#181818"
+                 points="530.1875,1467.2168,540.1875,1471.2168,530.1875,1475.2168,534.1875,1471.2168"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="63.1797" x2="536.1875" y1="1471.2168"
+              y2="1471.2168"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="97.5317" x="70.1797" y="1466.4746">Close Inventory
+        </text>
+        <polygon fill="#181818"
+                 points="651.7192,1496.5273,661.7192,1500.5273,651.7192,1504.5273,655.7192,1500.5273"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="542.1875" x2="657.7192" y1="1500.5273"
+              y2="1500.5273"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="97.5317" x="549.1875" y="1495.7852">Close Inventory
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="10" x2="832.6084"
+              y1="1509.5273" y2="1509.5273"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="135.459" x="15" y="1520.1621">[Command is
+            Save/Exit]
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,1540.793,64.1797,1544.793,74.1797,1548.793,70.1797,1544.793"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="662.7192" y1="1544.793"
+              y2="1544.793"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="78.7935" x="80.1797" y="1540.0508">Confirm Exit
+        </text>
+        <path
+            d="M30,1559.793 L92.1387,1559.793 L92.1387,1567.1035 L82.1387,1577.1035 L30,1577.1035 L30,1559.793 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="120.1973" style="stroke:#000000;stroke-width:1.5;"
+              width="792.6084" x="30" y="1559.793"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="45" y="1573.3613">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="67.7778" x="107.1387" y="1572.4277">[Confirmed]
+        </text>
+        <polygon fill="#181818"
+                 points="738.0972,1594.4141,748.0972,1598.4141,738.0972,1602.4141,742.0972,1598.4141"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="744.0972" y1="1598.4141"
+              y2="1598.4141"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="103.4795" x="183.6118" y="1593.6719">Save Game State
+        </text>
+        <polygon fill="#181818"
+                 points="651.7192,1623.7246,661.7192,1627.7246,651.7192,1631.7246,655.7192,1627.7246"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="657.7192" y1="1627.7246"
+              y2="1627.7246"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="131.7456" x="183.6118" y="1622.9824">Return to Main Menu
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="30" x2="822.6084"
+              y1="1636.7246" y2="1636.7246"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="91.3408" x="35" y="1647.3594">[Not Confirmed]
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,1667.9902,64.1797,1671.9902,74.1797,1675.9902,70.1797,1671.9902"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="662.7192" y1="1671.9902"
+              y2="1671.9902"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="97.1128" x="80.1797" y="1667.248">Continue Game
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="10" x2="832.6084"
+              y1="1687.9902" y2="1687.9902"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="107.2607" x="15" y="1698.625">[Invalid Command]
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,1719.2559,64.1797,1723.2559,74.1797,1727.2559,70.1797,1723.2559"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="662.7192" y1="1723.2559"
+              y2="1723.2559"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="205.7339" x="80.1797" y="1718.5137">Show Invalid Command Message
+        </text>
+        <rect fill="#EEEEEE" height="3" style="stroke:#EEEEEE;stroke-width:1;" width="910.3154"
+              x="0" y="1758.9111"/>
+        <line style="stroke:#000000;stroke-width:1;" x1="0" x2="910.3154" y1="1758.9111"
+              y2="1758.9111"/>
+        <line style="stroke:#000000;stroke-width:1;" x1="0" x2="910.3154" y1="1761.9111"
+              y2="1761.9111"/>
+        <rect fill="#EEEEEE" height="23.3105" style="stroke:#000000;stroke-width:2;"
+              width="137.3604" x="386.4775" y="1748.2559"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="119.0757" x="392.4775" y="1764.8242">Level
+            Progression
+        </text>
+        <polygon fill="#181818"
+                 points="388.8804,1798.877,398.8804,1802.877,388.8804,1806.877,392.8804,1802.877"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="394.8804" y1="1802.877"
+              y2="1802.877"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="173.8623" x="183.6118" y="1798.1348">Check for Level Completion
+        </text>
+        <path
+            d="M30,1817.877 L92.1387,1817.877 L92.1387,1825.1875 L82.1387,1835.1875 L30,1835.1875 L30,1817.877 "
+            fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="120.1973" style="stroke:#000000;stroke-width:1.5;"
+              width="657.5859" x="30" y="1817.877"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold"
+              lengthAdjust="spacing" textLength="17.1387" x="45" y="1831.4453">alt
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="78.1333" x="107.1387" y="1830.5117">[At Exit Point]
+        </text>
+        <polygon fill="#181818"
+                 points="388.8804,1852.498,398.8804,1856.498,388.8804,1860.498,392.8804,1856.498"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="394.8804" y1="1856.498"
+              y2="1856.498"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="126.3628" x="183.6118" y="1851.7559">Generate Next Level
+        </text>
+        <polygon fill="#181818"
+                 points="651.7192,1881.8086,661.7192,1885.8086,651.7192,1889.8086,655.7192,1885.8086"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="176.6118" x2="657.7192" y1="1885.8086"
+              y2="1885.8086"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="198.8022" x="183.6118" y="1881.0664">Update Map and Player Position
+        </text>
+        <line style="stroke:#000000;stroke-width:1;stroke-dasharray:2.0,2.0;" x1="30" x2="687.5859"
+              y1="1894.8086" y2="1894.8086"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold"
+              lengthAdjust="spacing" textLength="100.0635" x="35" y="1905.4434">[Not at Exit Point]
+        </text>
+        <polygon fill="#181818"
+                 points="74.1797,1926.0742,64.1797,1930.0742,74.1797,1934.0742,70.1797,1930.0742"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="68.1797" x2="662.7192" y1="1930.0742"
+              y2="1930.0742"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing"
+              textLength="176.833" x="80.1797" y="1925.332">Show No Exit Point Message
+        </text><!--SRC=[dLR1Rjim3BtxAuIUjiEmUu0CwDAiCz2qGOBihjfC8rIMF4jEsxyVHLcAPJj9iHmIHtpY8vz8qRomkc5hoJ-WoRAQDrOKekRAifjxNi4DuuQvXzJq04UGPAEdrBXKK7sGaPvIOwwEe93I0-A_5BJBoRhBq-KjFyA3vkNsmrYe298kPTbypdx2NZV0x04eS3QVPvdFZttxCTWmOrkB33x3r3G5lWS53RV0DboLkc9RW79Y6sdIG_yIZR6TKlJjGBjynkw4gJ6o180PhBXGFlO7hUj10cvVhkhMieMkAemZs-LktU5dRDte0eo9jepB26J2i9K-GeMIPmm_H76Azm-NedJn9Y3d82nu22rFxD_LjBiBTQsDi4Ah4Tebi86ouM-OQ4rcaER4weeYeV7vURTuO0VzDiAo5IRDNy1xmxp9Oo_lN5ayYo86D0XzSO3YbM7TH21_bi2MabXC5A9RG9d1184ctAsXGL_LYBKFZQK_OxTboN9NEr_4dl6wbg9mz5ydfUjKJgHxr26oIwATKEQgNhVMykBribIkkmKOXiMA_T0v8vLSsuyqagwMaUAPMwhhQEYJq5OauR9efSlpZbSXpl3nxcF9Ry2sZPe21gT1XKwwtu117YxHJmETJk7vbEOTx071vQI_JhCDL5YmtOPzWpT7EBvFdF0KTTTZazmJ9q_Uduwuet_kVSUnZEZ6lb94bCRrZklg6nDH21pTEhq6UAf1zMP1h9QJZwHWJfTXpySM91IM-YYHYXeBurd-RN6CO5ibOfqOOZqHCFLpePXmVdJtGvGnC2wqCctr6SfTj-i_2CFvTR-JqYoaTWI9laaKhkg6eE5vkZ7tVVak_26cbO6PxWNUTz7ifmujmdXUZ6Om_lT6bnoScHZKvLRxwRW2rVOBTufk5ACLglL4QTM68HA6vfdI7y1Y1pW_RcpxqOuJ-0LlFeDtFatkizUdXwEpMW9D22VQhIKHSNgAwI4TNoeUuJsyCfo_G9YBSpYGesHyH7QcuICeoVaV]-->
+    </g>
+</svg>
