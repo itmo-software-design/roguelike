@@ -8,7 +8,6 @@ rectangle "Roguelike" {
 
     rectangle "Utils" {
         [SaveLoadManager]
-        [RandomSeedGenerator]
     }
     rectangle "Game Logic" {
         [Game Manager]

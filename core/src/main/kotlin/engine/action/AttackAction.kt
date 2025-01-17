@@ -1,5 +1,6 @@
 package engine.action
 
+import engine.Randomizer
 import io.github.oshai.kotlinlogging.KotlinLogging
 import vo.Character
 import vo.DungeonLevel
@@ -23,12 +24,19 @@ object AttackAction : Action<Character, Unit> {
 
         val damage = actor.attack - target.defense
         logger.debug { "$actor hits $target and deals $damage damage" }
+        if (target is Mob) {
+            if (Randomizer.random.nextDouble() < 0.33) { // TODO: шанс и возможность оглушения должно давать оружие или какое-то другое свойство
+                logger.debug { "$actor applies temporary effect on $target" }
+                target.applyTemporaryEffect(duration = 5) // TODO: продолжительность эффекта также надо брать откуда-то
+            }
+        }
+
         if (damage > 0) {
             target.health -= damage
             if (!target.isAlive) {
                 logger.debug { "$actor kills $target" }
                 if (actor is Player) {
-                    actor.addExperience((target as Mob).type.xp)
+                    actor.addExperience((target as Mob).xp)
                 } else {
                     // TODO: you died screen
                 }

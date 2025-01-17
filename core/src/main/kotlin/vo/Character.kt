@@ -26,7 +26,7 @@ abstract class Character(
      *
      * Не может опускаться ниже 0 и превышать [Character.maxHealth]
      */
-    var health: Int = maxHealth
+    open var health: Int = maxHealth
         set(value) {
             field = value.coerceIn(0, maxHealth)
         }

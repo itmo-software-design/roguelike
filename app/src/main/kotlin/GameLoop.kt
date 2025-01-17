@@ -81,6 +81,7 @@ class GameLoop {
         val player = GameSession.player
         when (message) {
             is MovePlayer -> {
+                GameSession.seed += 1
                 MoveAction.perform(
                     player,
                     message.direction,
@@ -89,11 +90,13 @@ class GameLoop {
             }
 
             is PlayerInteract -> {
+                GameSession.seed += 2
                 logger.debug { "Interact with specific entity if possible" }
                 tryInteract(player.position, player.direction)
             }
 
             is OpenInventory -> {
+                GameSession.seed *= 2
                 InventoryPlayerInfoScreen(
                     InventoryScreen(player.inventory),
                     PlayerInfoScreen(player)
@@ -176,7 +179,7 @@ class GameLoop {
 
     private fun updateGameState() {
         MobManager.getActiveMobs(GameSession.currentDungeonLevel).forEach {
-            it.behaviour.act(it, GameSession.currentDungeonLevel, GameSession.player)
+            it.state.getBehaviour().act(it, GameSession.currentDungeonLevel, GameSession.player)
         }
     }
 

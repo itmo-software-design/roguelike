@@ -1,0 +1,1254 @@
+{
+  "tiles": [
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "FLOOR"
+      },
+      {
+        "type": "WALL"
+      }
+    ],
+    [
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      },
+      {
+        "type": "WALL"
+      }
+    ]
+  ],
+  "rooms": [
+    {
+      "bottomLeft": {
+        "x": 0,
+        "y": 0
+      },
+      "rawWidth": 20,
+      "rawHeight": 20
+    }
+  ]
+}

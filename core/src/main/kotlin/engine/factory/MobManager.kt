@@ -1,6 +1,6 @@
 package engine.factory
 
-import engine.behaviour.*
+import engine.Randomizer
 import vo.DungeonLevel
 import vo.Mob
 import vo.MobType
@@ -14,6 +14,7 @@ import vo.Position
  */
 object MobManager {
     private var mobCount = 0
+    private val random = Randomizer.random
 
     /**
      * Проверяет, можно ли расположить моба в указанной точке на уровне
@@ -22,36 +23,53 @@ object MobManager {
         val tile = dungeonLevel.getTileAt(position)
 
         return !tile.type.blocked // тайл не блокирует движение
-                && getMobAt(dungeonLevel, position) == null // в этой позиции нет мобов
-                && dungeonLevel.startPosition != position // и нас тут нет тоже
+            && getMobAt(dungeonLevel, position) == null // в этой позиции нет мобов
+            && dungeonLevel.startPosition != position // и нас тут нет тоже
     }
 
     /**
      * Размещает моба в выбранной позиции
      */
-    fun spawn(position: Position): Mob {
-        val mobType = decideMobType()
-        val behaviour = when (mobType) {
-            MobType.GOBLIN -> IsAliveBehaviour(AggressiveBehaviour(BasicBehaviour()))
-            MobType.SLIME -> IsAliveBehaviour(AggressiveBehaviour(PassiveBehaviour()))
-            MobType.BAT -> IsAliveBehaviour(FearfulBehaviour(BasicBehaviour()))
+    fun spawn(mobFactory: MobFactory, position: Position): Mob {
+        if (mobFactory is BossFactory) {
+            return mobFactory.spawnBoss(position)
         }
 
-        return Mob(mobType, behaviour, position)
+        // В целях тестирования по очереди создадим моба каждого типа
+        return when (mobCount++ % MobType.entries.size) {
+            0 -> mobFactory.spawnWeakMob(position)
+            1 -> mobFactory.spawnBasicMob(position)
+            2 -> mobFactory.spawnStrongMob(position)
+            else -> mobFactory.spawnSpreadableMob(position)
+        }
     }
 
-    private fun decideMobType(): MobType {
-//        when (Random.nextInt(100)) {
-//            in 0 until 10 -> MobType.GOBLIN
-//            in 10 until 50 -> MobType.SLIME
-//            else -> MobType.BAT
-//        }
+    /**
+     * Сгенерировать мобов и добавить их на уровень
+     */
+    fun generateMobs(
+        mobFactory: MobFactory,
+        dungeonLevel: DungeonLevel,
+        mobLimit: Int? = null
+    ) {
+        val nMobs = mobLimit
+            ?: random.nextInt(dungeonLevel.rooms.size, 2 * dungeonLevel.rooms.size)
 
-        // В целях тестирования по очереди создадим моба каждого типа
-        return when (mobCount++ % 3) {
-            0 -> MobType.GOBLIN
-            1 -> MobType.SLIME
-            else -> MobType.BAT
+
+        var mobCreated = 0
+        while (mobCreated < nMobs) { // рандомно размещает мобов по комнатам
+            val room = dungeonLevel.rooms[random.nextInt(dungeonLevel.rooms.size)]
+
+            val mobPosition = Position(
+                random.nextInt(room.bottomLeft.x + 1, room.topRight.x),
+                random.nextInt(room.bottomLeft.y + 1, room.topRight.y)
+            )
+
+            if (canSpawnAt(dungeonLevel, mobPosition)) {
+                val mob = spawn(mobFactory, mobPosition)
+                dungeonLevel.enemies.add(mob)
+                mobCreated += 1
+            }
         }
     }
 
@@ -63,3 +81,5 @@ object MobManager {
         return dungeonLevel.enemies.find { it.position == position && it.isAlive }
     }
 }
+
+
