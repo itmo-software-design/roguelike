@@ -1,0 +1,203 @@
+@startuml
+' Абстрактный класс для общих свойств персонажей
+abstract class Character {
+    - health : int
+    - attack : int
+    - defense : int
+    - position : Position
+    + move(direction : Direction)
+    + attack(target : Character)
+    + updateHealth(amount : int)
+}
+
+' Класс игрока
+class Player {
+    - name : String
+    - inventory : Inventory
+    + interact()
+    + updateStats()
+    + openInventory()
+    + closeInventory()
+}
+
+' Класс врага
+class Enemy {
+    - type : String
+    + calculateDamage() : int
+    + move()
+}
+
+' Класс игры
+class Game {
+    - currentLevel : Level
+    - player : Player
+    - isRunning : boolean
+    + start()
+    + update()
+    + checkLevelCompletion()
+    + exit()
+}
+
+' Класс уровня
+class Level {
+    - map : Tile[][]
+    - enemies : List<Enemy>
+    - items : List<Item>
+    - exitPosition : Position
+    + generateLevel(seed : int)
+    + validateMovement(position : Position) : boolean
+    + updatePlayerPosition(player : Player)
+    + checkForInteractableElements(position : Position) : Element
+    + performInteraction(player : Player)
+    + checkForEnemiesInRange(player : Player) : Enemy
+    + removeEnemy(enemy : Enemy)
+    + checkLevelCompletion(player : Player) : boolean
+}
+
+' Класс инвентаря
+class Inventory {
+    - items : List<Item>
+    + open()
+    + close()
+    + addItem(item : Item)
+    + removeItem(item : Item)
+    + selectItem(index : int)
+    + equipItem(item : Item)
+    + useItem(item : Item)
+}
+
+' Классы предметов
+class Item {
+    - name : String
+    - description : String
+    + use(target : Player)
+}
+
+class Weapon extends Item {
+    - damage : int
+    + equip(player : Player)
+}
+
+class Armor extends Item {
+    - defense : int
+    + equip(player : Player)
+}
+
+class Consumable extends Item {
+    - effect : String
+    + consume(player : Player)
+}
+
+' Класс для позиции на карте
+class Position {
+    - x : int
+    - y : int
+}
+
+' Класс тайла карты
+class Tile {
+    - isWalkable : boolean
+    - isVisible : boolean
+    - content : Item / Enemy / null
+}
+
+' Класс для обработки ввода пользователя
+class InputHandler {
+    + processInput(input : String)
+}
+
+' Класс для сохранения и загрузки игры
+class SaveLoadSystem {
+    + saveGameState(game : Game)
+    + loadGameState(fileName : String) : Game
+    + generateRandomSeed() : int
+}
+
+' Класс системы боя
+class CombatSystem {
+    + attack(attacker : Character, defender : Character)
+}
+
+' Класс менеджера пользовательского интерфейса
+class UIManager {
+    + render()
+    + update()
+    + showInvalidCommandMessage()
+    + showNoElementsMessage()
+    + showNoEnemyMessage()
+    + showGameOverMessage()
+    + confirmExit() : boolean
+    + returnToMainMenu()
+}
+
+' Классы для различных экранов интерфейса
+class MainMenu {
+    + display()
+    + selectOption(option : String)
+}
+
+class GameScreen {
+    + display()
+    + redrawMap()
+}
+
+class InventoryScreen {
+    + display()
+    + close()
+}
+
+class StatusBar {
+    + updateStatus(player : Player)
+}
+
+class NotificationBar {
+    + showMessage(message : String)
+}
+
+' Связи между классами
+Character <|-- Player
+Character <|-- Enemy
+
+Game o-- Level
+Game o-- Player
+Game ..> InputHandler
+Game ..> UIManager
+Game ..> SaveLoadSystem
+Game ..> CombatSystem
+
+Level "1" *-- "many" Tile
+Level "1" *-- "many" Enemy
+Level "1" *-- "many" Item
+
+Player o-- Inventory
+Player o-- Position
+
+Enemy o-- Position
+
+Inventory "1" *-- "many" Item
+
+UIManager o-- MainMenu
+UIManager o-- GameScreen
+UIManager o-- InventoryScreen
+UIManager o-- StatusBar
+UIManager o-- NotificationBar
+
+' Дополнительные методы и взаимодействия
+Game ..> Level : validateMovement()
+Game ..> Level : updatePlayerPosition()
+Game ..> Level : checkForInteractableElements()
+Game ..> Level : performInteraction()
+Game ..> Level : checkForEnemiesInRange()
+Game ..> Level : removeEnemy()
+Game ..> Level : checkLevelCompletion()
+
+Player ..> Inventory : open()
+Player ..> Inventory : close()
+Player ..> Inventory : selectItem()
+Player ..> Inventory : equipItem()
+Player ..> Inventory : useItem()
+
+Game ..> SaveLoadSystem : saveGameState()
+Game ..> SaveLoadSystem : loadGameState()
+
+@enduml

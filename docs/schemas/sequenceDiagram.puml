@@ -1,0 +1,93 @@
+@startuml
+actor Player
+
+participant "Game" as Game
+participant "Level" as Level
+participant "Enemy" as Enemy
+participant "Inventory" as Inventory
+participant "UI" as UI
+participant "SaveLoadSystem" as SaveLoadSystem
+
+== Before the Game ==
+
+Player -> SaveLoadSystem: Start Game
+SaveLoadSystem -> SaveLoadSystem: Generate Random Seed
+SaveLoadSystem -> Level: Generate First Level
+Level -> UI: Display First Level
+== Main Game Loop ==
+
+Player -> UI: Input Command
+UI -> Game: Process Command
+
+alt Command is Movement
+    Game -> Level: Validate Movement
+    alt Movement Valid
+        Game -> Level: Update Player Position
+        Game -> UI: Redraw Map
+    else Movement Invalid
+        UI -> Player: Show Movement Invalid Message
+    end
+else Command is Interaction
+    Game -> Level: Check for Interactable Elements
+    alt Element Present
+        Game -> Level: Perform Interaction
+        Game -> Inventory: Add Item (if applicable)
+        Game -> UI: Update Map
+    else No Element
+        UI -> Player: Show No Elements Message
+    end
+else Command is Attack
+    Game -> Level: Check for Enemies in Range
+    alt Enemy Present
+        loop Combat Loop
+            Game -> Enemy: Calculate Damage
+            Enemy -> Game: Return Damage
+            Game -> Player: Update Health
+            Game -> Enemy: Update Health
+        end
+        alt Enemy Defeated
+            Game -> Level: Remove Enemy from Map
+            Game -> UI: Update Map
+        end
+        alt Player Defeated
+            UI -> Player: Show Game Over Message
+        end
+    else No Enemy
+        UI -> Player: Show No Enemy Message
+    end
+else Command is Inventory Management
+    Game -> Inventory: Open Inventory
+    loop Inventory Loop
+        Player -> Inventory: Select Item
+        alt Item is Equipable
+            Inventory -> Game: Equip Item
+            Game -> Player: Update Stats
+        else Item is Consumable
+            Inventory -> Game: Use Item
+            Game -> Player: Update Stats
+        end
+    end
+    Player -> Inventory: Close Inventory
+    Inventory -> UI: Close Inventory
+else Command is Save/Exit
+    UI -> Player: Confirm Exit
+    alt Confirmed
+        Game -> SaveLoadSystem: Save Game State
+        Game -> UI: Return to Main Menu
+    else Not Confirmed
+        UI -> Player: Continue Game
+    end
+else Invalid Command
+    UI -> Player: Show Invalid Command Message
+end
+
+== Level Progression ==
+
+Game -> Level: Check for Level Completion
+alt At Exit Point
+    Game -> Level: Generate Next Level
+    Game -> UI: Update Map and Player Position
+else Not at Exit Point
+    UI -> Player: Show No Exit Point Message
+end
+@enduml

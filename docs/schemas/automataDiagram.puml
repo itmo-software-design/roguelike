@@ -1,0 +1,47 @@
+@startuml
+state "Before the Game" as BeforeGame {
+    [*] --> MainMenu
+    MainMenu --> NewGame : select "New Game"
+    MainMenu --> LoadGame : select "Load Game"
+    MainMenu --> Exit : select "Exit"
+
+NewGame --> GenerateSeed : "Generate seed"
+    LoadGame --> LoadState : "Load saved game"
+    LoadState --> InGame : "Start Game Loop"
+}
+
+state "Level Progression" as LevelProgression {
+    GenerateSeed --> GenerateLevel : "Generate first level"
+    GenerateLevel --> InGame : "Start Game Loop"
+}
+
+state "Main Game Loop" as MainGameLoop {
+
+    state "InGame" as InGame <<highlighted>>
+    GenerateLevel --> InGame : "Start Game Loop"
+
+    InGame --> Movement : "Input Move Command"
+    InGame --> Interaction : "Input Interact Command"
+    InGame --> Attack : "Input Attack Command"
+    InGame --> Inventory : "Input Inventory Command"
+    InGame --> SaveExit : "Input Save/Exit Command"
+    InGame --> LevelComplete : "Level Completed"
+    InGame --> GameOver : "Player Defeated"
+
+    Movement --> InGame : "Move Complete"
+    Interaction --> InGame : "Interaction Complete"
+    Attack --> InGame : "Attack Complete"
+    Attack --> Attack : "Attack Continue"
+    Inventory --> InGame : "Inventory Closed"
+    Inventory --> Inventory : "Apply Item"
+    SaveExit --> SaveGame : "Confirm Save and Exit"
+
+    LevelComplete --> GenerateLevel : "Generate Next Level"
+}
+
+SaveGame --> MainMenu : "Return to Main Menu"
+
+GameOver --> [*] : "Game Ends"
+
+Exit --> [*]
+@enduml
